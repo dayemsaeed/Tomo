@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 import AVFoundation
+import SpriteKit
 
 struct MainView: View {
     
@@ -29,6 +30,12 @@ struct MainView: View {
         //synthesizer.speak(utterance)
         self._view = view
         self._name = name
+    }
+    
+    var scene: SKScene {
+        let scene = Tomodachi(size: CGSize(width: 300, height: 300));
+        scene.scaleMode = .fill
+        return scene;
     }
     
     var body: some View {
@@ -62,11 +69,25 @@ struct MainView: View {
                     
                     Spacer()
                     
-                    Image("Naruto")
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 128, height: 229)
+                    SpriteView(scene: scene, options: [.allowsTransparency])
+                        .frame(width: 150, height: 150)
+                        .padding(0)
+                        .ignoresSafeArea()
+//                    ZStack {
+//                        SpeechBubble()
+//                            .stroke(Color.gray, lineWidth: 3)
+//
+//                        Text("Some really long text in the speech bubble over multiple lines.").padding(10)
+//                    }
+//                    .frame(width: 100, height: 70)
+                    
+                    Spacer()
+
+//                    Image("Naruto")
+//                        .renderingMode(.original)
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 128, height: 229)
                 }
                 .padding(.top, -120)
                 Spacer().frame(height: 1)
