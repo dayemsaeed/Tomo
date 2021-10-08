@@ -36,6 +36,8 @@
 		C11B42DD26A3D3FB0030ED0A /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */; };
 		C11B42DE26A3D3FB0030ED0A /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */; };
 		C11B42DF26A3D3FB0030ED0A /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */; };
+		C1329B062704B6E500B3042E /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1329B052704B6E500B3042E /* SpeechBubble.swift */; };
+		C1351D5527006FFF00687F44 /* Tomodachi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1351D5427006FFF00687F44 /* Tomodachi.swift */; };
 		DB860405A08A0FBE6BA8B460 /* Pods_Tomo_TomoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26099BDD2C1DED1AD149EF95 /* Pods_Tomo_TomoUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +96,8 @@
 		C11B42D526A3CFAC0030ED0A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PermanentMarker-Regular.ttf"; sourceTree = "<group>"; };
+		C1329B052704B6E500B3042E /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
+		C1351D5427006FFF00687F44 /* Tomodachi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tomodachi.swift; sourceTree = "<group>"; };
 		D7DE990371AE289475BB79C8 /* Pods-TomoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoTests.release.xcconfig"; path = "Target Support Files/Pods-TomoTests/Pods-TomoTests.release.xcconfig"; sourceTree = "<group>"; };
 		F232F6C76FB7E42346A111F7 /* Pods-Tomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo.debug.xcconfig"; path = "Target Support Files/Pods-Tomo/Pods-Tomo.debug.xcconfig"; sourceTree = "<group>"; };
 		FCDE8A4D4D2AD17EE797D070 /* Pods-Tomo-TomoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo-TomoUITests.release.xcconfig"; path = "Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 				C11B428C26A3CB120030ED0A /* Info.plist */,
 				C11B42D326A3CFA30030ED0A /* GoogleService-Info.plist */,
 				C11B428926A3CB120030ED0A /* Preview Content */,
+				C1351D5427006FFF00687F44 /* Tomodachi.swift */,
+				C1329B052704B6E500B3042E /* SpeechBubble.swift */,
 			);
 			path = Tomo;
 			sourceTree = "<group>";
@@ -515,11 +521,13 @@
 			files = (
 				C11B42C926A3CF6E0030ED0A /* TaskViewModel.swift in Sources */,
 				C11B42BC26A3CF4E0030ED0A /* RegisterView.swift in Sources */,
+				C1351D5527006FFF00687F44 /* Tomodachi.swift in Sources */,
 				C11B42C326A3CF4E0030ED0A /* AddTaskView.swift in Sources */,
 				C11B42CE26A3CF870030ED0A /* AppDelegate.swift in Sources */,
 				C11B42BF26A3CF4E0030ED0A /* MainView.swift in Sources */,
 				C11B42C026A3CF4E0030ED0A /* ContentView.swift in Sources */,
 				C11B42BD26A3CF4E0030ED0A /* AllLists.swift in Sources */,
+				C1329B062704B6E500B3042E /* SpeechBubble.swift in Sources */,
 				C11B42D026A3CF8C0030ED0A /* ColorManager.swift in Sources */,
 				C11B42CC26A3CF6E0030ED0A /* LoginViewModel.swift in Sources */,
 				C11B42B226A3CF2D0030ED0A /* TaskRepository.swift in Sources */,
