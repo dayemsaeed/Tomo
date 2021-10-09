@@ -17,7 +17,7 @@ class Tomodachi: SKScene {
         super.init(size: size);
         self.backgroundColor = .clear;
         let tomodachi = SKSpriteNode(imageNamed: "Fox-front");
-        tomodachi.position = CGPoint(x: 100, y: 100);
+        tomodachi.position = CGPoint(x: 170, y: 100);
         tomodachi.size = CGSize(width: 250, height: 250);
         self.addChild(tomodachi);
     }
