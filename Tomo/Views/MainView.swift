@@ -73,21 +73,14 @@ struct MainView: View {
                         .frame(width: 150, height: 150)
                         .padding(0)
                         .ignoresSafeArea()
-//                    ZStack {
-//                        SpeechBubble()
-//                            .stroke(Color.gray, lineWidth: 3)
-//
-//                        Text("Some really long text in the speech bubble over multiple lines.").padding(10)
-//                    }
-//                    .frame(width: 100, height: 70)
-                    
-                    Spacer()
+                    ZStack {
+                        SpeechBubble()
+                            .stroke(Color.gray, lineWidth: 3)
 
-//                    Image("Naruto")
-//                        .renderingMode(.original)
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(width: 128, height: 229)
+                        Text("Hi! Hello This is a test").padding(0)
+                    }
+                    .frame(width: 150, height: 70)
+
                 }
                 .padding(.top, -120)
                 Spacer().frame(height: 1)
