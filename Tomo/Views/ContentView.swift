@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var task = TaskCellViewModel(task: Task(id: "", title: "", date: "", completed: false, completedIcon: ""))
     @State private var oldTitle = ""
     @State private var name = ""
+    @State private var speechText = "Hi! I'm so happy to see you!"
     
     var body: some View {
         if view == "Register" {
@@ -25,7 +26,7 @@ struct ContentView: View {
             LoginView(userLoggedIn: userLoggedIn, view: $view)
         }
         else if view == "AddTask" {
-            AddTaskView(view: $view)
+            AddTaskView(view: $view, speechText: $speechText)
         }
         else if view == "Name" {
             NameView(name: $name, view: $view)
@@ -37,7 +38,7 @@ struct ContentView: View {
             EditTask(item: $task, oldTitle: $oldTitle, view: $view)
         }
         else {
-            MainView(view: $view, name: $name)
+            MainView(view: $view, name: $name, speechText: $speechText)
         }
     }
 }

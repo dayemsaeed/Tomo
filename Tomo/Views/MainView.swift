@@ -18,11 +18,12 @@ struct MainView: View {
     @ObservedObject private var viewModel = TaskViewModel()
     let db = Firestore.firestore()
     @Binding var name: String
+    @Binding var speechText: String
     //@State var firstView: Bool = false
     let synthesizer = AVSpeechSynthesizer()
     let text = "Welcome! Time to get started on those tasks!"
     
-    init(view: Binding<String>, name: Binding<String>) { UITableView.appearance().backgroundColor = .clear
+    init(view: Binding<String>, name: Binding<String>, speechText: Binding<String>) { UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
         UITableView.appearance().isScrollEnabled = true
         let utterance = AVSpeechUtterance(string: text)
@@ -30,6 +31,7 @@ struct MainView: View {
         //synthesizer.speak(utterance)
         self._view = view
         self._name = name
+        self._speechText = speechText
     }
     
     var scene: SKScene {
@@ -58,32 +60,33 @@ struct MainView: View {
             VStack {
                 Spacer()
                     .frame(height: 150)
+                Spacer()
                 
                 HStack {
                     Image("Minato")
                         .resizable()
                         .clipShape(Circle())
-                        .frame(width: 98, height: 98, alignment: .topLeading)
+                        .frame(width: 78, height: 78, alignment: .topLeading)
                         .overlay(Circle().stroke(Color.white, lineWidth: 4))
                         .shadow(radius: 7)
                     
-                    Spacer()
-                    
+                    Spacer().frame(width: 1)
+
                     SpriteView(scene: scene, options: [.allowsTransparency])
-                        .frame(width: 150, height: 150)
+                        .frame(height: 120)
                         .padding(0)
-                        .ignoresSafeArea()
+        
                     ZStack {
                         SpeechBubble()
                             .stroke(Color.gray, lineWidth: 3)
 
-                        Text("Hi! Hello This is a test").padding(0)
+                        Text(speechText).padding(10)
                     }
-                    .frame(width: 150, height: 70)
+                    //.frame(minWidth: 10, idealWidth: 150, minHeight: 10, idealHeight: 70)
 
                 }
-                .padding(.top, -120)
-                Spacer().frame(height: 1)
+                .padding(.top, -110)
+                //Spacer().frame(height: 1)
                 Group {
                     HStack {
                         Text("Hi,")
@@ -165,7 +168,7 @@ struct MainView: View {
                 }
                 
                 Spacer()
-
+                Spacer().frame(height: 20)
             }
             .padding(.horizontal, 30)
             .background(bubble, alignment: .topLeading)
@@ -217,7 +220,7 @@ struct TaskCell : View {
 #if DEBUG
 struct MainView_Previews : PreviewProvider {
     static var previews: some View {
-        MainView(view: .constant("Hi"), name: .constant("Hi"))
+        MainView(view: .constant("Hi"), name: .constant("Hi"), speechText: .constant("Hi"))
     }
 }
 #endif

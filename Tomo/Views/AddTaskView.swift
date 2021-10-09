@@ -16,6 +16,7 @@ struct AddTaskView: View {
     @State private var date = Date()
     @State private var isEditing = false
     @Binding var view: String
+    @Binding var speechText: String
     
     let synthesizer = AVSpeechSynthesizer()
     let text = "Task added!"
@@ -90,6 +91,7 @@ struct AddTaskView: View {
                                 let utterance = AVSpeechUtterance(string: text)
                                 utterance.voice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)
                                 synthesizer.speak(utterance)
+                                speechText = "Great job! You just added a task!"
                                 view = "Main"
                             }
                         }
@@ -153,6 +155,6 @@ struct AddTaskView: View {
 
 struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTaskView(view: .constant("Hi"))
+        AddTaskView(view: .constant("Hi"), speechText: .constant("Hi"))
     }
 }

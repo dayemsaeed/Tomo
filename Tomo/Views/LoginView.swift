@@ -28,7 +28,7 @@ struct LoginView: View {
             Spacer()
                 .frame(height: 150)
             
-            Text("PET SUPPORT").foregroundColor(Color.petSupportText)
+            Text("TOMO").foregroundColor(Color.petSupportText)
                 .font(Font.custom("Permanent Marker", size: 36))
                 .padding()
 

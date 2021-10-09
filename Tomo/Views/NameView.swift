@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 import AVFoundation
+import SpriteKit
 
 struct NameView: View {
     @Binding var name: String
@@ -21,15 +22,19 @@ struct NameView: View {
     private var canContinue : Bool {
         return !name.isEmpty
     }
+    
+    var scene: SKScene {
+        let scene = Tomodachi(size: CGSize(width: 300, height: 300));
+        scene.scaleMode = .fill
+        return scene;
+    }
 
     var body: some View {
         return VStack(spacing: 8, content: {
             Spacer()
-            Image("Naruto")
-                .renderingMode(.original)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 128, height: 229)
+            SpriteView(scene: scene, options: [.allowsTransparency])
+                .frame(height: 220)
+                .padding(0)
 
             Group {
                 HStack {
