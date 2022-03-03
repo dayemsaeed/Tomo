@@ -16,6 +16,7 @@ struct MainView: View {
     @State private var radius = 300
     @Binding var view: String
     @ObservedObject private var viewModel = TaskViewModel()
+    @ObservedObject private var nameViewModel = NameViewModel()
     let db = Firestore.firestore()
     @Binding var name: String
     @Binding var speechText: String
@@ -41,20 +42,6 @@ struct MainView: View {
     }
     
     var body: some View {
-//        func getDocumentData(db: Firestore) {
-//            let docRef = db.collection("user").document(Auth.auth().currentUser!.uid)
-//            docRef.getDocument { (document, error) in
-//                if let document = document, document.exists {
-//                    let dataDescription = document.get("name") ?? "nil"
-//                    print("Document data: \(dataDescription)")
-//                    DispatchQueue.main.async {
-//                        name = dataDescription as! String
-//                    }
-//                } else {
-//                    print("Document does not exist")
-//                }
-//            }
-//        }
         return NavigationView(content: {
             
             VStack {
@@ -92,7 +79,7 @@ struct MainView: View {
                         Text("Hi,")
                             .font(Font.custom("Permanent Marker", size: 36))
                             .multilineTextAlignment(.leading)
-                        Text(name).foregroundColor(Color.petSupportText)
+                        Text(nameViewModel.name).foregroundColor(Color.petSupportText)
                             .font(Font.custom("Permanent Marker", size: 36))
                             .multilineTextAlignment(.leading)
                         Spacer()
@@ -162,7 +149,7 @@ struct MainView: View {
                             .frame(width: 150, height: 50, alignment: .center)
                             .background(Color.petSupportBlue)
                             .cornerRadius(70.0)
-                            .disabled(viewModel.taskCellViewModels.isEmpty)
+                            //.disabled(viewModel.taskCellViewModels.isEmpty)
                         Spacer()
                     }
                 }

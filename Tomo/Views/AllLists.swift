@@ -11,6 +11,7 @@ struct AllLists: View {
     @Binding var view: String
     @Binding var item: TaskCellViewModel
     @Binding var oldTitle: String
+    @Binding var speechText: String
     @ObservedObject private var viewModel = TaskViewModel()
     var body: some View {
         func deleteTask(at offsets: IndexSet) {
@@ -54,6 +55,7 @@ struct AllLists: View {
                 HStack {
                     Button(
                         action: {
+                            speechText = "You are amazing! Never forget that!"
                             view = "Main"
                         },
                         label: {
@@ -73,7 +75,7 @@ struct AllLists: View {
             Spacer()
             
         })
-            .frame(width: 318, height: 350, alignment: .center)
+            .frame(minWidth: 318, idealWidth: 318, minHeight: 350, idealHeight: 750, alignment: .center)
             .shadow(radius: 7)
             .cornerRadius(25.0)
             .listRowBackground(Color.white)
@@ -109,6 +111,6 @@ struct AllLists: View {
 
 struct AllLists_Previews: PreviewProvider {
     static var previews: some View {
-        AllLists(view: .constant("Hi"), item: .constant(TaskCellViewModel(task: Task(id: "", title: "", date: "", completed: false, completedIcon: ""))), oldTitle: .constant("Hi"))
+        AllLists(view: .constant("Hi"), item: .constant(TaskCellViewModel(task: Task(id: "", title: "", date: "", timestamp: "", completed: false, completedIcon: ""))), oldTitle: .constant("Hi"), speechText: .constant("Hi"))
     }
 }

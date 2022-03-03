@@ -148,6 +148,6 @@ struct EditTask: View {
 
 struct EditTask_Previews: PreviewProvider {
     static var previews: some View {
-        EditTask(item: .constant(TaskCellViewModel(task: Task(id: "", title: "", date: "", completed: false, completedIcon: ""))), oldTitle: .constant("Hi"), view: .constant("Hi"))
+        EditTask(item: .constant(TaskCellViewModel(task: Task(id: "", title: "", date: "", timestamp: "", completed: false, completedIcon: ""))), oldTitle: .constant("Hi"), view: .constant("Hi"))
     }
 }

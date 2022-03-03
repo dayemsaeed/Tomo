@@ -77,10 +77,11 @@ struct AddTaskView: View {
                 Group {
                     
                     Button(action: {
-                        dateToStringFormatter.dateFormat = "d MMM y"
+                        dateToStringFormatter.dateFormat = "dd-MMM-yyyy HH:mm:ss"
                         db.collection("users").document(Auth.auth().currentUser!.uid).collection("tasks").document(task).setData([
                             "title": task,
-                            "date": dateToStringFormatter.string(from: date),
+                            "date": String(dateToStringFormatter.string(from:date).prefix(11)),
+                            "timestamp": dateToStringFormatter.string(from: date),
                             "completed" : false,
                             "completedIcon" : "circle"
                         ]) { err in
@@ -90,7 +91,7 @@ struct AddTaskView: View {
                                 print("Document successfully written!")
                                 let utterance = AVSpeechUtterance(string: text)
                                 utterance.voice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)
-                                synthesizer.speak(utterance)
+                                //synthesizer.speak(utterance)
                                 speechText = "Great job! You just added a task!"
                                 view = "Main"
                             }

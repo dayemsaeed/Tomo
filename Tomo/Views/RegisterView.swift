@@ -137,7 +137,7 @@ struct RegisterView: View {
                         // Put your code which should be executed with a delay here
                         let utterance = AVSpeechUtterance(string: "Successfully Registered!")
                         utterance.voice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)
-                        synthesizer.speak(utterance)
+                        //synthesizer.speak(utterance)
                         view = "Name"
                     }
                 }, label: {

@@ -25,11 +25,14 @@ class TaskRepository : ObservableObject {
     
     let dateToStringFormatter = DateFormatter()
     init() {
-        dateToStringFormatter.dateFormat = "d MMM y"
+        dateToStringFormatter.dateFormat = "dd-MMM-yyyy"
     }
     
     func loadData() {
-        db.collection("users").document(Auth.auth().currentUser!.uid).collection("tasks").whereField("date", isEqualTo: dateToStringFormatter.string(from: Date())).addSnapshotListener { (querySnapshot, error) in
+        /*
+         TODO: The `whereField("completed", isEqualTo: false)` part causes the show all lists to also be empty. This is due to the taskviewmodel calling loadData() when filling up the viewmodel. Thus, whenever it checks for all lists, the taskviewmodel is empty. NEED TO FIX!!!!!
+         */
+        db.collection("users").document(Auth.auth().currentUser!.uid).collection("tasks").whereField("date", isEqualTo: dateToStringFormatter.string(from: Date())).whereField("completed", isEqualTo: false).addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot {
                 self.todaysTasks = querySnapshot.documents.compactMap { document in
                     do {
@@ -46,7 +49,7 @@ class TaskRepository : ObservableObject {
     }
     
     func loadAllTasks() {
-        db.collection("users").document(Auth.auth().currentUser!.uid).collection("tasks").order(by: "date")
+        db.collection("users").document(Auth.auth().currentUser!.uid).collection("tasks").order(by: "timestamp")
             .addSnapshotListener {
                 (querySnapshot, error) in
                 if let querySnapshot = querySnapshot {

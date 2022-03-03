@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A155DB50DE32BC4253189A8 /* Pods_TomoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEBACBB2D0DD5BE363DD407 /* Pods_TomoTests.framework */; };
 		5E98B86BA72ED2393ED18FA3 /* Pods_Tomo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8048E549040948E3CDCBA3E5 /* Pods_Tomo.framework */; };
+		C116657B27D0BDF600F9E9DE /* NameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116657A27D0BDF600F9E9DE /* NameViewModel.swift */; };
 		C11B428826A3CB120030ED0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428726A3CB120030ED0A /* Assets.xcassets */; };
 		C11B428B26A3CB120030ED0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428A26A3CB120030ED0A /* Preview Assets.xcassets */; };
 		C11B429626A3CB120030ED0A /* TomoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B429526A3CB120030ED0A /* TomoTests.swift */; };
@@ -65,6 +66,7 @@
 		8048E549040948E3CDCBA3E5 /* Pods_Tomo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tomo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		979D843197ADCEA5442C4630 /* Pods-TomoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoTests.debug.xcconfig"; path = "Target Support Files/Pods-TomoTests/Pods-TomoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9CE02D8B74EA39FDABA5DD4D /* Pods-Tomo-TomoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo-TomoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C116657A27D0BDF600F9E9DE /* NameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewModel.swift; sourceTree = "<group>"; };
 		C11B428026A3CB0F0030ED0A /* Tomo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C11B428726A3CB120030ED0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C11B428A26A3CB120030ED0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				C11B42C626A3CF6E0030ED0A /* RegisterViewModel.swift */,
 				C11B42C726A3CF6E0030ED0A /* TaskCellViewModel.swift */,
 				C11B42C526A3CF6E0030ED0A /* TaskViewModel.swift */,
+				C116657A27D0BDF600F9E9DE /* NameViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				C11B42CE26A3CF870030ED0A /* AppDelegate.swift in Sources */,
 				C11B42BF26A3CF4E0030ED0A /* MainView.swift in Sources */,
 				C11B42C026A3CF4E0030ED0A /* ContentView.swift in Sources */,
+				C116657B27D0BDF600F9E9DE /* NameViewModel.swift in Sources */,
 				C11B42BD26A3CF4E0030ED0A /* AllLists.swift in Sources */,
 				C1329B062704B6E500B3042E /* SpeechBubble.swift in Sources */,
 				C11B42D026A3CF8C0030ED0A /* ColorManager.swift in Sources */,
