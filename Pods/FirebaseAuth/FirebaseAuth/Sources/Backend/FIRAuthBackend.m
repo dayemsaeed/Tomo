@@ -25,7 +25,10 @@
 
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FirebaseAuth.h"
 
+#import "FirebaseAppCheck/Interop/FIRAppCheckInterop.h"
+#import "FirebaseAppCheck/Interop/FIRAppCheckTokenResultInterop.h"
 #import "FirebaseAuth/Sources/Auth/FIRAuthGlobalWorkQueue.h"
+#import "FirebaseAuth/Sources/Auth/FIRAuth_Internal.h"
 #import "FirebaseAuth/Sources/AuthProvider/OAuth/FIROAuthCredential_Internal.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRCreateAuthURIRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRCreateAuthURIResponse.h"
@@ -41,6 +44,8 @@
 #import "FirebaseAuth/Sources/Backend/RPC/FIRGetProjectConfigResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRResetPasswordRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRResetPasswordResponse.h"
+#import "FirebaseAuth/Sources/Backend/RPC/FIRRevokeTokenRequest.h"
+#import "FirebaseAuth/Sources/Backend/RPC/FIRRevokeTokenResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRSecureTokenRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRSecureTokenResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRSendVerificationCodeRequest.h"
@@ -62,6 +67,7 @@
 #import "FirebaseAuth/Sources/Backend/RPC/FIRVerifyPhoneNumberRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRVerifyPhoneNumberResponse.h"
 #import "FirebaseAuth/Sources/Utilities/FIRAuthErrorUtils.h"
+#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
 
 #if TARGET_OS_IOS
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRPhoneAuthProvider.h"
@@ -86,6 +92,16 @@ static NSString *const kIosBundleIdentifierHeader = @"X-Ios-Bundle-Identifier";
     @brief HTTP header name for the firebase locale.
  */
 static NSString *const kFirebaseLocalHeader = @"X-Firebase-Locale";
+
+/** @var kFirebaseAppIDHeader
+    @brief HTTP header name for the Firebase app ID.
+ */
+static NSString *const kFirebaseAppIDHeader = @"X-Firebase-GMPID";
+
+/** @var kFirebaseHeartbeatHeader
+    @brief HTTP header name for a Firebase heartbeats payload.
+ */
+static NSString *const kFirebaseHeartbeatHeader = @"X-Firebase-Client";
 
 /** @var kFirebaseAuthCoreFrameworkMarker
     @brief The marker in the HTTP header that indicates the request comes from Firebase Auth Core.
@@ -295,7 +311,7 @@ static NSString *const kMissingAndroidPackageNameErrorMessage = @"MISSING_ANDROI
 
 /** @var kUnauthorizedDomainErrorMessage
     @brief This is the error message the server will respond with if the domain of the continue URL
-        specified is not whitelisted in the firebase console.
+        specified is not allowlisted in the Firebase console.
  */
 static NSString *const kUnauthorizedDomainErrorMessage = @"UNAUTHORIZED_DOMAIN";
 
@@ -457,6 +473,11 @@ static NSString *const kSecondFactorLimitExceededErrorMessage = @"SECOND_FACTOR_
  */
 static NSString *const kUnsupportedFirstFactorErrorMessage = @"UNSUPPORTED_FIRST_FACTOR";
 
+/** @var kBlockingCloudFunctionErrorResponse
+ @brief This is the error message blocking Cloud Functions.
+ */
+static NSString *const kBlockingCloudFunctionErrorResponse = @"BLOCKING_FUNCTION_ERROR_RESPONSE";
+
 /** @var kEmailChangeNeedsVerificationErrorMessage
  @brief This is the error message the server will respond with if changing an unverified email.
  */
@@ -587,7 +608,13 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 + (void)verifyClient:(id)request callback:(FIRVerifyClientResponseCallback)callback {
   [[self implementation] verifyClient:request callback:callback];
 }
+
 #endif
+
++ (void)revokeToken:(FIRRevokeTokenRequest *)request
+           callback:(FIRRevokeTokenResponseCallback)callback {
+  [[self implementation] revokeToken:request callback:callback];
+}
 
 + (void)resetPassword:(FIRResetPasswordRequest *)request
              callback:(FIRResetPasswordCallback)callback {
@@ -595,8 +622,54 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 }
 
 + (NSString *)authUserAgent {
-  return [NSString stringWithFormat:@"FirebaseAuth.iOS/%s %@", FirebaseAuthVersionStr,
+  return [NSString stringWithFormat:@"FirebaseAuth.iOS/%@ %@", FIRFirebaseVersion(),
                                     GTMFetcherStandardUserAgentString(nil)];
+}
+
++ (void)requestWithURL:(NSURL *)URL
+             contentType:(NSString *)contentType
+    requestConfiguration:(FIRAuthRequestConfiguration *)requestConfiguration
+       completionHandler:(void (^)(NSMutableURLRequest *_Nullable))completionHandler {
+  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+  [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+  NSString *additionalFrameworkMarker =
+      requestConfiguration.additionalFrameworkMarker ?: kFirebaseAuthCoreFrameworkMarker;
+  NSString *clientVersion = [NSString
+      stringWithFormat:@"iOS/FirebaseSDK/%@/%@", FIRFirebaseVersion(), additionalFrameworkMarker];
+  [request setValue:clientVersion forHTTPHeaderField:kClientVersionHeader];
+  NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+  [request setValue:bundleID forHTTPHeaderField:kIosBundleIdentifierHeader];
+  NSString *appID = requestConfiguration.appID;
+  [request setValue:appID forHTTPHeaderField:kFirebaseAppIDHeader];
+  [request setValue:FIRHeaderValueFromHeartbeatsPayload(
+                        [requestConfiguration.heartbeatLogger flushHeartbeatsIntoPayload])
+      forHTTPHeaderField:kFirebaseHeartbeatHeader];
+  NSArray<NSString *> *preferredLocalizations = [NSBundle mainBundle].preferredLocalizations;
+  if (preferredLocalizations.count) {
+    NSString *acceptLanguage = preferredLocalizations.firstObject;
+    [request setValue:acceptLanguage forHTTPHeaderField:@"Accept-Language"];
+  }
+  NSString *languageCode = requestConfiguration.languageCode;
+  if (languageCode.length) {
+    [request setValue:languageCode forHTTPHeaderField:kFirebaseLocalHeader];
+  }
+  if (requestConfiguration.appCheck) {
+    [requestConfiguration.appCheck
+        getTokenForcingRefresh:false
+                    completion:^(id<FIRAppCheckTokenResultInterop> _Nonnull tokenResult) {
+                      if (tokenResult.error) {
+                        FIRLogWarning(kFIRLoggerAuth, @"I-AUT000018",
+                                      @"Error getting App Check token; using placeholder token "
+                                      @"instead. Error: %@",
+                                      tokenResult.error);
+                      }
+                      [request setValue:tokenResult.token
+                          forHTTPHeaderField:@"X-Firebase-AppCheck"];
+                      completionHandler(request);
+                    }];
+  } else {
+    completionHandler(request);
+  }
 }
 
 @end
@@ -630,32 +703,19 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                                    contentType:(NSString *)contentType
                              completionHandler:
                                  (void (^)(NSData *_Nullable, NSError *_Nullable))handler {
-  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-  [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
-  NSString *additionalFrameworkMarker =
-      requestConfiguration.additionalFrameworkMarker ?: kFirebaseAuthCoreFrameworkMarker;
-  NSString *clientVersion = [NSString
-      stringWithFormat:@"iOS/FirebaseSDK/%s/%@", FirebaseAuthVersionStr, additionalFrameworkMarker];
-  [request setValue:clientVersion forHTTPHeaderField:kClientVersionHeader];
-  NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-  [request setValue:bundleID forHTTPHeaderField:kIosBundleIdentifierHeader];
-
-  NSArray<NSString *> *preferredLocalizations = [NSBundle mainBundle].preferredLocalizations;
-  if (preferredLocalizations.count) {
-    NSString *acceptLanguage = preferredLocalizations.firstObject;
-    [request setValue:acceptLanguage forHTTPHeaderField:@"Accept-Language"];
-  }
-  NSString *languageCode = requestConfiguration.languageCode;
-  if (languageCode.length) {
-    [request setValue:languageCode forHTTPHeaderField:kFirebaseLocalHeader];
-  }
-  GTMSessionFetcher *fetcher = [_fetcherService fetcherWithRequest:request];
-  NSString *emulatorHostAndPort = requestConfiguration.emulatorHostAndPort;
-  if (emulatorHostAndPort) {
-    fetcher.allowLocalhostRequest = YES;
-  }
-  fetcher.bodyData = body;
-  [fetcher beginFetchWithCompletionHandler:handler];
+  [FIRAuthBackend requestWithURL:URL
+                     contentType:contentType
+            requestConfiguration:requestConfiguration
+               completionHandler:^(NSMutableURLRequest *request) {
+                 GTMSessionFetcher *fetcher = [self->_fetcherService fetcherWithRequest:request];
+                 NSString *emulatorHostAndPort = requestConfiguration.emulatorHostAndPort;
+                 if (emulatorHostAndPort) {
+                   fetcher.allowLocalhostRequest = YES;
+                   fetcher.allowedInsecureSchemes = @[ @"http" ];
+                 }
+                 fetcher.bodyData = body;
+                 [fetcher beginFetchWithCompletionHandler:handler];
+               }];
 }
 
 @end
@@ -746,7 +806,9 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                    }
                    NSError *multiFactorRequiredError = [FIRAuthErrorUtils
                        secondFactorRequiredErrorWithPendingCredential:response.MFAPendingCredential
-                                                                hints:multiFactorInfo];
+                                                                hints:multiFactorInfo
+                                                                 auth:request.requestConfiguration
+                                                                          .auth];
                    callback(nil, multiFactorRequiredError);
 #endif
                  } else {
@@ -790,7 +852,9 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                    }
                    NSError *multiFactorRequiredError = [FIRAuthErrorUtils
                        secondFactorRequiredErrorWithPendingCredential:response.MFAPendingCredential
-                                                                hints:multiFactorInfo];
+                                                                hints:multiFactorInfo
+                                                                 auth:request.requestConfiguration
+                                                                          .auth];
                    callback(nil, multiFactorRequiredError);
 #endif
                  } else {
@@ -803,15 +867,33 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 - (void)emailLinkSignin:(FIREmailLinkSignInRequest *)request
                callback:(FIREmailLinkSigninResponseCallback)callback {
   FIREmailLinkSignInResponse *response = [[FIREmailLinkSignInResponse alloc] init];
-  [self postWithRequest:request
-               response:response
-               callback:^(NSError *error) {
-                 if (error) {
-                   callback(nil, error);
+  [self
+      postWithRequest:request
+             response:response
+             callback:^(NSError *error) {
+               if (error) {
+                 callback(nil, error);
+               } else {
+                 if (!response.IDToken && response.MFAInfo) {
+#if TARGET_OS_IOS
+                   NSMutableArray<FIRMultiFactorInfo *> *multiFactorInfo = [NSMutableArray array];
+                   for (FIRAuthProtoMFAEnrollment *MFAEnrollment in response.MFAInfo) {
+                     FIRPhoneMultiFactorInfo *info =
+                         [[FIRPhoneMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+                     [multiFactorInfo addObject:info];
+                   }
+                   NSError *multiFactorRequiredError = [FIRAuthErrorUtils
+                       secondFactorRequiredErrorWithPendingCredential:response.MFAPendingCredential
+                                                                hints:multiFactorInfo
+                                                                 auth:request.requestConfiguration
+                                                                          .auth];
+                   callback(nil, multiFactorRequiredError);
+#endif
                  } else {
                    callback(response, nil);
                  }
-               }];
+               }
+             }];
 }
 
 - (void)secureToken:(FIRSecureTokenRequest *)request
@@ -915,7 +997,24 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                  callback(response, nil);
                }];
 }
+
 #endif
+
+- (void)revokeToken:(FIRRevokeTokenRequest *)request
+           callback:(FIRRevokeTokenResponseCallback)callback {
+  FIRRevokeTokenResponse *response = [[FIRRevokeTokenResponse alloc] init];
+  [self
+      postWithRequest:request
+             response:response
+             callback:^(NSError *error) {
+               if (error) {
+                 callback(nil, [FIRAuthErrorUtils
+                                   invalidCredentialErrorWithMessage:[error localizedDescription]]);
+                 return;
+               }
+               callback(response, nil);
+             }];
+}
 
 - (void)resetPassword:(FIRResetPasswordRequest *)request
              callback:(FIRResetPasswordCallback)callback {
@@ -1040,7 +1139,8 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                              if (![dictionary isKindOfClass:[NSDictionary class]]) {
                                if (error) {
                                  callback([FIRAuthErrorUtils
-                                     unexpectedErrorResponseWithDeserializedResponse:dictionary]);
+                                     unexpectedErrorResponseWithDeserializedResponse:dictionary
+                                                                     underlyingError:error]);
                                } else {
                                  callback([FIRAuthErrorUtils
                                      unexpectedResponseWithDeserializedResponse:dictionary]);
@@ -1074,14 +1174,16 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                                  if (errorMessage) {
                                    NSError *unexpecterErrorResponse = [FIRAuthErrorUtils
                                        unexpectedErrorResponseWithDeserializedResponse:
-                                           errorDictionary];
+                                           errorDictionary
+                                                                       underlyingError:error];
                                    callback(unexpecterErrorResponse);
                                    return;
                                  }
                                }
                                // No error message at all, return the decoded response.
                                callback([FIRAuthErrorUtils
-                                   unexpectedErrorResponseWithDeserializedResponse:dictionary]);
+                                   unexpectedErrorResponseWithDeserializedResponse:dictionary
+                                                                   underlyingError:error]);
                                return;
                              }
 
@@ -1401,6 +1503,11 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 
   if ([shortErrorMessage isEqualToString:kUnsupportedTenantOperation]) {
     return [FIRAuthErrorUtils unsupportedTenantOperationError];
+  }
+
+  if ([shortErrorMessage isEqualToString:kBlockingCloudFunctionErrorResponse]) {
+    return
+        [FIRAuthErrorUtils blockingCloudFunctionServerResponseWithMessage:serverDetailErrorMessage];
   }
 
   // In this case we handle an error that might be specified in the underlying errors dictionary,

@@ -7,14 +7,8 @@
 
 import SwiftUI
 
-struct ChatMessage: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct ChatMessage_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatMessage()
-    }
+struct ChatMessage: Identifiable, Hashable {
+    let id = UUID()
+    let text: String
+    let isSender: Bool
 }

@@ -23,18 +23,16 @@ struct NameView: View {
         return !name.isEmpty
     }
     
-    var scene: SKScene {
+    /*var scene: SKScene {
         let scene = Tomodachi(size: CGSize(width: 300, height: 300));
         scene.scaleMode = .fill
         return scene;
-    }
+    }*/
 
     var body: some View {
         return VStack(spacing: 8, content: {
             Spacer()
-            SpriteView(scene: scene, options: [.allowsTransparency])
-                .frame(height: 220)
-                .padding(0)
+            LottieView(lottieFile: "sloth").frame(width: 300, height: 300)
 
             Group {
                 HStack {

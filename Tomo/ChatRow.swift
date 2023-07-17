@@ -8,13 +8,29 @@
 import SwiftUI
 
 struct ChatRow: View {
+    var message: ChatMessage
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            if message.isSender {
+                Spacer()
+            }
+            
+            Text(message.text)
+                .padding(10)
+                .background(ChatBubble(isSender: message.isSender).fill(message.isSender ? Color.blue : Color.gray))
+                .foregroundColor(message.isSender ? .white : .black)
+            
+            if !message.isSender {
+                Spacer()
+            }
+        }
+        .padding(.horizontal)
     }
 }
 
 struct ChatRow_Previews: PreviewProvider {
     static var previews: some View {
-        ChatRow()
+        ChatRow(message: ChatMessage(text: "Hello", isSender: true))
     }
 }
