@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "307772124853",
+    "project_id": "mental-health-support-list",
+    "storage_bucket": "mental-health-support-list.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307772124853:android:aed86979128e30f96798fc",
+        "android_client_info": {
+          "package_name": "com.lumen.tomo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307772124853-fvfr2kgke47slvocrs1ffv8djj4n2tok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq4Az8N9N7VpqgJk4aQI-7NOhD-QX5inY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307772124853-fvfr2kgke47slvocrs1ffv8djj4n2tok.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "307772124853-e8as4rj3gkbto4iv76r3a028032mmb2m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lumen.PetSupport"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
