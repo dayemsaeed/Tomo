@@ -10,6 +10,9 @@
 		476C4B10AC6E6EB3E8322C70 /* Pods_TomoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE7F699CBFE42088237A61F8 /* Pods_TomoTests.framework */; };
 		6A6C7437401099DC880E03C6 /* Pods_Tomo_TomoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030DCD6F6F07FCFA8C674DF8 /* Pods_Tomo_TomoUITests.framework */; };
 		6F21E5CB7B851F5C0DE18919 /* Pods_Tomo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B680B457C33864880F48FD7 /* Pods_Tomo.framework */; };
+		C10D2C352ACC1BB4003DE05B /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10D2C342ACC1BB4003DE05B /* TaskView.swift */; };
+		C10D2C372ACC1BD9003DE05B /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10D2C362ACC1BD9003DE05B /* TaskRepository.swift */; };
+		C10D2C3A2ACC1E61003DE05B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10D2C392ACC1E61003DE05B /* Task.swift */; };
 		C116657B27D0BDF600F9E9DE /* NameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116657A27D0BDF600F9E9DE /* NameViewModel.swift */; };
 		C11B428826A3CB120030ED0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428726A3CB120030ED0A /* Assets.xcassets */; };
 		C11B428B26A3CB120030ED0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428A26A3CB120030ED0A /* Preview Assets.xcassets */; };
@@ -64,6 +67,9 @@
 		85E3B58304C84E2BF271890B /* Pods-Tomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo.release.xcconfig"; path = "Target Support Files/Pods-Tomo/Pods-Tomo.release.xcconfig"; sourceTree = "<group>"; };
 		B46C8349571D93AED69042B6 /* Pods-Tomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo.debug.xcconfig"; path = "Target Support Files/Pods-Tomo/Pods-Tomo.debug.xcconfig"; sourceTree = "<group>"; };
 		BA845226984D0BAC1D346D81 /* Pods-TomoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoTests.release.xcconfig"; path = "Target Support Files/Pods-TomoTests/Pods-TomoTests.release.xcconfig"; sourceTree = "<group>"; };
+		C10D2C342ACC1BB4003DE05B /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		C10D2C362ACC1BD9003DE05B /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
+		C10D2C392ACC1E61003DE05B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C116657A27D0BDF600F9E9DE /* NameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewModel.swift; sourceTree = "<group>"; };
 		C11B428026A3CB0F0030ED0A /* Tomo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C11B428726A3CB120030ED0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,7 +96,7 @@
 		C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PermanentMarker-Regular.ttf"; sourceTree = "<group>"; };
 		C1425C0F29F42A890016917A /* sloth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sloth.json; sourceTree = "<group>"; };
-		C1425C1129F4494F0016917A /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		C1425C1129F4494F0016917A /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LottieView.swift; path = "../New Group/LottieView.swift"; sourceTree = "<group>"; };
 		C14F25C229D94FD500F59D64 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		C14F25C429D9550A00F59D64 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		C14F25C629D9553500F59D64 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
@@ -152,6 +158,42 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C10D2C312ACC1A1D003DE05B /* auth */ = {
+			isa = PBXGroup;
+			children = (
+				C11B42B626A3CF4E0030ED0A /* LoginView.swift */,
+				C11B42B426A3CF4E0030ED0A /* RegisterView.swift */,
+			);
+			path = auth;
+			sourceTree = "<group>";
+		};
+		C10D2C322ACC1A44003DE05B /* chat */ = {
+			isa = PBXGroup;
+			children = (
+				C14F25C229D94FD500F59D64 /* ChatView.swift */,
+				C14F25C429D9550A00F59D64 /* ChatBubble.swift */,
+				C14F25C629D9553500F59D64 /* ChatMessage.swift */,
+				C14F25C829D9555600F59D64 /* ChatRow.swift */,
+			);
+			path = chat;
+			sourceTree = "<group>";
+		};
+		C10D2C332ACC1A77003DE05B /* character */ = {
+			isa = PBXGroup;
+			children = (
+				C1425C1129F4494F0016917A /* LottieView.swift */,
+			);
+			path = character;
+			sourceTree = "<group>";
+		};
+		C10D2C382ACC1D30003DE05B /* model */ = {
+			isa = PBXGroup;
+			children = (
+				C10D2C392ACC1E61003DE05B /* Task.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		C11B427726A3CB0F0030ED0A = {
 			isa = PBXGroup;
 			children = (
@@ -177,21 +219,19 @@
 		C11B428226A3CB0F0030ED0A /* Tomo */ = {
 			isa = PBXGroup;
 			children = (
-				C11B42D926A3D3B60030ED0A /* Resources */,
+				C10D2C382ACC1D30003DE05B /* model */,
+				C11B42D926A3D3B60030ED0A /* resources */,
 				C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */,
 				C11B42CF26A3CF8C0030ED0A /* ColorManager.swift */,
 				C11B42CD26A3CF860030ED0A /* AppDelegate.swift */,
-				C11B42C426A3CF5E0030ED0A /* ViewModels */,
-				C11B42B326A3CF350030ED0A /* Views */,
-				C11B42AE26A3CEA80030ED0A /* Repositories */,
+				C11B42C426A3CF5E0030ED0A /* viewmodel */,
+				C11B42B326A3CF350030ED0A /* view */,
+				C11B42AE26A3CEA80030ED0A /* repository */,
 				C11B428726A3CB120030ED0A /* Assets.xcassets */,
 				C11B42D526A3CFAC0030ED0A /* Colors.xcassets */,
 				C11B428C26A3CB120030ED0A /* Info.plist */,
 				C11B42D326A3CFA30030ED0A /* GoogleService-Info.plist */,
 				C11B428926A3CB120030ED0A /* Preview Content */,
-				C14F25C429D9550A00F59D64 /* ChatBubble.swift */,
-				C14F25C629D9553500F59D64 /* ChatMessage.swift */,
-				C14F25C829D9555600F59D64 /* ChatRow.swift */,
 			);
 			path = Tomo;
 			sourceTree = "<group>";
@@ -222,45 +262,46 @@
 			path = TomoUITests;
 			sourceTree = "<group>";
 		};
-		C11B42AE26A3CEA80030ED0A /* Repositories */ = {
+		C11B42AE26A3CEA80030ED0A /* repository */ = {
 			isa = PBXGroup;
 			children = (
 				C11B42AF26A3CF210030ED0A /* NameRepository.swift */,
+				C10D2C362ACC1BD9003DE05B /* TaskRepository.swift */,
 			);
-			path = Repositories;
+			path = repository;
 			sourceTree = "<group>";
 		};
-		C11B42B326A3CF350030ED0A /* Views */ = {
+		C11B42B326A3CF350030ED0A /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C10D2C332ACC1A77003DE05B /* character */,
+				C10D2C322ACC1A44003DE05B /* chat */,
+				C10D2C312ACC1A1D003DE05B /* auth */,
 				C11B42B826A3CF4E0030ED0A /* ContentView.swift */,
-				C11B42B626A3CF4E0030ED0A /* LoginView.swift */,
 				C11B42B726A3CF4E0030ED0A /* MainView.swift */,
 				C11B42B926A3CF4E0030ED0A /* NameView.swift */,
-				C11B42B426A3CF4E0030ED0A /* RegisterView.swift */,
-				C14F25C229D94FD500F59D64 /* ChatView.swift */,
-				C1425C1129F4494F0016917A /* LottieView.swift */,
+				C10D2C342ACC1BB4003DE05B /* TaskView.swift */,
 			);
-			path = Views;
+			path = view;
 			sourceTree = "<group>";
 		};
-		C11B42C426A3CF5E0030ED0A /* ViewModels */ = {
+		C11B42C426A3CF5E0030ED0A /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
 				C11B42C826A3CF6E0030ED0A /* LoginViewModel.swift */,
 				C11B42C626A3CF6E0030ED0A /* RegisterViewModel.swift */,
 				C116657A27D0BDF600F9E9DE /* NameViewModel.swift */,
 			);
-			path = ViewModels;
+			path = viewmodel;
 			sourceTree = "<group>";
 		};
-		C11B42D926A3D3B60030ED0A /* Resources */ = {
+		C11B42D926A3D3B60030ED0A /* resources */ = {
 			isa = PBXGroup;
 			children = (
 				C1425C0F29F42A890016917A /* sloth.json */,
 				C11B42DA26A3D3C40030ED0A /* Fonts */,
 			);
-			path = Resources;
+			path = resources;
 			sourceTree = "<group>";
 		};
 		C11B42DA26A3D3C40030ED0A /* Fonts */ = {
@@ -528,10 +569,13 @@
 				C11B42CE26A3CF870030ED0A /* AppDelegate.swift in Sources */,
 				C11B42BF26A3CF4E0030ED0A /* MainView.swift in Sources */,
 				C14F25C729D9553500F59D64 /* ChatMessage.swift in Sources */,
+				C10D2C372ACC1BD9003DE05B /* TaskRepository.swift in Sources */,
+				C10D2C3A2ACC1E61003DE05B /* Task.swift in Sources */,
 				C11B42C026A3CF4E0030ED0A /* ContentView.swift in Sources */,
 				C116657B27D0BDF600F9E9DE /* NameViewModel.swift in Sources */,
 				C11B42D026A3CF8C0030ED0A /* ColorManager.swift in Sources */,
 				C11B42CC26A3CF6E0030ED0A /* LoginViewModel.swift in Sources */,
+				C10D2C352ACC1BB4003DE05B /* TaskView.swift in Sources */,
 				C11B42CA26A3CF6E0030ED0A /* RegisterViewModel.swift in Sources */,
 				C14F25C929D9555600F59D64 /* ChatRow.swift in Sources */,
 				C14F25C529D9550A00F59D64 /* ChatBubble.swift in Sources */,

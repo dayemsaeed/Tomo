@@ -3,7 +3,7 @@ package com.lumen.tomo.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lumen.tomo.model.repositories.AuthRepository
+import com.lumen.tomo.model.repository.AuthRepository
 
 class RegisterViewModel : ViewModel() {
 
