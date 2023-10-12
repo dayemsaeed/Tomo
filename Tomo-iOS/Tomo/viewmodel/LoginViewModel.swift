@@ -6,23 +6,20 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 
 class LoginViewModel: ObservableObject {
-    
     @Published var isLoggedIn = false
+    @Published var text = ""
+
     func login(email: String, password: String) {
-        
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                print("Logged In!")
-                self.isLoggedIn = true
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            guard authResult != nil, error == nil else {
+                self.text = error?.localizedDescription ?? "Unknown error"
+                return
             }
+            self.isLoggedIn = true
         }
-        
     }
-    
 }
+

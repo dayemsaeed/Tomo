@@ -10,13 +10,12 @@ import FirebaseAuth
 
 struct LoginView: View {
     
-    @ObservedObject var userLoggedIn : LoginViewModel
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var isEditing = false
     @State private var showPassword = false
-    @State private var radius = 300
-    @Binding var view : String
+    @ObservedObject var userLoggedIn: LoginViewModel
+    @ObservedObject var registerViewModel: RegisterViewModel
     
     private var canLogIn: Bool {
         return !email.isEmpty && !password.isEmpty
@@ -92,7 +91,7 @@ struct LoginView: View {
             
             Spacer();
             
-            Group {
+            VStack {
                 
                 Button(action: {
                         userLoggedIn.login(email: email, password: password)
@@ -107,63 +106,21 @@ struct LoginView: View {
                     .cornerRadius(70.0)
                     .disabled(!canLogIn)
                 
-                Button(
-                    action: {
-                        view = "Register"
-                        print(view)
-                    },
-                    //RegisterView(view: $view, userRegistered: userRegistered)
-//                            .navigationBarTitle("")
-//                            .navigationBarHidden(true),
-                    label: {
+                NavigationLink(destination: RegisterView(registerView: registerViewModel, loginViewModel: userLoggedIn)) {
+                    Button(action: {}, label: {
                         Text("Register")
+                            .padding()
+                            .font(Font.custom("Permanent Marker", size: 18.0))
+                            .foregroundColor(Color.petSupportText)
                     })
-                    .padding()
-                    .font(Font.custom("Permanent Marker", size: 18.0))
-                    .foregroundColor(Color.petSupportText)
-//                    .navigationBarTitle("")
-//                    .navigationBarHidden(true)
+                }
+                .navigationBarBackButtonHidden(true)
             }
             
             Spacer()
             
         })
         .padding(.horizontal, 30)
-        .background(bubble, alignment: .topLeading)
-        .background(bubble.rotationEffect(Angle(degrees: 180)), alignment: .bottomTrailing)
-        .ignoresSafeArea()
         
     }
-
-    @State private var startAnimation: Bool = false
-
-    var bubble: some View {
-
-        ZStack {
-
-            Circle()
-                .fill(Color(UIColor.systemTeal).opacity(0.4))
-                .frame(width: 300, height: 300, alignment: .center)
-                .offset(x: startAnimation ? -110 : -100, y: startAnimation ? -180 : -150)
-
-
-            Circle()
-                .fill(Color(UIColor.systemTeal).opacity(0.4))
-                .frame(width: 300, height: 300, alignment: .center)
-                .offset(x: startAnimation ? -180 : -150, y: startAnimation ? -90 : -100)
-
-        }
-        .onAppear() { startAnimation = true }
-        .animation(Animation.easeInOut(duration: 3.0).repeatForever(autoreverses: true))
-
-    }
 }
-
-
-#if DEBUG
-struct LoginView_Previews : PreviewProvider {
-    static var previews: some View {
-        LoginView(userLoggedIn: LoginViewModel(), view: .constant("Hi"))
-    }
-}
-#endif

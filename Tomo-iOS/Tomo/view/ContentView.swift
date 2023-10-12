@@ -6,32 +6,23 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
-import FirebaseAuth
 
 struct ContentView: View {
-    @StateObject var userLoggedIn = LoginViewModel()
-    @StateObject var userRegistered = RegisterViewModel()
-    @State private var view = "Main"
-    @State private var oldTitle = ""
-    @State private var name = ""
-    //@State private var speechText = "Hi! I'm so happy to see you!"
+    @StateObject var loginViewModel = LoginViewModel()
+    @StateObject var registerViewModel = RegisterViewModel()
+    @StateObject var taskViewModel = TaskViewModel()
     
     var body: some View {
-        if view == "Register" {
-            RegisterView(view: $view, userRegistered: userRegistered)
-        }
-        else if Auth.auth().currentUser?.uid == nil {
-            LoginView(userLoggedIn: userLoggedIn, view: $view)
-        }
-        else if view == "Name" {
-            NameView(name: $name, view: $view)
-        }
-        else if view == "Tasks" {
-            //TaskView(view: $view)
-        }
-        else {
-            MainView(view: $view, name: $name)
+        NavigationView {
+            if loginViewModel.isLoggedIn {
+                if !registerViewModel.isRegistered {
+                    RegisterView(registerView: registerViewModel, loginViewModel: loginViewModel)
+                } else {
+                    LoginView(userLoggedIn: loginViewModel, registerViewModel: registerViewModel)
+                }
+            } else {
+                MainView()
+            }
         }
     }
 }

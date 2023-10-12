@@ -9,30 +9,45 @@ import SwiftUI
 import Lottie
 
 struct LottieView: UIViewRepresentable {
-    
-    let lottieFile: String
-    
-    let animationView = LottieAnimationView()
-    
+    var lottieFile: String
+    var onAnimationComplete: (() -> Void)? = nil
+
     func makeUIView(context: Context) -> UIView {
         let view = UIView(frame: .zero)
+        let animationView = LottieAnimationView()
         
-        animationView.animation = LottieAnimation.named(lottieFile)
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .autoReverse
-        animationView.play()
-        
+        // Load and play the animation
+        loadAnimation(in: animationView, name: lottieFile)
+
         view.addSubview(animationView)
         
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        animationView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        animationView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        
+        // Configure layout constraints for the animation view
+        setupConstraints(for: animationView, in: view)
+
         return view
     }
-    
+
     func updateUIView(_ uiView: UIViewType, context: Context) {
-        
+        if let animationView = uiView.subviews.first(where: { $0 is LottieAnimationView }) as? LottieAnimationView {
+            loadAnimation(in: animationView, name: lottieFile)
+        }
     }
-    
+
+    private func setupConstraints(for animationView: UIView, in parentView: UIView) {
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            animationView.heightAnchor.constraint(equalTo: parentView.heightAnchor),
+            animationView.widthAnchor.constraint(equalTo: parentView.widthAnchor)
+        ])
+    }
+
+    private func loadAnimation(in animationView: LottieAnimationView, name: String) {
+        animationView.animation = LottieAnimation.named(name)
+        animationView.loopMode = (name == "catIdle" || name == "catSleeping") ? .autoReverse : .playOnce
+        animationView.play { finished in
+            if finished {
+                self.onAnimationComplete?()
+            }
+        }
+    }
 }

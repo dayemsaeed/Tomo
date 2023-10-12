@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TextView: UIViewRepresentable {
-    
     typealias UIViewType = UITextView
     var configuration = { (view: UIViewType) in }
     
@@ -25,7 +24,7 @@ struct ChatView: View {
     @State private var messageText: String = ""
     @State private var messages: [ChatMessage] = []
     @FocusState private var chatIsFocused: Bool
-    @Binding var view: String
+    @State private var navigateToTasks: Bool = false
     
     var body: some View {
         VStack {
@@ -36,53 +35,47 @@ struct ChatView: View {
                     }
                 }
             }
-            
-            HStack {
-                Button(action: {
-                    view = "Tasks"
-                }) {
-                    Image(systemName: "list.bullet")
-                        .imageScale(.medium)
-                        .frame(width: 30, height: 30)
-                }
-                HStack(alignment: .center, spacing: 10) {
-                    TextField("Message", text: $messageText)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(0)
-                        .focused($chatIsFocused)
-                    
-                    if !messageText.isEmpty {
-                        Button(action: {
-                            sendMessage()
-                        }) {
-                            Image(systemName: "arrow.up")
-                                .imageScale(.medium)
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
-                                .foregroundColor(Color.white)
-                                .clipShape(Circle())
-                        }
-                        //.padding(.trailing)
-                    }
-                    // add waveform for audio chat (TO-DO later)
-                    /*else {
-                        Button(action: {
-                            
-                        }) {
-                            Image(systemName: "waveform")
-                                .frame(width: 26, height: 26)
-                                .foregroundColor(.red)
-                        }
-                        .padding(.trailing)
-                    }*/
-                }
-                .padding(10)
-                .overlay(Capsule()
-                    .stroke(.tertiary, lineWidth: 1)
-                    .opacity(0.7)
-                )
-                .padding(.trailing, 6)
+            chatInputArea
+        }
+    }
+    
+    private var chatInputArea: some View {
+        HStack {
+            Button(action: {
+                navigateToTasks = true
+            }) {
+                Image(systemName: "list.bullet")
+                    .imageScale(.medium)
+                    .frame(width: 30, height: 30)
             }
+            
+            NavigationLink(destination: TaskView(), isActive: $navigateToTasks) { EmptyView() }.navigationBarBackButtonHidden(true)
+            
+            HStack(alignment: .center, spacing: 10) {
+                TextField("Message", text: $messageText)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(0)
+                    .focused($chatIsFocused)
+                
+                if !messageText.isEmpty {
+                    Button(action: {
+                        sendMessage()
+                    }) {
+                        Image(systemName: "arrow.up")
+                            .imageScale(.medium)
+                            .frame(width: 30, height: 30)
+                            .background(Color.blue)
+                            .foregroundColor(Color.white)
+                            .clipShape(Circle())
+                    }
+                }
+            }
+            .padding(10)
+            .overlay(Capsule()
+                .stroke(.tertiary, lineWidth: 1)
+                .opacity(0.7)
+            )
+            .padding(.trailing, 6)
         }
     }
     

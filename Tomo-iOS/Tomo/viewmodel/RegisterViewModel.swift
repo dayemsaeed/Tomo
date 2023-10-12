@@ -6,27 +6,20 @@
 //
 
 import Foundation
-import Firebase
-import SwiftUI
+import FirebaseAuth
 
 class RegisterViewModel: ObservableObject {
-    
     @Published var isRegistered = false
     @Published var text = ""
-    
+
     func register(email: String, password: String) {
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                self.text = error.localizedDescription
-            } else {
-                print("Registered!")
-                self.isRegistered = true
-                self.text = "Successfully registered!"
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            guard authResult != nil, error == nil else {
+                self.text = error?.localizedDescription ?? "Unknown error"
+                return
             }
+            self.isRegistered = true
         }
-        
     }
-    
 }
+

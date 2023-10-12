@@ -35,12 +35,21 @@
 		C11B42DE26A3D3FB0030ED0A /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */; };
 		C11B42DF26A3D3FB0030ED0A /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */; };
 		C1425C0E29F426730016917A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C1425C0D29F426730016917A /* Lottie */; };
-		C1425C1029F42A8A0016917A /* sloth.json in Resources */ = {isa = PBXBuildFile; fileRef = C1425C0F29F42A890016917A /* sloth.json */; };
 		C1425C1229F4494F0016917A /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1425C1129F4494F0016917A /* LottieView.swift */; };
 		C14F25C329D94FD500F59D64 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F25C229D94FD500F59D64 /* ChatView.swift */; };
 		C14F25C529D9550A00F59D64 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F25C429D9550A00F59D64 /* ChatBubble.swift */; };
 		C14F25C729D9553500F59D64 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F25C629D9553500F59D64 /* ChatMessage.swift */; };
 		C14F25C929D9555600F59D64 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F25C829D9555600F59D64 /* ChatRow.swift */; };
+		C16FC36D2AD302BD00234C6C /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC36C2AD302BD00234C6C /* CalendarView.swift */; };
+		C16FC36F2AD3491900234C6C /* catSleeping.json in Resources */ = {isa = PBXBuildFile; fileRef = C16FC36E2AD3491900234C6C /* catSleeping.json */; };
+		C16FC3722AD3499900234C6C /* catHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = C16FC3712AD3499900234C6C /* catHeart.json */; };
+		C16FC3742AD34A0800234C6C /* catIdle.json in Resources */ = {isa = PBXBuildFile; fileRef = C16FC3732AD34A0800234C6C /* catIdle.json */; };
+		C16FC3762AD34A2800234C6C /* catHeadshake.json in Resources */ = {isa = PBXBuildFile; fileRef = C16FC3752AD34A2800234C6C /* catHeadshake.json */; };
+		C16FC3792AD373FE00234C6C /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC3782AD373FE00234C6C /* AddTaskView.swift */; };
+		C16FC37B2AD44E2400234C6C /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC37A2AD44E2400234C6C /* TaskViewModel.swift */; };
+		C16FC37D2AD44E8C00234C6C /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC37C2AD44E8C00234C6C /* TaskCellViewModel.swift */; };
+		C16FC37F2AD4879800234C6C /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC37E2AD4879800234C6C /* TaskCell.swift */; };
+		C16FC3812AD5B2AA00234C6C /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC3802AD5B2AA00234C6C /* ChatViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,12 +104,21 @@
 		C11B42D526A3CFAC0030ED0A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PermanentMarker-Regular.ttf"; sourceTree = "<group>"; };
-		C1425C0F29F42A890016917A /* sloth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sloth.json; sourceTree = "<group>"; };
 		C1425C1129F4494F0016917A /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LottieView.swift; path = "../New Group/LottieView.swift"; sourceTree = "<group>"; };
 		C14F25C229D94FD500F59D64 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		C14F25C429D9550A00F59D64 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		C14F25C629D9553500F59D64 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		C14F25C829D9555600F59D64 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
+		C16FC36C2AD302BD00234C6C /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		C16FC36E2AD3491900234C6C /* catSleeping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = catSleeping.json; sourceTree = "<group>"; };
+		C16FC3712AD3499900234C6C /* catHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = catHeart.json; sourceTree = "<group>"; };
+		C16FC3732AD34A0800234C6C /* catIdle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = catIdle.json; sourceTree = "<group>"; };
+		C16FC3752AD34A2800234C6C /* catHeadshake.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = catHeadshake.json; sourceTree = "<group>"; };
+		C16FC3782AD373FE00234C6C /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		C16FC37A2AD44E2400234C6C /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		C16FC37C2AD44E8C00234C6C /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
+		C16FC37E2AD4879800234C6C /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		C16FC3802AD5B2AA00234C6C /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		C3185BBDFC2C24790C4B8432 /* Pods-TomoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoTests.debug.xcconfig"; path = "Target Support Files/Pods-TomoTests/Pods-TomoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D857DFB544CEFC8D5348C61F /* Pods-Tomo-TomoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo-TomoUITests.release.xcconfig"; path = "Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DE7F699CBFE42088237A61F8 /* Pods_TomoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TomoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +250,7 @@
 				C11B428C26A3CB120030ED0A /* Info.plist */,
 				C11B42D326A3CFA30030ED0A /* GoogleService-Info.plist */,
 				C11B428926A3CB120030ED0A /* Preview Content */,
+				C16FC37E2AD4879800234C6C /* TaskCell.swift */,
 			);
 			path = Tomo;
 			sourceTree = "<group>";
@@ -274,13 +293,13 @@
 		C11B42B326A3CF350030ED0A /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C16FC3772AD373EB00234C6C /* task */,
 				C10D2C332ACC1A77003DE05B /* character */,
 				C10D2C322ACC1A44003DE05B /* chat */,
 				C10D2C312ACC1A1D003DE05B /* auth */,
 				C11B42B826A3CF4E0030ED0A /* ContentView.swift */,
 				C11B42B726A3CF4E0030ED0A /* MainView.swift */,
 				C11B42B926A3CF4E0030ED0A /* NameView.swift */,
-				C10D2C342ACC1BB4003DE05B /* TaskView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -291,6 +310,9 @@
 				C11B42C826A3CF6E0030ED0A /* LoginViewModel.swift */,
 				C11B42C626A3CF6E0030ED0A /* RegisterViewModel.swift */,
 				C116657A27D0BDF600F9E9DE /* NameViewModel.swift */,
+				C16FC37A2AD44E2400234C6C /* TaskViewModel.swift */,
+				C16FC37C2AD44E8C00234C6C /* TaskCellViewModel.swift */,
+				C16FC3802AD5B2AA00234C6C /* ChatViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -298,7 +320,7 @@
 		C11B42D926A3D3B60030ED0A /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				C1425C0F29F42A890016917A /* sloth.json */,
+				C16FC3702AD3491F00234C6C /* animation */,
 				C11B42DA26A3D3C40030ED0A /* Fonts */,
 			);
 			path = resources;
@@ -310,6 +332,27 @@
 				C11B42DC26A3D3FA0030ED0A /* PermanentMarker-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C16FC3702AD3491F00234C6C /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				C16FC3752AD34A2800234C6C /* catHeadshake.json */,
+				C16FC3732AD34A0800234C6C /* catIdle.json */,
+				C16FC3712AD3499900234C6C /* catHeart.json */,
+				C16FC36E2AD3491900234C6C /* catSleeping.json */,
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
+		C16FC3772AD373EB00234C6C /* task */ = {
+			isa = PBXGroup;
+			children = (
+				C16FC3782AD373FE00234C6C /* AddTaskView.swift */,
+				C10D2C342ACC1BB4003DE05B /* TaskView.swift */,
+				C16FC36C2AD302BD00234C6C /* CalendarView.swift */,
+			);
+			path = task;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -427,13 +470,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C16FC3762AD34A2800234C6C /* catHeadshake.json in Resources */,
 				C11B428B26A3CB120030ED0A /* Preview Assets.xcassets in Resources */,
 				C11B42D626A3CFAC0030ED0A /* Colors.xcassets in Resources */,
 				C11B428826A3CB120030ED0A /* Assets.xcassets in Resources */,
+				C16FC3742AD34A0800234C6C /* catIdle.json in Resources */,
+				C16FC36F2AD3491900234C6C /* catSleeping.json in Resources */,
 				C11B42D826A3CFB80030ED0A /* Launch Screen.storyboard in Resources */,
 				C11B42DD26A3D3FB0030ED0A /* PermanentMarker-Regular.ttf in Resources */,
-				C1425C1029F42A8A0016917A /* sloth.json in Resources */,
 				C11B42D426A3CFA30030ED0A /* GoogleService-Info.plist in Resources */,
+				C16FC3722AD3499900234C6C /* catHeart.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,16 +613,22 @@
 				C1425C1229F4494F0016917A /* LottieView.swift in Sources */,
 				C14F25C329D94FD500F59D64 /* ChatView.swift in Sources */,
 				C11B42CE26A3CF870030ED0A /* AppDelegate.swift in Sources */,
+				C16FC37F2AD4879800234C6C /* TaskCell.swift in Sources */,
 				C11B42BF26A3CF4E0030ED0A /* MainView.swift in Sources */,
 				C14F25C729D9553500F59D64 /* ChatMessage.swift in Sources */,
 				C10D2C372ACC1BD9003DE05B /* TaskRepository.swift in Sources */,
 				C10D2C3A2ACC1E61003DE05B /* Task.swift in Sources */,
 				C11B42C026A3CF4E0030ED0A /* ContentView.swift in Sources */,
 				C116657B27D0BDF600F9E9DE /* NameViewModel.swift in Sources */,
+				C16FC36D2AD302BD00234C6C /* CalendarView.swift in Sources */,
+				C16FC37B2AD44E2400234C6C /* TaskViewModel.swift in Sources */,
+				C16FC3812AD5B2AA00234C6C /* ChatViewModel.swift in Sources */,
+				C16FC37D2AD44E8C00234C6C /* TaskCellViewModel.swift in Sources */,
 				C11B42D026A3CF8C0030ED0A /* ColorManager.swift in Sources */,
 				C11B42CC26A3CF6E0030ED0A /* LoginViewModel.swift in Sources */,
 				C10D2C352ACC1BB4003DE05B /* TaskView.swift in Sources */,
 				C11B42CA26A3CF6E0030ED0A /* RegisterViewModel.swift in Sources */,
+				C16FC3792AD373FE00234C6C /* AddTaskView.swift in Sources */,
 				C14F25C929D9555600F59D64 /* ChatRow.swift in Sources */,
 				C14F25C529D9550A00F59D64 /* ChatBubble.swift in Sources */,
 				C11B42C126A3CF4E0030ED0A /* NameView.swift in Sources */,

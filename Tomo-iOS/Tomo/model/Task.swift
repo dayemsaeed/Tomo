@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 struct Task: Codable, Identifiable {
     @DocumentID var id: String?
     var title: String
-    var startDate: Date
+    var startDate: String
     var completed: Bool
     var completedIcon: String
 }

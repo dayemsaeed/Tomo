@@ -13,68 +13,52 @@ import SpriteKit
 
 struct MainView: View {
     
-    @State private var radius = 300
-    @Binding var view: String
+    @State private var lottieAnimation: String = "catIdle"
+    //@Binding var name: String
     @ObservedObject private var nameViewModel = NameViewModel()
-    let db = Firestore.firestore()
-    let firebaseAuth = Auth.auth()
-    @Binding var name: String
-    //@Binding var speechText: String
-    //let synthesizer = AVSpeechSynthesizer()
-    //let text = "Welcome! Time to get started on those tasks!"
-    
-    init(view: Binding<String>, name: Binding<String>) { /*UITableView.appearance().backgroundColor = .clear
-        UITableViewCell.appearance().backgroundColor = .clear
-        UITableView.appearance().isScrollEnabled = true
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)*/
-        self._name = name;
-        //self._speechText = speechText;
-        self._view = view
-    }
     
     var body: some View {
         VStack {
             Spacer()
-            LottieView(lottieFile: "sloth").frame(width: 200, height: 200)
-            ChatView(view: $view)
+            
+            // Lottie Animation View
+            lottieAnimationView
+            
+            // Chat View
+            ChatView()
+            
             Spacer()
                 .frame(height: 50)
         }
         .padding(.horizontal, 30)
-//        .background(bubble, alignment: .topLeading)
-//        .background(bubble.rotationEffect(Angle(degrees: 180)), alignment: .bottomTrailing)
-        
     }
-
-//    @State private var startAnimation: Bool = false
-
-//    var bubble: some View {
-//
-//        ZStack {
-//
-//            Circle()
-//                .fill(Color(UIColor.systemTeal).opacity(0.4))
-//                .frame(width: 300, height: 300, alignment: .center)
-//                .offset(x: startAnimation ? -110 : -100, y: startAnimation ? -180 : -150)
-//
-//
-//            Circle()
-//                .fill(Color(UIColor.systemTeal).opacity(0.4))
-//                .frame(width: 300, height: 300, alignment: .center)
-//                .offset(x: startAnimation ? -180 : -150, y: startAnimation ? -90 : -100)
-//
-//        }
-//        .onAppear() { startAnimation = true }
-//        .animation(Animation.easeInOut(duration: 3.0).repeatForever(autoreverses: true))
-//
-//    }
+    
+    private var lottieAnimationView: some View {
+        LottieView(
+            lottieFile: lottieAnimation,
+            onAnimationComplete: {
+                if (lottieAnimation != "catIdle" || lottieAnimation != "catSleeping") {
+                    lottieAnimation = "catIdle"
+                }
+            }
+        )
+        .frame(width: 200, height: 200)
+        .onTapGesture {
+            lottieAnimation = "catHeadshake"
+        }
+        .gesture(
+            DragGesture(minimumDistance: 30, coordinateSpace: .local)
+                .onChanged({ value in
+                    lottieAnimation = "catHeart"
+                })
+        )
+    }
 }
 
 #if DEBUG
-struct MainView_Previews : PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(view: .constant("Hi"), name: .constant("Hi"))
+        MainView()
     }
 }
 #endif

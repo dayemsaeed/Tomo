@@ -17,7 +17,6 @@ struct NameView: View {
     @Binding var view: String
     
     let db = Firestore.firestore()
-    //let synthesizer = AVSpeechSynthesizer()
 
     private var canContinue : Bool {
         return !name.isEmpty
@@ -66,14 +65,6 @@ struct NameView: View {
                         print("Document successfully written!")
                     }
                 }
-                /*let seconds = 3.0
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    // Put your code which should be executed with a delay here
-                    let utterance = AVSpeechUtterance(string: "Hi, \(name)! Welcome!")
-                    utterance.voice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)
-                    synthesizer.speak(utterance)
-                    
-                }*/
                 view = "Main"
             }, label: {
                 Text("NEXT")
@@ -88,34 +79,7 @@ struct NameView: View {
             Spacer()
         })
         .padding(.horizontal, 30)
-        /*.background(bubble, alignment: .topLeading)
-        .background(bubble.rotationEffect(Angle(degrees: 180)), alignment: .bottomTrailing)
-        .ignoresSafeArea()*/
     }
-
-
-    /*@State private var startAnimation: Bool = false
-
-    var bubble: some View {
-
-        ZStack {
-
-            Circle()
-                .fill(Color(UIColor.systemTeal).opacity(0.4))
-                .frame(width: 300, height: 300, alignment: .center)
-                .offset(x: startAnimation ? -110 : -100, y: startAnimation ? -180 : -150)
-
-
-            Circle()
-                .fill(Color(UIColor.systemTeal).opacity(0.4))
-                .frame(width: 300, height: 300, alignment: .center)
-                .offset(x: startAnimation ? -180 : -150, y: startAnimation ? -90 : -100)
-
-        }
-        .onAppear() { startAnimation = true }
-        .animation(Animation.easeInOut(duration: 3.0).repeatForever(autoreverses: true))
-
-    }*/
 }
 
 struct NameView_Previews: PreviewProvider {
