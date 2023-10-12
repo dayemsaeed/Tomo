@@ -28,7 +28,7 @@ struct RegisterView: View {
             
             Text("TOMO")
                 .foregroundColor(Color.petSupportText)
-                .font(Font.custom("Permanent Marker", size: 36))
+                .font(.system(size: 36))
 
             InputField(title: "EMAIL", text: $email)
             PasswordField(title: "PASSWORD", text: $password, showPassword: $showPassword)
@@ -61,7 +61,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.white)
-            .font(Font.custom("Permanent Marker", size: 18.0))
+            .font(.system(size: 18))
             .padding(.horizontal, 20)
             .padding()
             .background(Color.petSupportBlue)
@@ -74,7 +74,7 @@ struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .font(Font.custom("Permanent Marker", size: 18.0))
+            .font(.system(size: 18))
             .foregroundColor(Color.petSupportText)
     }
 }
@@ -86,7 +86,7 @@ struct InputField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(Font.custom("Permanent Marker", size: 18))
+                .font(.system(size: 18))
             TextField("", text: $text)
             Divider().foregroundColor(.black)
         }
@@ -101,7 +101,7 @@ struct PasswordField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(Font.custom("Permanent Marker", size: 18))
+                .font(.system(size: 18))
             ZStack(alignment: .trailing) {
                 if showPassword {
                     TextField("", text: $text)

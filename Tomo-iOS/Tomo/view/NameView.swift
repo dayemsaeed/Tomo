@@ -30,18 +30,18 @@ struct NameView: View {
             Group {
                 HStack {
                     Text("HELLO! I'M PAIMON!")
-                        .font(Font.custom("Permanent Marker", size: 32))
+                        .font(.system(size: 32))
                 }
                 HStack {
                     Text("YOUR VIRTUAL SUPPORT ANIMAL!")
-                        .font(Font.custom("Permanent Marker", size: 30))
+                        .font(.system(size: 30))
                 }
             }
 
             Group {
                 HStack {
                     Text("WHAT'S YOUR NAME?")
-                        .font(Font.custom("Permanent Marker", size: 30))
+                        .font(.system(size: 30))
                 }
                 TextField("Name", text: $name) {
                     isEditing in self.isEditing = isEditing
@@ -70,7 +70,7 @@ struct NameView: View {
                 Text("NEXT")
             })
                 .foregroundColor(.white)
-                .font(Font.custom("Permanent Marker", size: 18.0))
+                .font(.system(size: 18))
                 .padding(.horizontal, 20)
                 .padding()
                 .background(Color.petSupportBlue)

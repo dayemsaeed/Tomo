@@ -42,7 +42,7 @@ struct AddTaskView: View {
                 HStack {
                     
                     Text("Title")
-                        .font(Font.custom("Permanent Marker", size: 18))
+                        .font(.system(size: 18))
                         .padding(.top, 10)
                     
                     Spacer()
@@ -65,7 +65,7 @@ struct AddTaskView: View {
             
             DatePicker(selection: $date, in: Date()..., displayedComponents: .date) {
                 Text("Date")
-                    .font(Font.custom("Permanent Marker", size: 18))
+                    .font(.system(size: 18))
             }
             
             Spacer()
@@ -91,7 +91,7 @@ struct AddTaskView: View {
                     Text("Save")
                 })
                 .foregroundColor(.white)
-                .font(Font.custom("Permanent Marker", size: 18.0))
+                .font(.system(size: 18))
                 .padding(.horizontal, 20)
                 .padding()
                 .background(Color.petSupportBlue)
@@ -106,7 +106,7 @@ struct AddTaskView: View {
                     Text("Cancel")
                 })
                 .padding()
-                .font(Font.custom("Permanent Marker", size: 18.0))
+                .font(.system(size: 18))
                 .foregroundColor(Color.petSupportText)
             }
             

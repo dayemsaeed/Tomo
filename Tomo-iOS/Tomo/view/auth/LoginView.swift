@@ -28,7 +28,7 @@ struct LoginView: View {
                 .frame(height: 150)
             
             Text("TOMO").foregroundColor(Color.petSupportText)
-                .font(Font.custom("Permanent Marker", size: 36))
+                .font(.system(size: 36))
                 .padding()
 
             Group {
@@ -36,7 +36,7 @@ struct LoginView: View {
                 HStack {
                     
                     Text("EMAIL")
-                        .font(Font.custom("Permanent Marker", size: 18))
+                        .font(.system(size: 18))
                         .padding(.top, 10)
                     
                     Spacer()
@@ -62,7 +62,7 @@ struct LoginView: View {
                 HStack {
                     
                     Text("PASSWORD")
-                        .font(Font.custom("Permanent Marker", size: 18))
+                        .font(.system(size: 18))
                         .padding(.top, 10)
                     
                     Spacer()
@@ -99,7 +99,7 @@ struct LoginView: View {
                     Text("Login")
                 })
                     .foregroundColor(.white)
-                    .font(Font.custom("Permanent Marker", size: 18.0))
+                    .font(.system(size: 18))
                     .padding(.horizontal, 20)
                     .padding()
                     .background(Color.petSupportBlue)
@@ -110,7 +110,7 @@ struct LoginView: View {
                     Button(action: {}, label: {
                         Text("Register")
                             .padding()
-                            .font(Font.custom("Permanent Marker", size: 18.0))
+                            .font(.system(size: 18))
                             .foregroundColor(Color.petSupportText)
                     })
                 }

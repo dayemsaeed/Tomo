@@ -196,14 +196,6 @@
 			path = chat;
 			sourceTree = "<group>";
 		};
-		C10D2C332ACC1A77003DE05B /* character */ = {
-			isa = PBXGroup;
-			children = (
-				C1425C1129F4494F0016917A /* LottieView.swift */,
-			);
-			path = character;
-			sourceTree = "<group>";
-		};
 		C10D2C382ACC1D30003DE05B /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -610,8 +602,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C11B42BC26A3CF4E0030ED0A /* RegisterView.swift in Sources */,
-				C1425C1229F4494F0016917A /* LottieView.swift in Sources */,
 				C14F25C329D94FD500F59D64 /* ChatView.swift in Sources */,
+				C16FC3882AD77AD400234C6C /* LottieView.swift in Sources */,
 				C11B42CE26A3CF870030ED0A /* AppDelegate.swift in Sources */,
 				C16FC37F2AD4879800234C6C /* TaskCell.swift in Sources */,
 				C11B42BF26A3CF4E0030ED0A /* MainView.swift in Sources */,

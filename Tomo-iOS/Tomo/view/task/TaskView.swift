@@ -65,7 +65,6 @@ struct TaskView: View {
             }) {
                 Text("<")
                     .font(.system(size: 48))
-                    .font(Font.custom("Permanent Marker", size: 48))
                     .foregroundColor(.white)
                     .padding(.top, -10)
             }
@@ -77,7 +76,7 @@ struct TaskView: View {
             Spacer()
             NavigationLink(destination: AddTaskView()) {
                 Text("+")
-                    .font(Font.custom("Permanent Marker", size: 48))
+                    .font(.system(size: 48))
                     .foregroundColor(.white)
                     .padding(.top, -10)
             }
