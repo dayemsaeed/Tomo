@@ -51,6 +51,8 @@ struct ChatView: View {
             
             NavigationLink(destination: TaskView(), isActive: $navigateToTasks) { EmptyView() }.navigationBarBackButtonHidden(true)
             
+            Spacer()
+            
             HStack(alignment: .center, spacing: 10) {
                 TextField("Message", text: $messageText)
                     .multilineTextAlignment(.leading)

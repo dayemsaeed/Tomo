@@ -84,9 +84,9 @@ struct AddTaskView: View {
                         } else {
                             print("Document successfully written!")
                             text = "Great job! You just added a task!"
-                            navigateToMain = true
                         }
                     }
+                    self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Text("Save")
                 })
@@ -97,8 +97,6 @@ struct AddTaskView: View {
                 .background(Color.petSupportBlue)
                 .cornerRadius(70.0)
                 .disabled(!canSave)
-                
-                NavigationLink("", destination: MainView(), isActive: $navigateToMain).hidden().navigationBarBackButtonHidden(true)
                 
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
