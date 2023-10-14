@@ -26,13 +26,23 @@ struct CalendarView: View {
     
     var body: some View {
         VStack {
+            Text(month)
+                .font(.title2)
+                .padding(.bottom, 10)
+
             dayNamesView
                 .padding(.bottom, 10)
             
             datesView
                 .offset(x: xOffset)
-                .gesture(calendarDragGesture)
+                .highPriorityGesture(calendarDragGesture)
         }
+    }
+    
+    private var month: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: selectedDate)
     }
     
     private var dayNamesView: some View {
@@ -49,12 +59,23 @@ struct CalendarView: View {
     private var datesView: some View {
         HStack {
             ForEach(0..<7) { index in
-                Text(date(for: index))
-                    .frame(width: 32, height: 32)
-                    .background(Color.blue.opacity(date(for: index) == currentDate() ? 0.3 : 0))
-                    .cornerRadius(8)
+                let dateForIndex = Calendar.current.date(byAdding: .day, value: index, to: startOfWeek(from: selectedDate))!
+                Button(action: {
+                    selectedDate = dateForIndex
+                }) {
+                    Text(date(for: index))
+                        .frame(width: 32, height: 32)
+                        .background(Color.blue.opacity(isDateSelected(dateForIndex) ? 0.3 : 0))
+                        .foregroundColor(isDateSelected(dateForIndex) ? .blue : .gray)
+                        .cornerRadius(8)
+                }
             }
         }
+    }
+    
+    private func isDateSelected(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        return calendar.isDate(selectedDate, equalTo: date, toGranularity: .day)
     }
     
     private var calendarDragGesture: some Gesture {

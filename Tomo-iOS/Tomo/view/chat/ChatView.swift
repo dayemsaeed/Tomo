@@ -25,6 +25,9 @@ struct ChatView: View {
     @State private var messages: [ChatMessage] = []
     @FocusState private var chatIsFocused: Bool
     @State private var navigateToTasks: Bool = false
+    @State private var messageHistory: [[String: Any]] = [
+        ["role": "system", "content": "You are a funny, helpful friend who is caring, emphathetic, and gentle. You speak like a person using a conversational tone and give no indication that you are a bot. You like eating pizza, playing with me, yarn, and scratching the carpet. You're very energetic and fun. You are meant to be a pet that provides a listening ear and support so you need sleep, food, and everything that a pet would need as well. Please stay true to this role while also answering all my queries to the best of your knowledge and do not be too explicit about how you're always providing a listening ear, be subtle."]
+    ]
     
     var body: some View {
         VStack {
@@ -81,13 +84,38 @@ struct ChatView: View {
         }
     }
     
-    private func sendMessage() {
+    /*private func sendMessage() {
         messageText = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
         if !messageText.isEmpty {
             let newMessage = ChatMessage(text: messageText, isSender: true)
             messages.append(newMessage)
             messageText = ""
             chatIsFocused = false
+        }
+    }*/
+    private func sendMessage() {
+        messageText = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !messageText.isEmpty {
+            let userMessage: [String: Any] = ["role": "user", "content": messageText]
+            messageHistory.append(userMessage)
+            let newMessage = ChatMessage(text: messageText, isSender: true)
+            messages.append(newMessage)
+            getReply()
+            messageText = ""
+            chatIsFocused = false
+        }
+    }
+    
+    private func getReply() {
+        generateText(messages: messageHistory) { (responseText) in
+            guard let responseText = responseText else {
+                // Handle error
+                return
+            }
+            let responseMessage: [String: Any] = ["role": "assistant", "content": responseText]
+            messageHistory.append(responseMessage)
+            let newMessage = ChatMessage(text: responseText, isSender: false)
+            messages.append(newMessage)
         }
     }
 }

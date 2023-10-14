@@ -50,6 +50,8 @@
 		C16FC37F2AD4879800234C6C /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC37E2AD4879800234C6C /* TaskCell.swift */; };
 		C16FC3812AD5B2AA00234C6C /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC3802AD5B2AA00234C6C /* ChatViewModel.swift */; };
 		C16FC38E2AD82F6C00234C6C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC38D2AD82F6C00234C6C /* LottieView.swift */; };
+		C16FC3912AD871D400234C6C /* GPTResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC3902AD871D400234C6C /* GPTResponse.swift */; };
+		C16FC3932AD87F7600234C6C /* TypingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC3922AD87F7600234C6C /* TypingIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,8 @@
 		C16FC37E2AD4879800234C6C /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		C16FC3802AD5B2AA00234C6C /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		C16FC38D2AD82F6C00234C6C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		C16FC3902AD871D400234C6C /* GPTResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTResponse.swift; sourceTree = "<group>"; };
+		C16FC3922AD87F7600234C6C /* TypingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicator.swift; sourceTree = "<group>"; };
 		C3185BBDFC2C24790C4B8432 /* Pods-TomoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoTests.debug.xcconfig"; path = "Target Support Files/Pods-TomoTests/Pods-TomoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D857DFB544CEFC8D5348C61F /* Pods-Tomo-TomoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo-TomoUITests.release.xcconfig"; path = "Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DE7F699CBFE42088237A61F8 /* Pods_TomoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TomoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +196,7 @@
 				C14F25C429D9550A00F59D64 /* ChatBubble.swift */,
 				C14F25C629D9553500F59D64 /* ChatMessage.swift */,
 				C14F25C829D9555600F59D64 /* ChatRow.swift */,
+				C16FC3922AD87F7600234C6C /* TypingIndicator.swift */,
 			);
 			path = chat;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 		C11B428226A3CB0F0030ED0A /* Tomo */ = {
 			isa = PBXGroup;
 			children = (
+				C16FC38F2AD871A400234C6C /* utils */,
 				C10D2C382ACC1D30003DE05B /* model */,
 				C11B42D926A3D3B60030ED0A /* resources */,
 				C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */,
@@ -353,6 +359,14 @@
 				C16FC38D2AD82F6C00234C6C /* LottieView.swift */,
 			);
 			path = character;
+			sourceTree = "<group>";
+		};
+		C16FC38F2AD871A400234C6C /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				C16FC3902AD871D400234C6C /* GPTResponse.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -618,12 +632,14 @@
 				C14F25C729D9553500F59D64 /* ChatMessage.swift in Sources */,
 				C10D2C372ACC1BD9003DE05B /* TaskRepository.swift in Sources */,
 				C10D2C3A2ACC1E61003DE05B /* Task.swift in Sources */,
+				C16FC3932AD87F7600234C6C /* TypingIndicator.swift in Sources */,
 				C11B42C026A3CF4E0030ED0A /* ContentView.swift in Sources */,
 				C116657B27D0BDF600F9E9DE /* NameViewModel.swift in Sources */,
 				C16FC36D2AD302BD00234C6C /* CalendarView.swift in Sources */,
 				C16FC37B2AD44E2400234C6C /* TaskViewModel.swift in Sources */,
 				C16FC3812AD5B2AA00234C6C /* ChatViewModel.swift in Sources */,
 				C16FC37D2AD44E8C00234C6C /* TaskCellViewModel.swift in Sources */,
+				C16FC3912AD871D400234C6C /* GPTResponse.swift in Sources */,
 				C11B42D026A3CF8C0030ED0A /* ColorManager.swift in Sources */,
 				C11B42CC26A3CF6E0030ED0A /* LoginViewModel.swift in Sources */,
 				C10D2C352ACC1BB4003DE05B /* TaskView.swift in Sources */,
