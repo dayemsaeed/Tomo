@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.lumen.tomo.ui.views
+package com.lumen.tomo
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.firebase.FirebaseApp
 import com.lumen.tomo.ui.theme.TomoTheme
+import com.lumen.tomo.ui.views.ChatView
+import com.lumen.tomo.ui.views.LoginFragment
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Login()
+                    ChatView()
                 }
             }
         }
@@ -42,7 +44,7 @@ fun MainPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Login()
+            LoginFragment()
         }
     }
 }
@@ -55,7 +57,7 @@ fun MainDarkPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Login()
+            LoginFragment()
         }
     }
 }

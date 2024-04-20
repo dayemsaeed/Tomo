@@ -26,17 +26,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lumen.tomo.R
-import com.lumen.tomo.ui.animatedcomponents.Bubble
 import com.lumen.tomo.ui.theme.TomoTheme
 
 @Composable
-fun Login(modifier: Modifier = Modifier) {
+fun LoginFragment(modifier: Modifier = Modifier) {
     var username by remember { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var startAnimation by remember { mutableStateOf(false) }
@@ -47,12 +45,6 @@ fun Login(modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .padding(30.dp)
         ) {
-            // Bubble
-            Bubble(
-                startAnimation = startAnimation,
-                position1 = Offset(-110f, -180f),
-                position2 = Offset(-180f, -90f)
-            )
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -102,7 +94,7 @@ fun Login(modifier: Modifier = Modifier) {
 @Composable
 fun LoginPreview() {
     TomoTheme {
-        Login()
+        LoginFragment()
     }
 }
 
@@ -110,6 +102,6 @@ fun LoginPreview() {
 @Composable
 fun LoginDarkPreview() {
     TomoTheme {
-        Login()
+        LoginFragment()
     }
 }

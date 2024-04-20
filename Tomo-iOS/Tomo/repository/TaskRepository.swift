@@ -28,7 +28,7 @@ class TaskRepository : ObservableObject {
     
     func loadTodaysTasks() {
         let todaysDate = dateToStringFormatter.string(from: Date())
-        print(todaysDate)
+        print("LoadTodaysTasks (TaskRepository): " + todaysDate)
         userTasksCollection
             .whereField("startDate", isEqualTo: todaysDate)
             .addSnapshotListener { querySnapshot, error in
