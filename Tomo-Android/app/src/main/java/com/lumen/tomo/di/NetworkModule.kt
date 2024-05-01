@@ -1,10 +1,10 @@
 package com.lumen.tomo.di
 
 import com.google.firebase.auth.FirebaseAuth
+import com.lumen.tomo.BuildConfig
 import com.lumen.tomo.model.repository.AuthRepository
 import com.lumen.tomo.model.repository.AuthRepositoryImpl
 import com.lumen.tomo.model.service.ChatService
-import com.lumen.tomo.utils.SUPABASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,7 +45,7 @@ object NetworkModule {
     @Named("LLMApi")
     fun provideLLMRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(SUPABASE_URL)
+            .baseUrl(BuildConfig.SUPABASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

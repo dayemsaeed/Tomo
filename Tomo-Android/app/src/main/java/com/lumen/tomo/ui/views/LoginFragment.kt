@@ -30,11 +30,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.lumen.tomo.R
 import com.lumen.tomo.ui.theme.TomoTheme
 
 @Composable
-fun LoginFragment(modifier: Modifier = Modifier) {
+fun LoginFragment(navController: NavController, modifier: Modifier = Modifier) {
     var username by remember { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var startAnimation by remember { mutableStateOf(false) }
@@ -94,7 +96,7 @@ fun LoginFragment(modifier: Modifier = Modifier) {
 @Composable
 fun LoginPreview() {
     TomoTheme {
-        LoginFragment()
+        LoginFragment(rememberNavController())
     }
 }
 
@@ -102,6 +104,6 @@ fun LoginPreview() {
 @Composable
 fun LoginDarkPreview() {
     TomoTheme {
-        LoginFragment()
+        LoginFragment(rememberNavController())
     }
 }

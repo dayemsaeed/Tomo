@@ -11,13 +11,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.lumen.tomo.R
-import com.lumen.tomo.ui.util.LoopingLottieAnimation
+import com.lumen.tomo.ui.util.InteractiveLottieAnimation
 
 @Composable
 fun NameFragment(modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("") }
     Column {
-        LoopingLottieAnimation(lottieRes = R.raw.cat_idle)
+        InteractiveLottieAnimation(initialAnimation = R.raw.cat_idle, tapAnimation = R.raw.cat_headshake)
         Text(text = "What's your name?")
         TextField(value = "", onValueChange = {
             name = it

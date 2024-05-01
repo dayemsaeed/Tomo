@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,6 +24,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String", "SUPABASE_KEY", "\"${properties.getProperty("SUPABASE_KEY")}\"")
+        buildConfigField("String", "BOT_URI", "\"${properties.getProperty("BOT_URI")}\"")
+        buildConfigField("String", "SUPABASE_URL", "\"${properties.getProperty("SUPABASE_URL")}\"")
     }
 
     buildTypes {
@@ -43,6 +50,7 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
@@ -63,6 +71,7 @@ val hiltVersion = "2.51.1"
 val retrofitVersion = "2.9.0"
 val coreKtxVersion = "1.13.0"
 val lifecycleVersion = "2.7.0"
+val navigationVersion = "2.7.7"
 val activityComposeVersion = "1.9.0"
 val composeBomVersion = "2024.04.01"
 val appCompatVersion = "1.6.1"
@@ -72,6 +81,8 @@ val constraintLayoutVersion = "2.1.4"
 val junitVersion = "4.13.2"
 val androidxTestVersion = "1.1.5"
 val espressoCoreVersion = "3.5.1"
+val constraintLayoutComposeVersion = "1.0.1"
+val hiltNavigationVersion = "1.2.0"
 
 dependencies {
     // Firebase
@@ -86,6 +97,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.constraintlayout:constraintlayout-compose:$constraintLayoutComposeVersion")
+    implementation("androidx.navigation:navigation-compose:$navigationVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
@@ -93,6 +106,8 @@ dependencies {
     // Hilt - Dependency Injection
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation("androidx.hilt:hilt-navigation-fragment:$hiltNavigationVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
@@ -110,9 +125,13 @@ dependencies {
     // Supabase
     implementation(platform("io.github.jan-tennert.supabase:bom:$supabaseVersion"))
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
+    implementation("io.github.jan-tennert.supabase:storage-kt")
     implementation("io.github.jan-tennert.supabase:compose-auth")
     implementation("io.github.jan-tennert.supabase:compose-auth-ui")
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:$supabaseVersion")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-utils:$ktorVersion")
 
     // UI & Material Design
     implementation("androidx.appcompat:appcompat:$appCompatVersion")

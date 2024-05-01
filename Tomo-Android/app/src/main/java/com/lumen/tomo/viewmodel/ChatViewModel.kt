@@ -42,4 +42,12 @@ class ChatViewModel @Inject constructor(
             }
         }
     }
+
+    fun getNumberOfMessagesInConversation(): Int {
+        return _messages.value.size
+    }
+
+    fun getMessageAtIndex(index: Int): ChatMessage {
+        return _messages.value[index]
+    }
 }
