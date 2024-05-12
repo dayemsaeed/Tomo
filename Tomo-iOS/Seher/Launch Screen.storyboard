@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-BoldItalic.ttf">
+            <string>Poppins-BoldItalic</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tew-nB-Zbl"/>
+                        <viewControllerLayoutGuide type="bottom" id="CzL-Ph-Y8S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEHER" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
+                                <rect key="frame" x="0.0" y="572" width="414" height="51.666666666666629"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51.666666666666629" id="FFj-zP-goG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-BoldItalic" family="Poppins" pointSize="35"/>
+                                <color key="textColor" name="Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UIBubble" translatesAutoresizingMaskIntoConstraints="NO" id="W25-7Q-uRY">
+                                <rect key="frame" x="0.0" y="0.0" width="217" height="184"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="217" id="GYy-oe-n2H"/>
+                                    <constraint firstAttribute="height" constant="184" id="f0Y-SP-TFi"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Kf7-Kv-qbN">
+                                <rect key="frame" x="69" y="332" width="276" height="232"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UIBubbleFlip" translatesAutoresizingMaskIntoConstraints="NO" id="wFW-Wz-0SR">
+                                <rect key="frame" x="197" y="712" width="217" height="184"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="217" id="nSz-MM-lyH"/>
+                                    <constraint firstAttribute="height" constant="184" id="vhW-Aw-fi7"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="W25-7Q-uRY" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="G0x-KA-dLi"/>
+                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="top" secondItem="Kf7-Kv-qbN" secondAttribute="bottom" constant="8" symbolic="YES" id="MtI-Bi-U7N"/>
+                            <constraint firstItem="W25-7Q-uRY" firstAttribute="leading" secondItem="GJd-Yh-RWb" secondAttribute="leading" id="QAJ-8I-Own"/>
+                            <constraint firstItem="Kf7-Kv-qbN" firstAttribute="centerX" secondItem="GJd-Yh-RWb" secondAttribute="centerX" id="Ymh-So-k6U"/>
+                            <constraint firstItem="W25-7Q-uRY" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="hRs-hX-fso"/>
+                            <constraint firstItem="Kf7-Kv-qbN" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="huE-xe-W3g"/>
+                            <constraint firstAttribute="bottom" secondItem="wFW-Wz-0SR" secondAttribute="bottom" id="iGX-H1-S61"/>
+                            <constraint firstItem="Kf7-Kv-qbN" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="49" id="uNq-VK-2jR"/>
+                            <constraint firstAttribute="trailing" secondItem="GJd-Yh-RWb" secondAttribute="trailing" id="upa-q0-bn0"/>
+                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="trailing" secondItem="wFW-Wz-0SR" secondAttribute="trailing" id="vXh-2a-3ly"/>
+                            <constraint firstItem="wFW-Wz-0SR" firstAttribute="top" secondItem="GJd-Yh-RWb" secondAttribute="bottom" constant="88.333333333333371" id="zF1-SG-mgo"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="SplashLogo" width="782.14520263671875" height="522.41796875"/>
+        <image name="UIBubble" width="72.333335876464844" height="61.333332061767578"/>
+        <image name="UIBubbleFlip" width="72.333335876464844" height="61.333332061767578"/>
+        <namedColor name="Color">
+            <color red="0.57700002193450928" green="0.92100000381469727" blue="0.99199998378753662" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

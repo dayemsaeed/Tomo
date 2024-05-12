@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "petsupportbubble.png",
+      "filename" : "bubble top left.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "petsupportbubble-1.png",
+      "filename" : "bubble top left 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "petsupportbubble-2.png",
+      "filename" : "bubble top left 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

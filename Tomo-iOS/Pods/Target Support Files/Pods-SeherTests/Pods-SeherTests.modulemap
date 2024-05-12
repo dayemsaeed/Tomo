@@ -1,0 +1,6 @@
+framework module Pods_SeherTests {
+  umbrella header "Pods-SeherTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

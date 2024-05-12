@@ -7,13 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		476C4B10AC6E6EB3E8322C70 /* Pods_TomoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE7F699CBFE42088237A61F8 /* Pods_TomoTests.framework */; };
-		6A6C7437401099DC880E03C6 /* Pods_Tomo_TomoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030DCD6F6F07FCFA8C674DF8 /* Pods_Tomo_TomoUITests.framework */; };
-		6F21E5CB7B851F5C0DE18919 /* Pods_Tomo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B680B457C33864880F48FD7 /* Pods_Tomo.framework */; };
+		4B5A2CFE4FFB80011E7DC52A /* Pods_SeherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD42BBA46A0E162ADDE4A34 /* Pods_SeherTests.framework */; };
+		4F1B358F5A1DB0FF676ACA8A /* Pods_Seher_SeherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54ED0E8F1DF22F462F9A5964 /* Pods_Seher_SeherUITests.framework */; };
 		C10D2C352ACC1BB4003DE05B /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10D2C342ACC1BB4003DE05B /* TaskView.swift */; };
 		C10D2C372ACC1BD9003DE05B /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10D2C362ACC1BD9003DE05B /* TaskRepository.swift */; };
 		C10D2C3A2ACC1E61003DE05B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10D2C392ACC1E61003DE05B /* Task.swift */; };
 		C116657B27D0BDF600F9E9DE /* NameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116657A27D0BDF600F9E9DE /* NameViewModel.swift */; };
+		C11A938F2BEDF1FA00D1CD54 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A938D2BEDEF6300D1CD54 /* Poppins-Black.ttf */; };
+		C11A93902BEDF20500D1CD54 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93892BEDEF6200D1CD54 /* Poppins-BlackItalic.ttf */; };
+		C11A93912BEDF20700D1CD54 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93882BEDEF6200D1CD54 /* Poppins-Bold.ttf */; };
+		C11A93922BEDF20A00D1CD54 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A937F2BEDEF6100D1CD54 /* Poppins-BoldItalic.ttf */; };
+		C11A93932BEDF20C00D1CD54 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93812BEDEF6100D1CD54 /* Poppins-ExtraBold.ttf */; };
+		C11A93942BEDF20F00D1CD54 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93852BEDEF6200D1CD54 /* Poppins-ExtraBoldItalic.ttf */; };
+		C11A93952BEDF21200D1CD54 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A938C2BEDEF6200D1CD54 /* Poppins-ExtraLight.ttf */; };
+		C11A93962BEDF21500D1CD54 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93822BEDEF6200D1CD54 /* Poppins-ExtraLightItalic.ttf */; };
+		C11A93972BEDF21800D1CD54 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93802BEDEF6100D1CD54 /* Poppins-Italic.ttf */; };
+		C11A93982BEDF21B00D1CD54 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A937E2BEDEF6100D1CD54 /* Poppins-Light.ttf */; };
+		C11A93992BEDF21E00D1CD54 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A938A2BEDEF6200D1CD54 /* Poppins-LightItalic.ttf */; };
+		C11A939A2BEDF22100D1CD54 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93842BEDEF6200D1CD54 /* Poppins-Medium.ttf */; };
+		C11A939B2BEDF22500D1CD54 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A938E2BEDEF6300D1CD54 /* Poppins-MediumItalic.ttf */; };
+		C11A939C2BEDF22900D1CD54 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93862BEDEF6200D1CD54 /* Poppins-Regular.ttf */; };
+		C11A939D2BEDF22C00D1CD54 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93832BEDEF6200D1CD54 /* Poppins-SemiBold.ttf */; };
+		C11A939E2BEDF22F00D1CD54 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A93872BEDEF6200D1CD54 /* Poppins-SemiBoldItalic.ttf */; };
+		C11A939F2BEDF23200D1CD54 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A938B2BEDEF6200D1CD54 /* Poppins-Thin.ttf */; };
+		C11A93A02BEDF23500D1CD54 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A937D2BEDEF6100D1CD54 /* Poppins-ThinItalic.ttf */; };
 		C11B428826A3CB120030ED0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428726A3CB120030ED0A /* Assets.xcassets */; };
 		C11B428B26A3CB120030ED0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428A26A3CB120030ED0A /* Preview Assets.xcassets */; };
 		C11B429626A3CB120030ED0A /* TomoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B429526A3CB120030ED0A /* TomoTests.swift */; };
@@ -32,7 +49,6 @@
 		C11B42D626A3CFAC0030ED0A /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B42D526A3CFAC0030ED0A /* Colors.xcassets */; };
 		C11B42D826A3CFB80030ED0A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */; };
 		C126809B2BB5E3DD0025F5F4 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C126809A2BB5E3DD0025F5F4 /* ChatService.swift */; };
-		C12AD8782BDE4F0A00609059 /* Poppins in Resources */ = {isa = PBXBuildFile; fileRef = C12AD8772BDE4F0A00609059 /* Poppins */; };
 		C1425C0E29F426730016917A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C1425C0D29F426730016917A /* Lottie */; };
 		C14F25C329D94FD500F59D64 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F25C229D94FD500F59D64 /* ChatView.swift */; };
 		C14F25C529D9550A00F59D64 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14F25C429D9550A00F59D64 /* ChatBubble.swift */; };
@@ -50,6 +66,7 @@
 		C16FC3812AD5B2AA00234C6C /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC3802AD5B2AA00234C6C /* ChatViewModel.swift */; };
 		C16FC38E2AD82F6C00234C6C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC38D2AD82F6C00234C6C /* LottieView.swift */; };
 		C16FC3932AD87F7600234C6C /* TypingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FC3922AD87F7600234C6C /* TypingIndicator.swift */; };
+		D2424DA6F00A9B9CD8AAB275 /* Pods_Seher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FF4F41D1F98ACB472C6FEC /* Pods_Seher.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,16 +87,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		030DCD6F6F07FCFA8C674DF8 /* Pods_Tomo_TomoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tomo_TomoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AEA8B603EA9BBC8F4927F48 /* Pods-Tomo-TomoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo-TomoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		3B680B457C33864880F48FD7 /* Pods_Tomo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tomo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		323C72F84E8DD3A8C4A14847 /* Pods-Seher-SeherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seher-SeherUITests.debug.xcconfig"; path = "Target Support Files/Pods-Seher-SeherUITests/Pods-Seher-SeherUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4C75655B42EEC0C0603B4944 /* Pods-Seher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seher.release.xcconfig"; path = "Target Support Files/Pods-Seher/Pods-Seher.release.xcconfig"; sourceTree = "<group>"; };
+		54ED0E8F1DF22F462F9A5964 /* Pods_Seher_SeherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seher_SeherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8463060C7050FE4687F1CBD1 /* Pods-Seher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seher.debug.xcconfig"; path = "Target Support Files/Pods-Seher/Pods-Seher.debug.xcconfig"; sourceTree = "<group>"; };
 		85E3B58304C84E2BF271890B /* Pods-Tomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo.release.xcconfig"; path = "Target Support Files/Pods-Tomo/Pods-Tomo.release.xcconfig"; sourceTree = "<group>"; };
+		A0FF4F41D1F98ACB472C6FEC /* Pods_Seher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7F7D00D5D003436C3622CFE /* Pods-SeherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeherTests.release.xcconfig"; path = "Target Support Files/Pods-SeherTests/Pods-SeherTests.release.xcconfig"; sourceTree = "<group>"; };
+		AEB880F7F9C7FB4B21D42F09 /* Pods-SeherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeherTests.debug.xcconfig"; path = "Target Support Files/Pods-SeherTests/Pods-SeherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B46C8349571D93AED69042B6 /* Pods-Tomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo.debug.xcconfig"; path = "Target Support Files/Pods-Tomo/Pods-Tomo.debug.xcconfig"; sourceTree = "<group>"; };
 		BA845226984D0BAC1D346D81 /* Pods-TomoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoTests.release.xcconfig"; path = "Target Support Files/Pods-TomoTests/Pods-TomoTests.release.xcconfig"; sourceTree = "<group>"; };
+		BCFF6384EC966766C9F54B73 /* Pods-Seher-SeherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seher-SeherUITests.release.xcconfig"; path = "Target Support Files/Pods-Seher-SeherUITests/Pods-Seher-SeherUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C10D2C342ACC1BB4003DE05B /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		C10D2C362ACC1BD9003DE05B /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 		C10D2C392ACC1E61003DE05B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C116657A27D0BDF600F9E9DE /* NameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewModel.swift; sourceTree = "<group>"; };
+		C11A937D2BEDEF6100D1CD54 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		C11A937E2BEDEF6100D1CD54 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		C11A937F2BEDEF6100D1CD54 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		C11A93802BEDEF6100D1CD54 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		C11A93812BEDEF6100D1CD54 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C11A93822BEDEF6200D1CD54 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		C11A93832BEDEF6200D1CD54 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		C11A93842BEDEF6200D1CD54 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		C11A93852BEDEF6200D1CD54 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		C11A93862BEDEF6200D1CD54 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		C11A93872BEDEF6200D1CD54 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		C11A93882BEDEF6200D1CD54 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		C11A93892BEDEF6200D1CD54 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		C11A938A2BEDEF6200D1CD54 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		C11A938B2BEDEF6200D1CD54 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		C11A938C2BEDEF6200D1CD54 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C11A938D2BEDEF6300D1CD54 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
+		C11A938E2BEDEF6300D1CD54 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
 		C11B428026A3CB0F0030ED0A /* Seher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C11B428726A3CB120030ED0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C11B428A26A3CB120030ED0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -104,7 +145,6 @@
 		C11B42D526A3CFAC0030ED0A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		C126809A2BB5E3DD0025F5F4 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
-		C12AD8772BDE4F0A00609059 /* Poppins */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Poppins; sourceTree = "<group>"; };
 		C14F25C229D94FD500F59D64 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		C14F25C429D9550A00F59D64 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		C14F25C629D9553500F59D64 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
@@ -123,7 +163,7 @@
 		C16FC3922AD87F7600234C6C /* TypingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicator.swift; sourceTree = "<group>"; };
 		C3185BBDFC2C24790C4B8432 /* Pods-TomoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TomoTests.debug.xcconfig"; path = "Target Support Files/Pods-TomoTests/Pods-TomoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D857DFB544CEFC8D5348C61F /* Pods-Tomo-TomoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tomo-TomoUITests.release.xcconfig"; path = "Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests.release.xcconfig"; sourceTree = "<group>"; };
-		DE7F699CBFE42088237A61F8 /* Pods_TomoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TomoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFD42BBA46A0E162ADDE4A34 /* Pods_SeherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1425C0E29F426730016917A /* Lottie in Frameworks */,
-				6F21E5CB7B851F5C0DE18919 /* Pods_Tomo.framework in Frameworks */,
+				D2424DA6F00A9B9CD8AAB275 /* Pods_Seher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				476C4B10AC6E6EB3E8322C70 /* Pods_TomoTests.framework in Frameworks */,
+				4B5A2CFE4FFB80011E7DC52A /* Pods_SeherTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A6C7437401099DC880E03C6 /* Pods_Tomo_TomoUITests.framework in Frameworks */,
+				4F1B358F5A1DB0FF676ACA8A /* Pods_Seher_SeherUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +204,12 @@
 				D857DFB544CEFC8D5348C61F /* Pods-Tomo-TomoUITests.release.xcconfig */,
 				C3185BBDFC2C24790C4B8432 /* Pods-TomoTests.debug.xcconfig */,
 				BA845226984D0BAC1D346D81 /* Pods-TomoTests.release.xcconfig */,
+				8463060C7050FE4687F1CBD1 /* Pods-Seher.debug.xcconfig */,
+				4C75655B42EEC0C0603B4944 /* Pods-Seher.release.xcconfig */,
+				323C72F84E8DD3A8C4A14847 /* Pods-Seher-SeherUITests.debug.xcconfig */,
+				BCFF6384EC966766C9F54B73 /* Pods-Seher-SeherUITests.release.xcconfig */,
+				AEB880F7F9C7FB4B21D42F09 /* Pods-SeherTests.debug.xcconfig */,
+				A7F7D00D5D003436C3622CFE /* Pods-SeherTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -171,9 +217,9 @@
 		BA2725466CE71BA574C08800 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B680B457C33864880F48FD7 /* Pods_Tomo.framework */,
-				030DCD6F6F07FCFA8C674DF8 /* Pods_Tomo_TomoUITests.framework */,
-				DE7F699CBFE42088237A61F8 /* Pods_TomoTests.framework */,
+				A0FF4F41D1F98ACB472C6FEC /* Pods_Seher.framework */,
+				54ED0E8F1DF22F462F9A5964 /* Pods_Seher_SeherUITests.framework */,
+				EFD42BBA46A0E162ADDE4A34 /* Pods_SeherTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -316,17 +362,34 @@
 			isa = PBXGroup;
 			children = (
 				C16FC3702AD3491F00234C6C /* animation */,
-				C11B42DA26A3D3C40030ED0A /* Fonts */,
+				C11B42DA26A3D3C40030ED0A /* fonts */,
 			);
 			path = resources;
 			sourceTree = "<group>";
 		};
-		C11B42DA26A3D3C40030ED0A /* Fonts */ = {
+		C11B42DA26A3D3C40030ED0A /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C12AD8772BDE4F0A00609059 /* Poppins */,
+				C11A938D2BEDEF6300D1CD54 /* Poppins-Black.ttf */,
+				C11A93892BEDEF6200D1CD54 /* Poppins-BlackItalic.ttf */,
+				C11A93882BEDEF6200D1CD54 /* Poppins-Bold.ttf */,
+				C11A937F2BEDEF6100D1CD54 /* Poppins-BoldItalic.ttf */,
+				C11A93812BEDEF6100D1CD54 /* Poppins-ExtraBold.ttf */,
+				C11A93852BEDEF6200D1CD54 /* Poppins-ExtraBoldItalic.ttf */,
+				C11A938C2BEDEF6200D1CD54 /* Poppins-ExtraLight.ttf */,
+				C11A93822BEDEF6200D1CD54 /* Poppins-ExtraLightItalic.ttf */,
+				C11A93802BEDEF6100D1CD54 /* Poppins-Italic.ttf */,
+				C11A937E2BEDEF6100D1CD54 /* Poppins-Light.ttf */,
+				C11A938A2BEDEF6200D1CD54 /* Poppins-LightItalic.ttf */,
+				C11A93842BEDEF6200D1CD54 /* Poppins-Medium.ttf */,
+				C11A938E2BEDEF6300D1CD54 /* Poppins-MediumItalic.ttf */,
+				C11A93862BEDEF6200D1CD54 /* Poppins-Regular.ttf */,
+				C11A93832BEDEF6200D1CD54 /* Poppins-SemiBold.ttf */,
+				C11A93872BEDEF6200D1CD54 /* Poppins-SemiBoldItalic.ttf */,
+				C11A938B2BEDEF6200D1CD54 /* Poppins-Thin.ttf */,
+				C11A937D2BEDEF6100D1CD54 /* Poppins-ThinItalic.ttf */,
 			);
-			path = Fonts;
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		C12680992BB5E3C80025F5F4 /* service */ = {
@@ -437,8 +500,9 @@
 		C11B427826A3CB0F0030ED0A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					C11B427F26A3CB0F0030ED0A = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -483,15 +547,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				C16FC3762AD34A2800234C6C /* catHeadshake.json in Resources */,
+				C11A939B2BEDF22500D1CD54 /* Poppins-MediumItalic.ttf in Resources */,
 				C11B428B26A3CB120030ED0A /* Preview Assets.xcassets in Resources */,
+				C11A939F2BEDF23200D1CD54 /* Poppins-Thin.ttf in Resources */,
+				C11A93922BEDF20A00D1CD54 /* Poppins-BoldItalic.ttf in Resources */,
 				C11B42D626A3CFAC0030ED0A /* Colors.xcassets in Resources */,
+				C11A93962BEDF21500D1CD54 /* Poppins-ExtraLightItalic.ttf in Resources */,
+				C11A93952BEDF21200D1CD54 /* Poppins-ExtraLight.ttf in Resources */,
 				C11B428826A3CB120030ED0A /* Assets.xcassets in Resources */,
+				C11A938F2BEDF1FA00D1CD54 /* Poppins-Black.ttf in Resources */,
 				C16FC3742AD34A0800234C6C /* catIdle.json in Resources */,
 				C16FC36F2AD3491900234C6C /* catSleeping.json in Resources */,
-				C12AD8782BDE4F0A00609059 /* Poppins in Resources */,
+				C11A93982BEDF21B00D1CD54 /* Poppins-Light.ttf in Resources */,
+				C11A93992BEDF21E00D1CD54 /* Poppins-LightItalic.ttf in Resources */,
+				C11A93912BEDF20700D1CD54 /* Poppins-Bold.ttf in Resources */,
+				C11A93942BEDF20F00D1CD54 /* Poppins-ExtraBoldItalic.ttf in Resources */,
+				C11A939E2BEDF22F00D1CD54 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				C11A93972BEDF21800D1CD54 /* Poppins-Italic.ttf in Resources */,
+				C11A939A2BEDF22100D1CD54 /* Poppins-Medium.ttf in Resources */,
 				C11B42D826A3CFB80030ED0A /* Launch Screen.storyboard in Resources */,
+				C11A93932BEDF20C00D1CD54 /* Poppins-ExtraBold.ttf in Resources */,
 				C11B42D426A3CFA30030ED0A /* GoogleService-Info.plist in Resources */,
 				C16FC3722AD3499900234C6C /* catHeart.json in Resources */,
+				C11A939D2BEDF22C00D1CD54 /* Poppins-SemiBold.ttf in Resources */,
+				C11A93A02BEDF23500D1CD54 /* Poppins-ThinItalic.ttf in Resources */,
+				C11A93902BEDF20500D1CD54 /* Poppins-BlackItalic.ttf in Resources */,
+				C11A939C2BEDF22900D1CD54 /* Poppins-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,15 +599,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Seher-SeherUITests/Pods-Seher-SeherUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Seher-SeherUITests/Pods-Seher-SeherUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tomo-TomoUITests/Pods-Tomo-TomoUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seher-SeherUITests/Pods-Seher-SeherUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		74D1003EE9B21092BE5535A6 /* [CP] Embed Pods Frameworks */ = {
@@ -535,15 +616,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tomo/Pods-Tomo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Seher/Pods-Seher-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tomo/Pods-Tomo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Seher/Pods-Seher-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tomo/Pods-Tomo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Seher/Pods-Seher-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D7E2CADAA1040720DF1A6066 /* [CP] Check Pods Manifest.lock */ = {
@@ -561,7 +642,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Tomo-TomoUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Seher-SeherUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -583,7 +664,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TomoTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SeherTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -605,7 +686,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Tomo-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Seher-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -685,6 +766,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -718,6 +800,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -746,6 +829,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -779,6 +863,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -799,7 +884,7 @@
 		};
 		C11B42A626A3CB130030ED0A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B46C8349571D93AED69042B6 /* Pods-Tomo.debug.xcconfig */;
+			baseConfigurationReference = 8463060C7050FE4687F1CBD1 /* Pods-Seher.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -824,7 +909,7 @@
 		};
 		C11B42A726A3CB130030ED0A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85E3B58304C84E2BF271890B /* Pods-Tomo.release.xcconfig */;
+			baseConfigurationReference = 4C75655B42EEC0C0603B4944 /* Pods-Seher.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -848,7 +933,7 @@
 		};
 		C11B42A926A3CB130030ED0A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3185BBDFC2C24790C4B8432 /* Pods-TomoTests.debug.xcconfig */;
+			baseConfigurationReference = AEB880F7F9C7FB4B21D42F09 /* Pods-SeherTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -871,7 +956,7 @@
 		};
 		C11B42AA26A3CB130030ED0A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA845226984D0BAC1D346D81 /* Pods-TomoTests.release.xcconfig */;
+			baseConfigurationReference = A7F7D00D5D003436C3622CFE /* Pods-SeherTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -894,7 +979,7 @@
 		};
 		C11B42AC26A3CB130030ED0A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1AEA8B603EA9BBC8F4927F48 /* Pods-Tomo-TomoUITests.debug.xcconfig */;
+			baseConfigurationReference = 323C72F84E8DD3A8C4A14847 /* Pods-Seher-SeherUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -915,7 +1000,7 @@
 		};
 		C11B42AD26A3CB130030ED0A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D857DFB544CEFC8D5348C61F /* Pods-Tomo-TomoUITests.release.xcconfig */;
+			baseConfigurationReference = BCFF6384EC966766C9F54B73 /* Pods-Seher-SeherUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
