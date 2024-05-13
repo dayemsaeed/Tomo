@@ -3,6 +3,7 @@ package com.lumen.tomo.ui.util
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -16,27 +17,29 @@ import androidx.compose.ui.unit.dp
 import com.lumen.tomo.R
 import com.lumen.tomo.model.ChatMessage
 import com.lumen.tomo.ui.theme.Navy
-import com.lumen.tomo.ui.theme.Teal80
+import com.lumen.tomo.ui.theme.SeherMain
 import java.util.UUID
 
 @Composable
 fun ChatBubble(
     message: ChatMessage
 ) {
-    Column {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
         Box(
             modifier = Modifier
                 .align(if (message.isSender) Alignment.End else Alignment.Start)
                 .clip(
                     RoundedCornerShape(
-                        topStart = 48f,
-                        topEnd = 48f,
-                        bottomStart = if (message.isSender) 48f else 0f,
-                        bottomEnd = if (message.isSender) 0f else 48f
+                        topStart = 64f,
+                        topEnd = 64f,
+                        bottomStart = if (message.isSender) 64f else 0f,
+                        bottomEnd = if (message.isSender) 0f else 64f
                     )
                 )
-                .background(if (message.isSender) Teal80 else Navy)
-                .padding(16.dp)
+                .background(if (message.isSender) SeherMain else Color.DarkGray)
+                .padding(8.dp)
         ) {
             Text(text = message.message, color = if (message.isSender) Color.Black else Color.White)
         }

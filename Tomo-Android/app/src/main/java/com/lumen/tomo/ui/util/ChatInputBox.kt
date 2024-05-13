@@ -25,10 +25,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lumen.tomo.ui.theme.Teal80
+import com.lumen.tomo.ui.theme.SeherMain
 
 @Composable
-fun ChatBox(
+fun ChatInputBox(
     onSendChatClickListener: (String) -> Unit,
     modifier: Modifier
 ) {
@@ -61,7 +61,7 @@ fun ChatBox(
             },
             modifier = Modifier
                 .clip(CircleShape)
-                .background(color = Teal80)
+                .background(color = SeherMain)
                 .align(Alignment.CenterVertically)
         ) {
             Icon(
@@ -78,5 +78,5 @@ fun ChatBox(
 @Preview
 @Composable
 fun ChatBoxPreview() {
-    ChatBox(onSendChatClickListener = {}, modifier = Modifier)
+    ChatInputBox(onSendChatClickListener = {}, modifier = Modifier)
 }

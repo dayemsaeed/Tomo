@@ -17,15 +17,5 @@ fun ChatFragment(
     modifier: Modifier = Modifier,
     onSendChatListener: (String) -> Unit
 ) {
-    val initialAnimation = R.raw.cat_idle  // Initial animation resource ID
-    val tapAnimation = R.raw.cat_headshake          // Tap specific animation resource ID
-    val swipeAnimation = R.raw.cat_heart      // Swipe specific animation resource ID
-
-    InteractiveLottieAnimation(
-        initialAnimation = initialAnimation,
-        tapAnimation = tapAnimation,
-        swipeAnimation = swipeAnimation
-    )
-
     ChatView(chatViewModel = chatViewModel, onSendChatClickListener = onSendChatListener, modifier = modifier)
 }

@@ -32,11 +32,18 @@ struct ChatView: View {
     
     var body: some View {
         VStack {
-            ScrollView {
-                LazyVStack {
-                    ForEach(messages) { message in
-                        ChatRow(message: message)
+            ScrollViewReader { scrollViewProxy in
+                ScrollView {
+                    LazyVStack {
+                        ForEach(messages, id: \.id) { message in
+                            ChatRow(message: message)
+                        }
                     }
+                    .onChange(of: messages.count, perform: { value in
+                            withAnimation(.spring()) {
+                                scrollViewProxy.scrollTo(messages[messages.count - 1].id, anchor: .bottom)
+                            }
+                    })
                 }
             }
             chatInputArea
