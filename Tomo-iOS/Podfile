@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '14.2'
 
-target 'Tomo' do
+target 'Seher' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_modular_headers!
 
@@ -10,17 +10,18 @@ target 'Tomo' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'Alamofire', '~> 5.0'
 
   # Optionally, include the Swift extensions if you're using Swift.
   #pod 'FirebaseFirestoreSwift'
   use_frameworks!
 
-  target 'TomoTests' do
+  target 'SeherTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
-  target 'TomoUITests' do
+  target 'SeherUITests' do
     # Pods for testing
   end
 

@@ -1,0 +1,6 @@
+framework module Pods_Seher_SeherUITests {
+  umbrella header "Pods-Seher-SeherUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

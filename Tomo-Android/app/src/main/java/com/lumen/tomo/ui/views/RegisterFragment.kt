@@ -3,8 +3,10 @@
 package com.lumen.tomo.ui.views
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +18,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,66 +30,84 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.lumen.tomo.R
 import com.lumen.tomo.ui.theme.TomoTheme
 
 @Composable
-fun Register(modifier: Modifier = Modifier) {
+fun RegisterFragment(navController: NavController, modifier: Modifier = Modifier) {
     var email by remember { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var confirmPassword by rememberSaveable { mutableStateOf("") }
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(30.dp)
+    var startAnimation by remember { mutableStateOf(false) }
+
+    Surface(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Text(
-            text = "TOMO",
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Spacer(Modifier.height(20.dp))
-        OutlinedTextField(
-            label = { Text(text = stringResource(id = R.string.email_label)) },
-            value = email,
-            onValueChange = { email = it },
-            modifier = modifier
-                .fillMaxWidth()
-        )
-        OutlinedTextField(
-            label = { Text(text = stringResource(id = R.string.password_label)) },
-            value = password,
-            onValueChange = { password = it },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = modifier
-                .fillMaxWidth()
-        )
-        OutlinedTextField(
-            label = { Text(text = stringResource(id = R.string.confirm_password_label)) },
-            value = confirmPassword,
-            onValueChange = { confirmPassword = it },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = modifier
-                .fillMaxWidth()
-        )
-        Spacer(Modifier.height(20.dp))
-        Button(
-            onClick = {  },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
+        Box(modifier = modifier
+            .fillMaxSize()
         ) {
-            Text(text = stringResource(id = R.string.action_register))
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(30.dp)
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "TOMO",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.weight(0.5f))
+                OutlinedTextField(
+                    label = { Text(text = stringResource(id = R.string.email_label)) },
+                    value = email,
+                    onValueChange = { email = it },
+                    modifier = modifier
+                        .fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.weight(0.25f))
+                OutlinedTextField(
+                    label = { Text(text = stringResource(id = R.string.password_label)) },
+                    value = password,
+                    onValueChange = { password = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    modifier = modifier
+                        .fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.weight(0.25f))
+                OutlinedTextField(
+                    label = { Text(text = stringResource(id = R.string.confirm_password_label)) },
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    modifier = modifier
+                        .fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.weight(0.5f))
+                Button(
+                    onClick = {  },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                ) {
+                    Text(text = stringResource(id = R.string.action_register))
+                }
+            }
         }
     }
+    LaunchedEffect(Unit) {
+        startAnimation = true
+    }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun RegisterPreview() {
     TomoTheme {
-        Surface {
-            Register()
-        }
+        RegisterFragment(rememberNavController())
     }
 }
 
@@ -94,8 +115,6 @@ fun RegisterPreview() {
 @Composable
 fun RegisterDarkPreview() {
     TomoTheme {
-        Surface {
-            Register()
-        }
+        RegisterFragment(rememberNavController())
     }
 }
