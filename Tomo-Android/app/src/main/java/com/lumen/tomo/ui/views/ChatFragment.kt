@@ -17,5 +17,5 @@ fun ChatFragment(
     modifier: Modifier = Modifier,
     onSendChatListener: (String) -> Unit
 ) {
-    ChatView(chatViewModel = chatViewModel, onSendChatClickListener = onSendChatListener, modifier = modifier)
+    ChatView(navController = navController, chatViewModel = chatViewModel, onSendChatClickListener = onSendChatListener, modifier = modifier)
 }
