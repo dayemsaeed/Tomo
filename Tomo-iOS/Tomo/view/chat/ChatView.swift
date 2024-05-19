@@ -51,56 +51,33 @@ struct ChatView: View {
     }
     
     private var chatInputArea: some View {
-        HStack {
-            Button(action: {
-                navigateToTasks = true
-            }) {
-                Image(systemName: "list.bullet")
-                    .imageScale(.medium)
-                    .frame(width: 30, height: 30)
-            }
+        HStack(alignment: .center, spacing: 10) {
+            TextField("Message", text: $messageText)
+                .multilineTextAlignment(.leading)
+                .lineLimit(0)
+                .focused($chatIsFocused)
             
-            NavigationLink(destination: TaskView(), isActive: $navigateToTasks) { EmptyView() }.navigationBarBackButtonHidden(true)
-            
-            Spacer()
-            
-            HStack(alignment: .center, spacing: 10) {
-                TextField("Message", text: $messageText)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(0)
-                    .focused($chatIsFocused)
-                
-                if !messageText.isEmpty {
-                    Button(action: {
-                        sendMessage()
-                    }) {
-                        Image(systemName: "arrow.up")
-                            .imageScale(.medium)
-                            .frame(width: 30, height: 30)
-                            .background(Color.seherText)
-                            .foregroundColor(Color.white)
-                            .clipShape(Circle())
-                    }
+            if !messageText.isEmpty {
+                Button(action: {
+                    sendMessage()
+                }) {
+                    Image(systemName: "arrow.up")
+                        .imageScale(.medium)
+                        .frame(width: 30, height: 30)
+                        .background(Color.seherText)
+                        .foregroundColor(Color.white)
+                        .clipShape(Circle())
                 }
             }
-            .padding(10)
-            .overlay(Capsule()
-                .stroke(.tertiary, lineWidth: 1)
-                .opacity(0.7)
-            )
-            .padding(.trailing, 6)
         }
+        .padding(10)
+        .overlay(Capsule()
+            .stroke(.tertiary, lineWidth: 1)
+            .opacity(0.7)
+        )
+        .padding(.trailing, 6)
     }
     
-    /*private func sendMessage() {
-        messageText = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !messageText.isEmpty {
-            let newMessage = ChatMessage(text: messageText, isSender: true)
-            messages.append(newMessage)
-            messageText = ""
-            chatIsFocused = false
-        }
-    }*/
     private func sendMessage() {
         messageText = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
         if !messageText.isEmpty {

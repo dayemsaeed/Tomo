@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.jan.supabase.SupabaseClient
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,8 +28,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesAuthRepositoryImpl(firebaseAuth: FirebaseAuth): AuthRepository {
-        return AuthRepositoryImpl(auth = firebaseAuth)
+    fun providesAuthRepositoryImpl(supabaseClient: SupabaseClient): AuthRepository {
+        return AuthRepositoryImpl(supabaseClient)
     }
 
     @Provides
@@ -43,7 +44,7 @@ object NetworkModule {
             })
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .addHeader("Authorization", BuildConfig.SUPABASE_KEY)
+                    .addHeader("Authorization", "Bearer ${BuildConfig.SUPABASE_KEY}")
                     .addHeader("Content-Type", "application/json")
                     .build()
                 chain.proceed(request)
