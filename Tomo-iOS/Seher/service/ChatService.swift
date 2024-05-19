@@ -43,4 +43,3 @@ struct GPTResponse: Decodable {
     }
     let choices: [Choice]
 }
-
