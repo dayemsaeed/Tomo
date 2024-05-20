@@ -168,6 +168,7 @@
 		C16FC3802AD5B2AA00234C6C /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		C16FC38D2AD82F6C00234C6C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		C16FC3922AD87F7600234C6C /* TypingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicator.swift; sourceTree = "<group>"; };
+		C18584E22BFB3A410037A5EE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +285,7 @@
 				C11B428C26A3CB120030ED0A /* Info.plist */,
 				C11B42D326A3CFA30030ED0A /* GoogleService-Info.plist */,
 				C11B428926A3CB120030ED0A /* Preview Content */,
+				C18584E22BFB3A410037A5EE /* Config.xcconfig */,
 			);
 			path = Seher;
 			sourceTree = "<group>";
@@ -673,6 +675,7 @@
 /* Begin XCBuildConfiguration section */
 		C11B42A326A3CB130030ED0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C18584E22BFB3A410037A5EE /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -736,6 +739,7 @@
 		};
 		C11B42A426A3CB130030ED0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C18584E22BFB3A410037A5EE /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
