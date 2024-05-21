@@ -6,16 +6,11 @@
 //
 
 import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
-import AVFoundation
-import SpriteKit
 
 struct MainView: View {
-    
     @State private var lottieAnimation: String = "catIdle"
-    //@Binding var name: String
-    @ObservedObject private var nameViewModel = NameViewModel()
+    @EnvironmentObject private var nameViewModel: NameViewModel
+    @EnvironmentObject private var chatViewModel: ChatViewModel
     
     var body: some View {
         VStack {
@@ -26,6 +21,7 @@ struct MainView: View {
             
             // Chat View
             ChatView()
+                .environmentObject(chatViewModel)
             
             Spacer()
                 .frame(height: 50)

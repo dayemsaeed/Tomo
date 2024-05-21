@@ -10,10 +10,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class NameViewModel : ObservableObject {
-    var nameRepository = NameRepository()
+    private let nameRepository: NameRepository
     @Published var name = String()
     
-    init() {
+    init(nameRepository: NameRepository) {
+        self.nameRepository = nameRepository
         nameRepository.getDocumentData(db: Firestore.firestore())
     }
 }

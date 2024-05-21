@@ -15,8 +15,8 @@ struct RegisterView: View {
     @State private var isEditing = false
     @State private var showPassword = false
     @State private var showConfirmPassword = false
-    @ObservedObject var registerView: RegisterViewModel
-    @ObservedObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var registerViewModel: RegisterViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
 
     private var canSignUp: Bool {
         return !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty
@@ -37,13 +37,13 @@ struct RegisterView: View {
             Spacer()
 
             Button(action: {
-                registerView.register(email: email, password: password)
+                registerViewModel.register(email: email, password: password)
             }) {
                 Text("Register")
             }
             .buttonStyle(PrimaryButtonStyle(disabled: !canSignUp))
 
-            NavigationLink(destination: LoginView(userLoggedIn: loginViewModel, registerViewModel: registerView)) {
+            NavigationLink(destination: LoginView(loginViewModel: _loginViewModel, registerViewModel: _registerViewModel)) {
                 Text("LOGIN")
             }
             .buttonStyle(SecondaryButtonStyle())

@@ -30,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 fun AppNavigation() {
     val navController = rememberNavController()
     val chatViewModel: ChatViewModel = hiltViewModel()
-    NavHost(navController = navController, startDestination = "petScreen") {
+    NavHost(navController = navController, startDestination = "login") {
         composable("petScreen") { PetFragment(navController) }
         composable("login") { LoginFragment(navController) }
         composable("register") { RegisterFragment(navController) }

@@ -18,7 +18,7 @@ struct ChatRow: View {
             
             Text(message.text)
                 .padding(10)
-                .background(ChatBubble(isSender: message.isSender).fill(message.isSender ? Color.blue : Color.gray))
+                .background(ChatBubble(isSender: message.isSender).fill(message.isSender ? Color.seherText : Color.gray))
                 .foregroundColor(message.isSender ? .white : .black)
             
             if !message.isSender {

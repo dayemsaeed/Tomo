@@ -64,25 +64,26 @@ android {
 
 // Version numbers
 val lottieVersion = "6.1.0"
-val firebaseBomVersion = "32.8.1"
+val firebaseBomVersion = "33.0.0"
 val supabaseVersion = "2.3.0"
 val ktorVersion = "2.3.10"
 val hiltVersion = "2.51.1"
 val retrofitVersion = "2.9.0"
-val coreKtxVersion = "1.13.0"
-val lifecycleVersion = "2.7.0"
+val coreKtxVersion = "1.13.1"
+val lifecycleVersion = "2.8.0"
 val navigationVersion = "2.7.7"
 val activityComposeVersion = "1.9.0"
-val composeBomVersion = "2024.04.01"
+val composeBomVersion = "2024.05.00"
 val appCompatVersion = "1.6.1"
-val materialVersion = "1.11.0"
-val annotationVersion = "1.7.1"
+val materialVersion = "1.12.0"
+val annotationVersion = "1.8.0"
 val constraintLayoutVersion = "2.1.4"
 val junitVersion = "4.13.2"
 val androidxTestVersion = "1.1.5"
 val espressoCoreVersion = "3.5.1"
 val constraintLayoutComposeVersion = "1.0.1"
 val hiltNavigationVersion = "1.2.0"
+val runtimeVersion = "1.6.7"
 
 dependencies {
     // Firebase
@@ -97,8 +98,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.constraintlayout:constraintlayout-compose:$constraintLayoutComposeVersion")
     implementation("androidx.navigation:navigation-compose:$navigationVersion")
+    implementation("androidx.datastore:datastore-preferences-core-jvm:1.1.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
@@ -120,6 +123,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:${runtimeVersion}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 
     // Supabase
@@ -128,10 +132,13 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:storage-kt")
     implementation("io.github.jan-tennert.supabase:compose-auth")
     implementation("io.github.jan-tennert.supabase:compose-auth-ui")
-    implementation("io.github.jan-tennert.supabase:gotrue-kt:$supabaseVersion")
+    implementation("io.github.jan-tennert.supabase:gotrue-kt")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-utils:$ktorVersion")
+
+    // Datastore
+    implementation("androidx.datastore:datastore-preferences")
 
     // UI & Material Design
     implementation("androidx.appcompat:appcompat:$appCompatVersion")

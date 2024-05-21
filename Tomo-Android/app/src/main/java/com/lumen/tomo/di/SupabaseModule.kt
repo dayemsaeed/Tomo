@@ -1,9 +1,12 @@
 package com.lumen.tomo.di
 
+import android.content.Context
 import com.lumen.tomo.BuildConfig
+import com.lumen.tomo.util.DataStoreHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
@@ -44,6 +47,12 @@ object SupabaseModule {
     @Singleton
     fun provideSupabaseAuth(client: SupabaseClient): Auth {
         return client.auth
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStoreHelper(@ApplicationContext context: Context): DataStoreHelper {
+        return DataStoreHelper(context)
     }
 
 

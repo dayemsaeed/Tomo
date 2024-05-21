@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var loginViewModel = LoginViewModel()
-    @StateObject var registerViewModel = RegisterViewModel()
-    @StateObject var taskViewModel = TaskViewModel()
+    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var registerViewModel: RegisterViewModel
+    @EnvironmentObject var taskViewModel: TaskViewModel
     
     var body: some View {
         NavigationView {
             if loginViewModel.isLoggedIn {
                 if !registerViewModel.isRegistered {
-                    RegisterView(registerView: registerViewModel, loginViewModel: loginViewModel)
+                    RegisterView(registerViewModel: _registerViewModel, loginViewModel: _loginViewModel)
                 } else {
-                    LoginView(userLoggedIn: loginViewModel, registerViewModel: registerViewModel)
+                    LoginView(loginViewModel: _loginViewModel, registerViewModel: _registerViewModel)
                 }
             } else {
                 MainView()
