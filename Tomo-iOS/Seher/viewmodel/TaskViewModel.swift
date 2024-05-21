@@ -9,32 +9,27 @@ import Foundation
 import Combine
 
 class TaskViewModel: ObservableObject {
+    private let taskRepository: TaskRepository
+
     @Published var taskCellViewModels = [TaskCellViewModel]()
     @Published var taskCellListViewModels = [TaskCellViewModel]()
     
     private var cancellables = Set<AnyCancellable>()
-    internal var taskRepository = TaskRepository()
     
-    init() {
+    init(taskRepository: TaskRepository) {
+        self.taskRepository = taskRepository
+        
         taskRepository.loadTodaysTasks()
-        // Load tasks for the day
-        taskRepository.$todaysTasks.map { tasks in
-            tasks.map { task in
-                TaskCellViewModel(task: task)
-            }
-        }
-        .assign(to: \.taskCellViewModels, on: self)
-        .store(in: &cancellables)
+        taskRepository.$todaysTasks
+            .map { tasks in tasks.map { TaskCellViewModel(task: $0) } }
+            .assign(to: \.taskCellViewModels, on: self)
+            .store(in: &cancellables)
         
         taskRepository.loadAllTasks()
-        // Load all tasks
-        taskRepository.$tasks.map { tasks in
-            tasks.map { task in
-                TaskCellViewModel(task: task)
-            }
-        }
-        .assign(to: \.taskCellListViewModels, on: self)
-        .store(in: &cancellables)
+        taskRepository.$tasks
+            .map { tasks in tasks.map { TaskCellViewModel(task: $0) } }
+            .assign(to: \.taskCellListViewModels, on: self)
+            .store(in: &cancellables)
     }
     
     func addTask(task: Task) {
@@ -42,12 +37,15 @@ class TaskViewModel: ObservableObject {
     }
     
     func removeTasks(atOffsets indexSet: IndexSet) {
-        // Get tasks to remove
         let tasksToRemove = indexSet.lazy.map { self.taskCellViewModels[$0].task }
-        
-        // Remove tasks from repository
         tasksToRemove.forEach { task in
             taskRepository.deleteTask(task)
         }
+    }
+
+    func toggleTaskCompletion(_ task: Task) {
+        var updatedTask = task
+        updatedTask.completed.toggle()
+        taskRepository.updateTask(updatedTask)
     }
 }

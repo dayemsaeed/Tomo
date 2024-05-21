@@ -9,27 +9,26 @@ import SwiftUI
 
 struct TaskView: View {
     @State private var showEditView = false
-    //@Binding var oldTitle: String
-    @ObservedObject private var viewModel = TaskViewModel()
+    @EnvironmentObject private var viewModel: TaskViewModel
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
-        VStack(content: {
+        VStack {
             Spacer()
             CalendarView()
-            
+
             List {
                 if viewModel.taskCellViewModels.isEmpty {
                     Text("No tasks to show")
-                }
-                else {
+                } else {
                     ForEach(viewModel.taskCellViewModels) { listItem in
                         TaskCell(taskViewModel: listItem)
                             .onTapGesture {
-                                listItem.task.completed.toggle()
-                                viewModel.taskRepository.updateTask(listItem.task)
+                                viewModel.toggleTaskCompletion(listItem.task)
                             }
-                            /*.onLongPressGesture {
+                            // Uncomment if using long press for edit functionality
+                            /*
+                            .onLongPressGesture {
                                 self.item = listItem
                                 self.oldTitle = listItem.task.title
                                 showEditView = true
@@ -37,27 +36,27 @@ struct TaskView: View {
                             .background(
                                 NavigationLink("", destination: EditTaskView(item: $item), isActive: $showEditView)
                                     .hidden()
-                            )*/
+                            )
+                            */
                     }
                     .onDelete(perform: deleteTasks)
                 }
             }
-            
+
             navigationButtons
             Spacer()
-        })
+        }
         .frame(minWidth: 318, idealWidth: 318, minHeight: 350, idealHeight: 750, alignment: .center)
         .shadow(radius: 7)
         .cornerRadius(25.0)
         .listRowBackground(Color.white)
         .padding(.horizontal, 30)
     }
-    
+
     private func deleteTasks(at offsets: IndexSet) {
-        let tasksToDelete = offsets.map { viewModel.taskCellListViewModels[$0] }
-        tasksToDelete.forEach { viewModel.taskRepository.deleteTask($0.task) }
+        viewModel.removeTasks(atOffsets: offsets)
     }
-    
+
     private var navigationButtons: some View {
         HStack {
             Button(action: {
@@ -72,7 +71,7 @@ struct TaskView: View {
             .background(Color.petSupportBlue)
             .clipShape(Circle())
             .navigationBarBackButtonHidden(true)
-            
+
             Spacer()
             NavigationLink(destination: AddTaskView()) {
                 Text("+")
@@ -86,5 +85,4 @@ struct TaskView: View {
             .navigationBarBackButtonHidden(true)
         }
     }
-    
 }

@@ -86,6 +86,8 @@
 		C18584D92BFAC1680037A5EE /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = C18584D82BFAC1680037A5EE /* FirebaseRemoteConfig */; };
 		C18584DB2BFAC1680037A5EE /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C18584DA2BFAC1680037A5EE /* FirebaseRemoteConfigSwift */; };
 		C18584DF2BFAC1680037A5EE /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C18584DE2BFAC1680037A5EE /* FirebaseStorageCombine-Community */; };
+		C18584E52BFD3E700037A5EE /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = C18584E42BFD3E700037A5EE /* Swinject */; };
+		C18584E82BFD3EC50037A5EE /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18584E72BFD3EC50037A5EE /* DIContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +171,7 @@
 		C16FC38D2AD82F6C00234C6C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		C16FC3922AD87F7600234C6C /* TypingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicator.swift; sourceTree = "<group>"; };
 		C18584E22BFB3A410037A5EE /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		C18584E72BFD3EC50037A5EE /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +202,7 @@
 				C12809AB2BFAB67A00A27A92 /* Storage in Frameworks */,
 				C12809A32BFAB67A00A27A92 /* Auth in Frameworks */,
 				C12809AE2BFAB80700A27A92 /* FirebaseAnalytics in Frameworks */,
+				C18584E52BFD3E700037A5EE /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +275,7 @@
 		C11B428226A3CB0F0030ED0A /* Seher */ = {
 			isa = PBXGroup;
 			children = (
+				C18584E62BFD3EB40037A5EE /* di */,
 				C12680992BB5E3C80025F5F4 /* service */,
 				C10D2C382ACC1D30003DE05B /* model */,
 				C11B42D926A3D3B60030ED0A /* resources */,
@@ -424,6 +429,14 @@
 			path = character;
 			sourceTree = "<group>";
 		};
+		C18584E62BFD3EB40037A5EE /* di */ = {
+			isa = PBXGroup;
+			children = (
+				C18584E72BFD3EC50037A5EE /* DIContainer.swift */,
+			);
+			path = di;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -464,6 +477,7 @@
 				C18584D82BFAC1680037A5EE /* FirebaseRemoteConfig */,
 				C18584DA2BFAC1680037A5EE /* FirebaseRemoteConfigSwift */,
 				C18584DE2BFAC1680037A5EE /* FirebaseStorageCombine-Community */,
+				C18584E42BFD3E700037A5EE /* Swinject */,
 			);
 			productName = Tomo;
 			productReference = C11B428026A3CB0F0030ED0A /* Seher.app */;
@@ -543,6 +557,7 @@
 				C128099C2BFAB0BF00A27A92 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				C12809A12BFAB67A00A27A92 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				C12809AC2BFAB80700A27A92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C18584E32BFD3E6F0037A5EE /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = C11B428126A3CB0F0030ED0A /* Products */;
 			projectDirPath = "";
@@ -611,6 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C18584E82BFD3EC50037A5EE /* DIContainer.swift in Sources */,
 				C11B42BC26A3CF4E0030ED0A /* RegisterView.swift in Sources */,
 				C14F25C329D94FD500F59D64 /* ChatView.swift in Sources */,
 				C16FC38E2AD82F6C00234C6C /* LottieView.swift in Sources */,
@@ -1000,6 +1016,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		C18584E32BFD3E6F0037A5EE /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.8;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1117,6 +1141,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C12809AC2BFAB80700A27A92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		C18584E42BFD3E700037A5EE /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C18584E32BFD3E6F0037A5EE /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

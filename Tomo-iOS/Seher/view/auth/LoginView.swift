@@ -14,8 +14,8 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var isEditing = false
     @State private var showPassword = false
-    @ObservedObject var userLoggedIn: LoginViewModel
-    @ObservedObject var registerViewModel: RegisterViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var registerViewModel: RegisterViewModel
     
     private var canLogIn: Bool {
         return !email.isEmpty && !password.isEmpty
@@ -94,7 +94,7 @@ struct LoginView: View {
             VStack {
                 
                 Button(action: {
-                        userLoggedIn.login(email: email, password: password)
+                        loginViewModel.login(email: email, password: password)
                 }, label: {
                     Text("Login")
                 })
@@ -106,7 +106,7 @@ struct LoginView: View {
                     .cornerRadius(70.0)
                     .disabled(!canLogIn)
                 
-                NavigationLink(destination: RegisterView(registerView: registerViewModel, loginViewModel: userLoggedIn)) {
+                NavigationLink(destination: RegisterView(registerViewModel: _registerViewModel, loginViewModel: _loginViewModel)) {
                     Button(action: {}, label: {
                         Text("Register")
                             .padding()
