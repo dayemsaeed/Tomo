@@ -24,10 +24,10 @@ class DIContainer {
             LoginViewModel()
         }
         container.register(NameViewModel.self) { resolver in
-            NameViewModel(nameRepository: resolver.resolve(NameRepository.self)!)
+            NameViewModel(/*nameRepository: resolver.resolve(NameRepository.self)!*/)
         }
         container.register(TaskViewModel.self) { resolver in
-            TaskViewModel(taskRepository: resolver.resolve(TaskRepository.self)!)
+            TaskViewModel(/*taskRepository: resolver.resolve(TaskRepository.self)!*/)
         }
         container.register(ChatViewModel.self) { resolver in
             ChatViewModel(chatService: resolver.resolve(ChatService.self)!)

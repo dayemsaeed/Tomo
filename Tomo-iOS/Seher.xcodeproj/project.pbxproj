@@ -31,8 +31,8 @@
 		C11A93A02BEDF23500D1CD54 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11A937D2BEDEF6100D1CD54 /* Poppins-ThinItalic.ttf */; };
 		C11B428826A3CB120030ED0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428726A3CB120030ED0A /* Assets.xcassets */; };
 		C11B428B26A3CB120030ED0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B428A26A3CB120030ED0A /* Preview Assets.xcassets */; };
-		C11B429626A3CB120030ED0A /* TomoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B429526A3CB120030ED0A /* TomoTests.swift */; };
-		C11B42A126A3CB130030ED0A /* TomoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42A026A3CB130030ED0A /* TomoUITests.swift */; };
+		C11B429626A3CB120030ED0A /* SeherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B429526A3CB120030ED0A /* SeherTests.swift */; };
+		C11B42A126A3CB130030ED0A /* SeherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42A026A3CB130030ED0A /* SeherUITests.swift */; };
 		C11B42B026A3CF210030ED0A /* NameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42AF26A3CF210030ED0A /* NameRepository.swift */; };
 		C11B42BC26A3CF4E0030ED0A /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42B426A3CF4E0030ED0A /* RegisterView.swift */; };
 		C11B42BE26A3CF4E0030ED0A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42B626A3CF4E0030ED0A /* LoginView.swift */; };
@@ -135,10 +135,10 @@
 		C11B428A26A3CB120030ED0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C11B428C26A3CB120030ED0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C11B429126A3CB120030ED0A /* SeherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C11B429526A3CB120030ED0A /* TomoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomoTests.swift; sourceTree = "<group>"; };
+		C11B429526A3CB120030ED0A /* SeherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeherTests.swift; sourceTree = "<group>"; };
 		C11B429726A3CB120030ED0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C11B429C26A3CB130030ED0A /* SeherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C11B42A026A3CB130030ED0A /* TomoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomoUITests.swift; sourceTree = "<group>"; };
+		C11B42A026A3CB130030ED0A /* SeherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeherUITests.swift; sourceTree = "<group>"; };
 		C11B42A226A3CB130030ED0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C11B42AF26A3CF210030ED0A /* NameRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameRepository.swift; sourceTree = "<group>"; };
 		C11B42B426A3CF4E0030ED0A /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 		C11B429426A3CB120030ED0A /* SeherTests */ = {
 			isa = PBXGroup;
 			children = (
-				C11B429526A3CB120030ED0A /* TomoTests.swift */,
+				C11B429526A3CB120030ED0A /* SeherTests.swift */,
 				C11B429726A3CB120030ED0A /* Info.plist */,
 			);
 			path = SeherTests;
@@ -315,7 +315,7 @@
 		C11B429F26A3CB130030ED0A /* SeherUITests */ = {
 			isa = PBXGroup;
 			children = (
-				C11B42A026A3CB130030ED0A /* TomoUITests.swift */,
+				C11B42A026A3CB130030ED0A /* SeherUITests.swift */,
 				C11B42A226A3CB130030ED0A /* Info.plist */,
 			);
 			path = SeherUITests;
@@ -661,7 +661,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C11B429626A3CB120030ED0A /* TomoTests.swift in Sources */,
+				C11B429626A3CB120030ED0A /* SeherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,7 +669,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C11B42A126A3CB130030ED0A /* TomoUITests.swift in Sources */,
+				C11B42A126A3CB130030ED0A /* SeherUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,7 +827,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = blank.Tomo;
+				PRODUCT_BUNDLE_IDENTIFIER = seher.Seher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -851,7 +851,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = blank.Tomo;
+				PRODUCT_BUNDLE_IDENTIFIER = seher.Seher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -865,14 +865,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 82G2YNZFZ2;
-				INFOPLIST_FILE = TomoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				INFOPLIST_FILE = SeherTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = blank.TomoTests;
+				PRODUCT_BUNDLE_IDENTIFIER = seher.SeherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -887,14 +887,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 82G2YNZFZ2;
-				INFOPLIST_FILE = TomoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				INFOPLIST_FILE = SeherTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = blank.TomoTests;
+				PRODUCT_BUNDLE_IDENTIFIER = seher.SeherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -908,13 +908,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 82G2YNZFZ2;
-				INFOPLIST_FILE = TomoUITests/Info.plist;
+				INFOPLIST_FILE = SeherUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = blank.TomoUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = seher.SeherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -928,13 +928,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 82G2YNZFZ2;
-				INFOPLIST_FILE = TomoUITests/Info.plist;
+				INFOPLIST_FILE = SeherUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = blank.TomoUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = seher.SeherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

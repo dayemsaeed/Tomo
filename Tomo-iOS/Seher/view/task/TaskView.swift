@@ -17,33 +17,33 @@ struct TaskView: View {
             Spacer()
             CalendarView()
 
-            List {
-                if viewModel.taskCellViewModels.isEmpty {
-                    Text("No tasks to show")
-                } else {
-                    ForEach(viewModel.taskCellViewModels) { listItem in
-                        TaskCell(taskViewModel: listItem)
-                            .onTapGesture {
-                                viewModel.toggleTaskCompletion(listItem.task)
-                            }
-                            // Uncomment if using long press for edit functionality
-                            /*
-                            .onLongPressGesture {
-                                self.item = listItem
-                                self.oldTitle = listItem.task.title
-                                showEditView = true
-                            }
-                            .background(
-                                NavigationLink("", destination: EditTaskView(item: $item), isActive: $showEditView)
-                                    .hidden()
-                            )
-                            */
-                    }
-                    .onDelete(perform: deleteTasks)
-                }
-            }
+//            List {
+//                if viewModel.taskCellViewModels.isEmpty {
+//                    Text("No tasks to show")
+//                } else {
+//                    ForEach(viewModel.taskCellViewModels) { listItem in
+//                        TaskCell(taskViewModel: listItem)
+//                            .onTapGesture {
+//                                viewModel.toggleTaskCompletion(listItem.task)
+//                            }
+//                            // Uncomment if using long press for edit functionality
+//                            /*
+//                            .onLongPressGesture {
+//                                self.item = listItem
+//                                self.oldTitle = listItem.task.title
+//                                showEditView = true
+//                            }
+//                            .background(
+//                                NavigationLink("", destination: EditTaskView(item: $item), isActive: $showEditView)
+//                                    .hidden()
+//                            )
+//                            */
+//                    }
+//                    .onDelete(perform: deleteTasks)
+//                }
+//            }
 
-            navigationButtons
+            //navigationButtons
             Spacer()
         }
         .frame(minWidth: 318, idealWidth: 318, minHeight: 350, idealHeight: 750, alignment: .center)
@@ -53,36 +53,36 @@ struct TaskView: View {
         .padding(.horizontal, 30)
     }
 
-    private func deleteTasks(at offsets: IndexSet) {
-        viewModel.removeTasks(atOffsets: offsets)
-    }
-
-    private var navigationButtons: some View {
-        HStack {
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("<")
-                    .font(.system(size: 48))
-                    .foregroundColor(.white)
-                    .padding(.top, -10)
-            }
-            .frame(width: 50, height: 50, alignment: .center)
-            .background(Color.petSupportBlue)
-            .clipShape(Circle())
-            .navigationBarBackButtonHidden(true)
-
-            Spacer()
-            NavigationLink(destination: AddTaskView()) {
-                Text("+")
-                    .font(.system(size: 48))
-                    .foregroundColor(.white)
-                    .padding(.top, -10)
-            }
-            .frame(width: 50, height: 50, alignment: .center)
-            .background(Color.petSupportBlue)
-            .clipShape(Circle())
-            .navigationBarBackButtonHidden(true)
-        }
-    }
+//    private func deleteTasks(at offsets: IndexSet) {
+//        viewModel.removeTasks(atOffsets: offsets)
+//    }
+//
+//    private var navigationButtons: some View {
+//        HStack {
+//            Button(action: {
+//                self.presentationMode.wrappedValue.dismiss()
+//            }) {
+//                Text("<")
+//                    .font(.system(size: 48))
+//                    .foregroundColor(.white)
+//                    .padding(.top, -10)
+//            }
+//            .frame(width: 50, height: 50, alignment: .center)
+//            .background(Color.petSupportBlue)
+//            .clipShape(Circle())
+//            .navigationBarBackButtonHidden(true)
+//
+//            Spacer()
+//            NavigationLink(destination: AddTaskView()) {
+//                Text("+")
+//                    .font(.system(size: 48))
+//                    .foregroundColor(.white)
+//                    .padding(.top, -10)
+//            }
+//            .frame(width: 50, height: 50, alignment: .center)
+//            .background(Color.petSupportBlue)
+//            .clipShape(Circle())
+//            .navigationBarBackButtonHidden(true)
+//        }
+//    }
 }
