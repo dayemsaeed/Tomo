@@ -28,6 +28,7 @@ struct ChatView: View {
                 }
             }
             chatInputArea
+                .padding(.horizontal, 30)
         }
     }
 

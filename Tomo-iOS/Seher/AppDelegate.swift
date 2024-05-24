@@ -21,19 +21,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
-            .environmentObject(diContainer.container.resolve(LoginViewModel.self)!)
-            .environmentObject(diContainer.container.resolve(TaskViewModel.self)!)
-            .environmentObject(diContainer.container.resolve(NameViewModel.self)!)
-            .environmentObject(diContainer.container.resolve(ChatViewModel.self)!)
-            .environmentObject(diContainer.container.resolve(RegisterViewModel.self)!)
-            .environmentObject(diContainer.container.resolve(TaskCellViewModel.self)!)
+        Task {
+            await DIContainer.shared.initializeDependencies()
+            let contentView = ContentView()
+                .environmentObject(DIContainer.shared.container.resolve(LoginViewModel.self)!)
+                .environmentObject(DIContainer.shared.container.resolve(RegisterViewModel.self)!)
+                .environmentObject(DIContainer.shared.container.resolve(TaskViewModel.self)!)
+                .environmentObject(DIContainer.shared.container.resolve(NameViewModel.self)!)
+                .environmentObject(DIContainer.shared.container.resolve(ChatViewModel.self)!)
 
-        // Use a UIHostingController as window root view controller.
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = UIHostingController(rootView: contentView)
-        self.window = window
-        window.makeKeyAndVisible()
+            // Use a UIHostingController as window root view controller.
+            let window = UIWindow(frame: UIScreen.main.bounds)
+            window.rootViewController = UIHostingController(rootView: contentView)
+            self.window = window
+            window.makeKeyAndVisible()
+        }
         return true
     }
 

@@ -11,78 +11,54 @@ struct TaskView: View {
     @State private var showEditView = false
     @EnvironmentObject private var viewModel: TaskViewModel
     @Environment(\.presentationMode) var presentationMode
+    @State private var createNewTask: Bool = false
+    @State private var currentDate: Date = .init()
 
     var body: some View {
-        VStack {
-            Spacer()
-            CalendarView()
-
-//            List {
-//                if viewModel.taskCellViewModels.isEmpty {
-//                    Text("No tasks to show")
-//                } else {
-//                    ForEach(viewModel.taskCellViewModels) { listItem in
-//                        TaskCell(taskViewModel: listItem)
-//                            .onTapGesture {
-//                                viewModel.toggleTaskCompletion(listItem.task)
-//                            }
-//                            // Uncomment if using long press for edit functionality
-//                            /*
-//                            .onLongPressGesture {
-//                                self.item = listItem
-//                                self.oldTitle = listItem.task.title
-//                                showEditView = true
-//                            }
-//                            .background(
-//                                NavigationLink("", destination: EditTaskView(item: $item), isActive: $showEditView)
-//                                    .hidden()
-//                            )
-//                            */
-//                    }
-//                    .onDelete(perform: deleteTasks)
-//                }
-//            }
-
-            //navigationButtons
-            Spacer()
+        VStack(alignment: .leading, spacing: 0) {
+            CalendarHeader()
+            TasksListView()
+                .layoutPriority(1)
         }
-        .frame(minWidth: 318, idealWidth: 318, minHeight: 350, idealHeight: 750, alignment: .center)
-        .shadow(radius: 7)
-        .cornerRadius(25.0)
-        .listRowBackground(Color.white)
-        .padding(.horizontal, 30)
+        .vSpacing(.top)
+        .overlay(alignment: .bottomTrailing, content: {
+            Button(action: {
+                createNewTask.toggle()
+            }, label: {
+                Image(systemName: "plus")
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.seherCircle)
+                    .frame(width: 55, height: 55)
+                    .background(.seherCircle.shadow(.drop(color: .black.opacity(0.25), radius: 5, x: 10, y: 10)), in: .circle)
+            })
+        })
+        .sheet(isPresented: $createNewTask, content: {
+            NewTaskView()
+                .presentationDetents([.height(300)])
+                .interactiveDismissDisabled()
+                .presentationCornerRadius(30)
+                .presentationBackground(.BG)
+        })
+    }
+    
+    @ViewBuilder
+    func TasksListView() -> some View {
+        GeometryReader {
+            let size = $0.size
+            ScrollView(.vertical) {
+                VStack {
+                    TasksList(size: size, currentDate: $currentDate)
+                }
+                .hSpacing(.center)
+                .vSpacing(.center)
+            }
+            .scrollIndicators(.hidden)
+        }
     }
 
+    
+    
 //    private func deleteTasks(at offsets: IndexSet) {
 //        viewModel.removeTasks(atOffsets: offsets)
-//    }
-//
-//    private var navigationButtons: some View {
-//        HStack {
-//            Button(action: {
-//                self.presentationMode.wrappedValue.dismiss()
-//            }) {
-//                Text("<")
-//                    .font(.system(size: 48))
-//                    .foregroundColor(.white)
-//                    .padding(.top, -10)
-//            }
-//            .frame(width: 50, height: 50, alignment: .center)
-//            .background(Color.petSupportBlue)
-//            .clipShape(Circle())
-//            .navigationBarBackButtonHidden(true)
-//
-//            Spacer()
-//            NavigationLink(destination: AddTaskView()) {
-//                Text("+")
-//                    .font(.system(size: 48))
-//                    .foregroundColor(.white)
-//                    .padding(.top, -10)
-//            }
-//            .frame(width: 50, height: 50, alignment: .center)
-//            .background(Color.petSupportBlue)
-//            .clipShape(Circle())
-//            .navigationBarBackButtonHidden(true)
-//        }
 //    }
 }

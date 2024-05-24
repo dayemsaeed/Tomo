@@ -32,7 +32,7 @@ class TaskViewModel: ObservableObject {
 //            .store(in: &cancellables)
 //    }
 //    
-//    func addTask(task: Task) {
+//    func addTask(task: TaskItem) {
 //        taskRepository.updateTask(task)
 //    }
 //    
@@ -43,7 +43,7 @@ class TaskViewModel: ObservableObject {
 //        }
 //    }
 //
-//    func toggleTaskCompletion(_ task: Task) {
+//    func toggleTaskCompletion(_ task: TaskItem) {
 //        var updatedTask = task
 //        updatedTask.completed.toggle()
 //        taskRepository.updateTask(updatedTask)

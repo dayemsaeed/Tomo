@@ -6,19 +6,29 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Supabase
 
 class RegisterViewModel: ObservableObject {
-    @Published var isRegistered = false
+    @Published var isLoggedIn = false
     @Published var text = ""
+    
+    private let supabaseClient: SupabaseClient
 
-    func register(email: String, password: String) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard authResult != nil, error == nil else {
-                self.text = error?.localizedDescription ?? "Unknown error"
-                return
+    init(supabaseClient: SupabaseClient) {
+        self.supabaseClient = supabaseClient
+    }
+
+    func register(email: String, password: String) async throws -> User {
+        do {
+            let session = try await 
+            supabaseClient.auth.signUp(email: email, password: password)
+            DispatchQueue.main.async {
+                self.isLoggedIn = true
             }
-            self.isRegistered = true
+            return session.user
+        } catch {
+            print(error)
+            throw error
         }
     }
 }

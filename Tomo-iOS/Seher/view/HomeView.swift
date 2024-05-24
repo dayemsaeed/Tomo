@@ -1,32 +1,41 @@
 //
-//  ContentView.swift
-//  PetSupport
+//  HomeView.swift
+//  Seher
 //
 //  Created by Dayem Saeed on 12/15/20.
 //
 
 import SwiftUI
 
-struct MainView: View {
+struct HomeView: View {
     @State private var lottieAnimation: String = "catIdle"
     @EnvironmentObject private var nameViewModel: NameViewModel
     @EnvironmentObject private var chatViewModel: ChatViewModel
     
     var body: some View {
-        VStack {
-            Spacer()
-            
-            // Lottie Animation View
-            lottieAnimationView
-            
-            // Chat View
-            ChatView()
-                .environmentObject(chatViewModel)
-            
-            Spacer()
-                .frame(height: 50)
+        NavigationStack {
+            VStack {
+                Spacer()
+                
+                // Lottie Animation View
+                lottieAnimationView
+                HStack {
+                    NavigationLink("Chat") {
+                        ChatView()
+                    }
+                    .padding(30)
+                    .buttonStyle(PrimaryButtonStyle())
+                    
+                    NavigationLink("Tasks") {
+                        TaskView()
+                    }
+                    .padding(30)
+                    .buttonStyle(PrimaryButtonStyle())
+                }
+                
+            }
+            .padding(.horizontal, 30)
         }
-        .padding(.horizontal, 30)
     }
     
     private var lottieAnimationView: some View {
@@ -38,7 +47,7 @@ struct MainView: View {
                 }
             }
         )
-        .frame(width: 200, height: 200)
+        .scaledToFit()
         .onTapGesture {
             lottieAnimation = "catHeadshake"
         }
@@ -54,7 +63,7 @@ struct MainView: View {
 #if DEBUG
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        HomeView()
     }
 }
 #endif

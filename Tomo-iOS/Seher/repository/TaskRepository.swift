@@ -17,8 +17,8 @@ class TaskRepository : ObservableObject {
 //        db.collection("users").document(Auth.auth().currentUser?.uid ?? "").collection("tasks")
 //    }
 //    
-//    @Published var todaysTasks = [Task]()
-//    @Published var tasks = [Task]()
+//    @Published var todaysTasks = [TaskItem]()
+//    @Published var tasks = [TaskItem]()
 //    
 //    private let dateToStringFormatter: DateFormatter = {
 //        let formatter = DateFormatter()

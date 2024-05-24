@@ -6,6 +6,7 @@
 //
 
 import Swinject
+import Supabase
 
 class DIContainer {
     static let shared = DIContainer()
@@ -13,15 +14,28 @@ class DIContainer {
 
     private init() {
         container = Container()
+    }
 
-        // Register services
+    func initializeDependencies() async {
+        // Initialize Supabase client
+        let supabaseClient = SupabaseClientProvider.makeSupabaseClient()
+
+        // Register Supabase client
+        container.register(SupabaseClient.self) { _ in supabaseClient }
+
+        // Register TaskRepository with pre-initialized SupabaseClient
+        container.register(TaskRepository.self) { _ in
+            TaskRepository()
+        }
+
+        // Register other dependencies
         container.register(ChatService.self) { _ in ChatService() }
         container.register(NameRepository.self) { _ in NameRepository() }
-        container.register(TaskRepository.self) { _ in TaskRepository() }
-
-        // Register view models
         container.register(LoginViewModel.self) { resolver in
-            LoginViewModel()
+            LoginViewModel(supabaseClient: supabaseClient)
+        }
+        container.register(RegisterViewModel.self) { resolver in
+            RegisterViewModel(supabaseClient: supabaseClient)
         }
         container.register(NameViewModel.self) { resolver in
             NameViewModel(/*nameRepository: resolver.resolve(NameRepository.self)!*/)
@@ -32,11 +46,8 @@ class DIContainer {
         container.register(ChatViewModel.self) { resolver in
             ChatViewModel(chatService: resolver.resolve(ChatService.self)!)
         }
-        container.register(RegisterViewModel.self) { resolver in
-            RegisterViewModel()
-        }
         container.register(TaskCellViewModel.self) { resolver in
-            TaskCellViewModel(task: Task(title: "", startDate: "", completed: false, completedIcon: ""))
+            TaskCellViewModel(/*task: TaskItem(title: "", startDate: "", completed: false, completedIcon: "")*/)
         }
     }
 }

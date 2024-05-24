@@ -1,6 +1,6 @@
 //
 //  RegisterView.swift
-//  PetSupport
+//  Seher
 //
 //  Created by Dayem Saeed on 3/23/21.
 //
@@ -15,11 +15,12 @@ struct RegisterView: View {
     @State private var isEditing = false
     @State private var showPassword = false
     @State private var showConfirmPassword = false
+    @State private var registerError: String?
     @EnvironmentObject var registerViewModel: RegisterViewModel
     @EnvironmentObject var loginViewModel: LoginViewModel
 
     private var canSignUp: Bool {
-        return !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty
+        return !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty && password == confirmPassword
     }
 
     var body: some View {
@@ -27,7 +28,7 @@ struct RegisterView: View {
             Spacer().frame(height: 150)
             
             Text("TOMO")
-                .foregroundColor(Color.petSupportText)
+                .foregroundColor(Color.seherText)
                 .font(.system(size: 36))
 
             InputField(title: "EMAIL", text: $email)
@@ -36,12 +37,18 @@ struct RegisterView: View {
 
             Spacer()
 
-            Button(action: {
-                registerViewModel.register(email: email, password: password)
-            }) {
+            AsyncButton {
+                await handleRegister()
+            } label: {
                 Text("Register")
             }
             .buttonStyle(PrimaryButtonStyle(disabled: !canSignUp))
+
+            if let registerError = registerError {
+                Text(registerError)
+                    .foregroundColor(.red)
+                    .padding(.top, 10)
+            }
 
             NavigationLink(destination: LoginView(loginViewModel: _loginViewModel, registerViewModel: _registerViewModel)) {
                 Text("LOGIN")
@@ -52,6 +59,16 @@ struct RegisterView: View {
             Spacer()
         }
         .padding(.horizontal, 30)
+    }
+    
+    @MainActor
+    private func handleRegister() async {
+        do {
+            let _ = try await registerViewModel.register(email: email, password: password)
+        } catch {
+            registerError = error.localizedDescription
+            print(registerError ?? "")
+        }
     }
 }
 
@@ -64,7 +81,7 @@ struct PrimaryButtonStyle: ButtonStyle {
             .font(.system(size: 18))
             .padding(.horizontal, 20)
             .padding()
-            .background(Color.petSupportBlue)
+            .background(Color.seherCircle)
             .cornerRadius(70.0)
             .disabled(disabled)
     }
@@ -75,7 +92,7 @@ struct SecondaryButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .font(.system(size: 18))
-            .foregroundColor(Color.petSupportText)
+            .foregroundColor(Color.seherText)
     }
 }
 

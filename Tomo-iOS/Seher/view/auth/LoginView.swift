@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  PetSupport
+//  Seher
 //
 //  Created by Dayem Saeed on 12/15/20.
 //
@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var isEditing = false
     @State private var showPassword = false
+    @State private var loginError: String?
     @EnvironmentObject var loginViewModel: LoginViewModel
     @EnvironmentObject var registerViewModel: RegisterViewModel
     
@@ -23,11 +24,12 @@ struct LoginView: View {
     
     var body: some View {
         
-        return VStack(content: {
+        VStack {
             Spacer()
                 .frame(height: 150)
             
-            Text("TOMO").foregroundColor(Color.petSupportText)
+            Text("TOMO")
+                .foregroundColor(Color.seherText)
                 .font(.system(size: 36))
                 .padding()
 
@@ -43,8 +45,8 @@ struct LoginView: View {
                     
                 }
                 
-                TextField("Email", text: $email) {
-                    isEditing in self.isEditing = isEditing
+                TextField("Email", text: $email) { isEditing in
+                    self.isEditing = isEditing
                 }
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
@@ -72,8 +74,7 @@ struct LoginView: View {
                 ZStack {
                     if showPassword {
                         TextField("Password", text: $password)
-                    }
-                    else {
+                    } else {
                         SecureField("Password", text: $password)
                     }
                 }
@@ -89,38 +90,49 @@ struct LoginView: View {
                 
             }
             
-            Spacer();
+            Spacer()
             
             VStack {
-                
-                Button(action: {
-                        loginViewModel.login(email: email, password: password)
-                }, label: {
+                AsyncButton {
+                    await handleLogin()
+                } label: {
                     Text("Login")
-                })
-                    .foregroundColor(.white)
-                    .font(.system(size: 18))
-                    .padding(.horizontal, 20)
-                    .padding()
-                    .background(Color.petSupportBlue)
-                    .cornerRadius(70.0)
-                    .disabled(!canLogIn)
+                        .foregroundColor(.white)
+                        .font(.system(size: 18))
+                        .padding(.horizontal, 20)
+                        .padding()
+                        .background(Color.seherCircle)
+                        .cornerRadius(70.0)
+                }
+                .disabled(!canLogIn)
                 
+                if let loginError = loginError {
+                    Text(loginError)
+                        .foregroundColor(.red)
+                        .padding(.top, 10)
+                }
+
                 NavigationLink(destination: RegisterView(registerViewModel: _registerViewModel, loginViewModel: _loginViewModel)) {
-                    Button(action: {}, label: {
-                        Text("Register")
-                            .padding()
-                            .font(.system(size: 18))
-                            .foregroundColor(Color.petSupportText)
-                    })
+                    Text("Register")
+                        .buttonStyle(SecondaryButtonStyle())
+                        .padding()
+                        .font(.system(size: 18))
+                        .foregroundColor(Color.seherText)
                 }
                 .navigationBarBackButtonHidden(true)
             }
             
             Spacer()
-            
-        })
+        }
         .padding(.horizontal, 30)
-        
+    }
+    
+    @MainActor
+    private func handleLogin() async {
+        do {
+            let _ = try await loginViewModel.login(email: email, password: password)
+        } catch {
+            loginError = error.localizedDescription
+        }
     }
 }
