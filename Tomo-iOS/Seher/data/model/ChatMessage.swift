@@ -6,9 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct ChatMessage: Identifiable, Hashable {
+@Model
+class ChatMessage: Identifiable, Hashable {
     let id = UUID()
     let text: String
     let isSender: Bool
+    let messageTimeStamp: Date
+    
+    init(id: UUID = .init(), text: String, isSender: Bool, date: Date = Date()) {
+        self.id = id
+        self.text = text
+        self.isSender = isSender
+        self.messageTimeStamp = date
+    }
 }

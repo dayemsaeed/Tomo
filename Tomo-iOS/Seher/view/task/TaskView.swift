@@ -16,7 +16,7 @@ struct TaskView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            CalendarHeader()
+            CalendarHeader(currentDate: $currentDate)
             TasksListView()
                 .layoutPriority(1)
         }
@@ -33,7 +33,7 @@ struct TaskView: View {
             })
         })
         .sheet(isPresented: $createNewTask, content: {
-            NewTaskView()
+            NewTaskView(taskDate: $currentDate)
                 .presentationDetents([.height(300)])
                 .interactiveDismissDisabled()
                 .presentationCornerRadius(30)

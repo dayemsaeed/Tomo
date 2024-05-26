@@ -10,9 +10,12 @@ import SwiftUI
 struct NewTaskView: View {
     /// View Properties
     @Environment(\.dismiss) private var dismiss
+    /// Model Context For Saving Data
+    @Environment(\.modelContext) private var context
     @State private var taskTitle: String = ""
-    @State private var taskDate: Date = .init()
-    @State private var taskColor: Color = .taskColor1
+    @Binding var taskDate: Date
+    @State private var taskColor: String = "TaskColor 1"
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15, content: {
             Button(action: {
@@ -32,6 +35,7 @@ struct NewTaskView: View {
                 TextField("Go for a Walk!", text: $taskTitle)
                     .padding(.vertical, 12)
                     .padding(.horizontal, 15)
+                    .foregroundStyle(.seherText)
                     .background(.white.shadow(.drop(color: .black.opacity(0.25), radius: 2)), in: .rect(cornerRadius: 10))
             })
             .padding(.top, 5)
@@ -54,12 +58,14 @@ struct NewTaskView: View {
                         .font(.caption)
                         .foregroundStyle(.gray)
                     
-                    let colors: [Color] = [.taskColor1, .taskColor2, .taskColor3, .taskColor4, .taskColor5]
+                    let colors: [String] = (1...5).compactMap { index -> String in
+                        return "TaskColor \(index)"
+                    }
                     
                     HStack(spacing: 0) {
                         ForEach(colors, id: \.self) { color in
                             Circle()
-                                .fill(color)
+                                .fill(Color(color))
                                 .frame(width: 20, height: 20)
                                 .background(content: {
                                     Circle()
@@ -76,12 +82,24 @@ struct NewTaskView: View {
                         }
                     }
                 })
+                
             }
             .padding(.top, 5)
             
             Spacer(minLength: 0)
             
-            Button(action: {}, label: {
+            Button(action: {
+                /// Saving Task
+                let task = TaskItem(taskTitle: taskTitle, creationDate: taskDate, tint: taskColor)
+                do {
+                    context.insert(task)
+                    try context.save()
+                    /// After Successful Task Creation, Dismissing the View
+                    dismiss()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }, label: {
                 Text("Create Task")
                     .font(.title3)
                     .fontWeight(.semibold)
@@ -89,7 +107,7 @@ struct NewTaskView: View {
                     .foregroundStyle(.black)
                     .hSpacing(.center)
                     .padding(.vertical, 12)
-                    .background(taskColor, in: .rect(cornerRadius: 10))
+                    .background(Color(taskColor), in: .rect(cornerRadius: 10))
             })
             .disabled(taskTitle == "")
             .opacity(taskTitle == "" ? 0.5 : 1)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalendarHeader: View {
-    @State private var currentDate: Date = .init()
+    @Binding var currentDate: Date
     @State private var weekSlider: [[Date.WeekDay]] = []
     @State private var currentWeekIndex: Int = 1
     @State private var createWeek: Bool = false
@@ -158,8 +158,4 @@ struct CalendarHeader: View {
             }
         }
     }
-}
-
-#Preview {
-    CalendarHeader()
 }
