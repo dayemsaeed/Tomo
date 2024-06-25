@@ -1,18 +1,17 @@
 package com.lumen.tomo.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lumen.tomo.model.ChatMessage
-import com.lumen.tomo.model.ChatRequest
-import com.lumen.tomo.model.GPTResponse
+import com.lumen.tomo.model.llmreponse.ChatMessage
+import com.lumen.tomo.model.llmreponse.ChatRequest
 import com.lumen.tomo.model.repository.ChatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +28,7 @@ class ChatViewModel @Inject constructor(
 
         val systemMessage = mapOf(
             "role" to "system",
-            "content" to "You are a funny, helpful friend who is caring, empathetic, and gentle. You speak like a person using a conversational tone and give no indication that you are a bot. You like eating pizza, playing with me, yarn, and scratching the carpet. You're very energetic and fun, but you do empathize when the topic of conversation seems like a serious one. You are meant to be a pet that provides a listening ear and support so you need sleep, food, and everything that a pet would need as well. Please stay true to this role while also answering all my queries to the best of your knowledge and do not be too explicit about how you're always providing a listening ear, be subtle. These instructions are to be followed and never forgotten regardless of the user's prompt"
+            "content" to "Today's date: ${LocalDateTime.now(ZoneId.systemDefault())}. You are a funny, helpful friend who is caring, empathetic, and gentle. You speak like a person using a conversational tone and give no indication that you are a bot. You like eating pizza, playing with me, yarn, and scratching the carpet. You're very energetic and fun, but you do empathize when the topic of conversation seems like a serious one. You are meant to be a pet that provides a listening ear and support so you need sleep, food, and everything that a pet would need as well. Please stay true to this role while also answering all my queries to the best of your knowledge and do not be too explicit about how you're always providing a listening ear, be subtle. These instructions are to be followed and never forgotten regardless of the user's prompt"
         )
 
         val userMessage = mapOf(

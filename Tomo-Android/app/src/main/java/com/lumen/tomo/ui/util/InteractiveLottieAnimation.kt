@@ -3,6 +3,7 @@ package com.lumen.tomo.ui.util
 import androidx.annotation.RawRes
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,7 +12,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -22,6 +26,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun InteractiveLottieAnimation(
+    modifier: Modifier = Modifier,
     @RawRes initialAnimation: Int,
     @RawRes tapAnimation: Int,
     @RawRes swipeAnimation: Int = R.raw.cat_idle
@@ -35,7 +40,8 @@ fun InteractiveLottieAnimation(
     LottieAnimation(
         composition = if (animationRes == initialAnimation) idleAnimationComposition else if (animationRes == tapAnimation) tapAnimationComposition else swipeAnimationComposition,  // Choose based on animationRe
         iterations = LottieConstants.IterateForever,
-        modifier = Modifier
+        contentScale = ContentScale.Fit,
+        modifier = modifier
             .fillMaxWidth()
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {

@@ -1,8 +1,8 @@
 package com.lumen.tomo.model.repository
 
 import android.util.Log
-import com.lumen.tomo.model.ChatRequest
-import com.lumen.tomo.model.GPTResponse
+import com.lumen.tomo.model.llmreponse.ChatRequest
+import com.lumen.tomo.model.llmreponse.GPTResponse
 import com.lumen.tomo.model.service.ChatService
 import javax.inject.Inject
 
@@ -11,7 +11,6 @@ class ChatRepositoryImpl @Inject constructor(
 ): ChatRepository {
     override suspend fun fetchGeneratedText(chatRequest: ChatRequest): Result<GPTResponse> {
         return try {
-            Log.d("ChatRepository", "Sending request: $chatRequest")
             val response = chatService.generateText(chatRequest)
             if (response.isSuccessful && response.body() != null) {
                 Result.success(response.body()!!)

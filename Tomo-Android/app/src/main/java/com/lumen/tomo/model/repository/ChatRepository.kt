@@ -1,7 +1,7 @@
 package com.lumen.tomo.model.repository
 
-import com.lumen.tomo.model.ChatRequest
-import com.lumen.tomo.model.GPTResponse
+import com.lumen.tomo.model.llmreponse.ChatRequest
+import com.lumen.tomo.model.llmreponse.GPTResponse
 
 
 interface ChatRepository {

@@ -1,4 +1,4 @@
-package com.lumen.tomo.model
+package com.lumen.tomo.model.llmreponse
 
 import java.util.UUID
 

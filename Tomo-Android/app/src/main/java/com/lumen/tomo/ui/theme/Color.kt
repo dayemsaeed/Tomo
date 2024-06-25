@@ -12,3 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val Navy = Color(0xFF131E2E)
 val SeherMain = Color(0xFF00918D)
+val SeherLighter = Color(0xFF05CFCA)
+
+val PastelYellow = Color(0xFFFFF59D)
+val PastelPink = Color(0xFFF48FB1)

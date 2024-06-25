@@ -1,4 +1,4 @@
-package com.lumen.tomo.ui.util
+package com.lumen.tomo.ui.util.chatutils
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,9 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lumen.tomo.R
-import com.lumen.tomo.model.ChatMessage
-import com.lumen.tomo.ui.theme.Navy
+import com.lumen.tomo.model.llmreponse.ChatMessage
 import com.lumen.tomo.ui.theme.SeherMain
 import java.util.UUID
 

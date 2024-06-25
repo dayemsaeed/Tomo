@@ -19,21 +19,27 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
 import com.lumen.tomo.ui.theme.TomoTheme
+import com.lumen.tomo.ui.views.AddTaskFragment
 import com.lumen.tomo.ui.views.ChatFragment
 import com.lumen.tomo.ui.views.LoginFragment
 import com.lumen.tomo.ui.views.PetFragment
 import com.lumen.tomo.ui.views.RegisterFragment
+import com.lumen.tomo.ui.views.TaskFragment
 import com.lumen.tomo.viewmodel.ChatViewModel
+import com.lumen.tomo.viewmodel.TaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
     val chatViewModel: ChatViewModel = hiltViewModel()
-    NavHost(navController = navController, startDestination = "login") {
+    val taskViewModel: TaskViewModel = hiltViewModel()
+    NavHost(navController = navController, startDestination = "petScreen") {
         composable("petScreen") { PetFragment(navController) }
         composable("login") { LoginFragment(navController) }
         composable("register") { RegisterFragment(navController) }
+        composable("tasks") { TaskFragment(navController, taskViewModel) }
+        composable("addTask") { AddTaskFragment(navController, taskViewModel) }
         composable("chat") {
             ChatFragment(navController, chatViewModel) { message ->
                 chatViewModel.sendMessage(message)

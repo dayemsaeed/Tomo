@@ -1,4 +1,4 @@
-package com.lumen.tomo.ui.util
+package com.lumen.tomo.ui.util.chatutils
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
