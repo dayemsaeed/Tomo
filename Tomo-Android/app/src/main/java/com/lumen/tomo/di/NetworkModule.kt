@@ -11,6 +11,7 @@ import com.lumen.tomo.model.repository.TaskRepository
 import com.lumen.tomo.model.repository.TaskRepositoryImpl
 import com.lumen.tomo.model.service.ChatService
 import com.lumen.tomo.model.service.TaskService
+import com.lumen.tomo.util.DataStoreHelper
 import com.lumen.tomo.util.LocalDateTimeAdapter
 import dagger.Module
 import dagger.Provides
@@ -44,8 +45,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesAuthRepositoryImpl(supabaseClient: SupabaseClient): AuthRepository {
-        return AuthRepositoryImpl(supabaseClient)
+    fun providesAuthRepositoryImpl(supabaseClient: SupabaseClient, dataStoreHelper: DataStoreHelper): AuthRepository {
+        return AuthRepositoryImpl(supabaseClient, dataStoreHelper)
     }
 
     @Provides

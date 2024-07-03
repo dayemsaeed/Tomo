@@ -35,7 +35,7 @@ import com.lumen.tomo.model.TaskItem
 import com.lumen.tomo.ui.theme.Navy
 import com.lumen.tomo.ui.theme.SeherMain
 import java.time.LocalDateTime
-import java.util.Date
+import java.util.UUID
 
 @Composable
 fun TaskRow(
@@ -124,7 +124,8 @@ fun TaskRowPreview() {
             title = "Test Task",
             creationDate = LocalDateTime.now(),
             completed = false,
-            color = Color.Red.toArgb()
+            color = Color.Red.toArgb(),
+            createdBy = UUID.randomUUID()
         ),
         onTaskCompletionChange = { task, completed ->
             // Mock implementation for preview

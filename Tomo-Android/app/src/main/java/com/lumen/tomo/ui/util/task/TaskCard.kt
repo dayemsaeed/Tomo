@@ -27,6 +27,7 @@ import com.lumen.tomo.model.TaskItem
 import com.lumen.tomo.util.DateUtil
 import java.time.LocalDateTime
 import java.util.Date
+import java.util.UUID
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -76,5 +77,5 @@ fun TaskCard(
 @Preview
 @Composable
 fun TaskCardPreview() {
-    TaskCard(TaskItem(title = "Test Task", creationDate = LocalDateTime.now(), completed = false, color = Color.Red.toArgb())) {}
+    TaskCard(TaskItem(title = "Test Task", creationDate = LocalDateTime.now(), completed = false, color = Color.Red.toArgb(), createdBy = UUID.randomUUID())) {}
 }

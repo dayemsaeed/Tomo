@@ -14,11 +14,11 @@ import dagger.hilt.android.HiltAndroidApp
     entities = [TaskItem::class],
     autoMigrations = [
         AutoMigration (
-            from = 1,
-            to = 2
+            from = 2,
+            to = 3
         )
     ],
-    version = 2
+    version = 3
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

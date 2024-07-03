@@ -2,6 +2,7 @@ package com.lumen.tomo.model.daos
 
 import androidx.room.*
 import com.lumen.tomo.model.TaskItem
+import java.time.LocalDateTime
 
 @Dao
 interface TaskDao {
@@ -17,6 +18,6 @@ interface TaskDao {
     @Query("SELECT * FROM taskitem")
     suspend fun getAllTasks(): List<TaskItem>
 
-    @Query("SELECT * FROM taskitem WHERE DATE(task_created_at) = DATE(:date) ORDER BY task_created_at ASC")
-    suspend fun getTasksCreatedOnDate(date: String): List<TaskItem>
+    @Query("SELECT * FROM taskitem WHERE task_created_by = :userId AND task_created_at BETWEEN :startDate AND :endDate")
+    suspend fun getTasksCreatedOnDate(startDate: LocalDateTime, endDate: LocalDateTime, userId: String): List<TaskItem>
 }

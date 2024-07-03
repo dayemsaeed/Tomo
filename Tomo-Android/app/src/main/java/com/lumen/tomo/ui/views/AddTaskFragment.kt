@@ -1,7 +1,6 @@
 package com.lumen.tomo.ui.views
 
 import android.util.Log
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -71,6 +70,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.UUID
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,8 +98,9 @@ fun AddTaskFragment(
         },
         topBar = { AddTaskTopAppBar(navController = navController) },
         bottomBar = { AddTaskBottomBar(navController = navController) {
+            Log.i("AddTaskFragment", "User Id: ${taskViewModel.userId.value}")
                 taskViewModel.addTask(
-                    TaskItem(title = taskTitle, creationDate = date.atTime(time), color = selectedColor.toArgb())
+                    TaskItem(title = taskTitle, creationDate = date.atTime(time), color = selectedColor.toArgb(), createdBy = UUID.fromString(taskViewModel.userId.value.toString()))
                 )
                 taskViewModel.updateTaskDescription("")
             }
@@ -337,7 +338,8 @@ fun AddTaskFragmentWithoutVM(
                 title = "",
                 creationDate = LocalDateTime.now(),
                 completed = false,
-                color = R.color.navy
+                color = R.color.navy,
+                createdBy = UUID.randomUUID()
             )
         )
     }

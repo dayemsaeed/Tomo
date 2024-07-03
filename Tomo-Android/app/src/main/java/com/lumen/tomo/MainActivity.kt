@@ -6,6 +6,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import com.lumen.tomo.ui.views.PetFragment
 import com.lumen.tomo.ui.views.RegisterFragment
 import com.lumen.tomo.ui.views.TaskFragment
 import com.lumen.tomo.viewmodel.ChatViewModel
+import com.lumen.tomo.viewmodel.LoginViewModel
 import com.lumen.tomo.viewmodel.TaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +36,7 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val chatViewModel: ChatViewModel = hiltViewModel()
     val taskViewModel: TaskViewModel = hiltViewModel()
-    NavHost(navController = navController, startDestination = "petScreen") {
+    NavHost(navController = navController, startDestination = "login") {
         composable("petScreen") { PetFragment(navController) }
         composable("login") { LoginFragment(navController) }
         composable("register") { RegisterFragment(navController) }
@@ -50,8 +52,17 @@ fun AppNavigation() {
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val loginViewModel: LoginViewModel by viewModels()
+    private val taskViewModel: TaskViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loginViewModel.userId.observe(this) { userId ->
+            if (userId != null) {
+                taskViewModel.setUserId(userId)
+            }
+        }
         setContent {
             TomoTheme {
                 // A surface container using the 'background' color from the theme
