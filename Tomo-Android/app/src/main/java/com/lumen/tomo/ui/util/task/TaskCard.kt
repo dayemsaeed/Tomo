@@ -66,7 +66,7 @@ fun TaskCard(
                 )
                 Text(
                     modifier = Modifier.padding(horizontal = 8.dp),
-                    text = taskItem.creationDate.toLocalTime().format(DateUtil.timeFormatter),
+                    text = taskItem.creationDate.format(DateUtil.timeFormatter),
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -77,5 +77,6 @@ fun TaskCard(
 @Preview
 @Composable
 fun TaskCardPreview() {
-    TaskCard(TaskItem(title = "Test Task", creationDate = LocalDateTime.now(), completed = false, color = Color.Red.toArgb(), createdBy = UUID.randomUUID())) {}
+    TaskCard(TaskItem(title = "Test Task", creationDate = LocalDateTime.now().toString(), completed = false, color = Color.Red.toArgb(), createdBy = UUID.randomUUID()
+        .toString())) {}
 }

@@ -5,7 +5,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Date
 
 @ProvidedTypeConverter
@@ -40,5 +43,48 @@ class Converters {
     @TypeConverter
     fun toString(date: LocalDateTime?): String? {
         return date?.format(formatter)
+    }
+
+    companion object {
+        fun convertToLocalDateTime(utcTimestamp: String): String {
+            // Parse the UTC timestamp
+            val utcZonedDateTime = ZonedDateTime.parse(utcTimestamp, DateTimeFormatter.ISO_INSTANT)
+
+            // Convert to local time zone
+            val localZonedDateTime = utcZonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
+
+            // Format for display
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            return localZonedDateTime.format(formatter)
+        }
+
+        fun convertToUTC(localDateTimeString: String, pattern: String): String {
+            try {
+                // Define the formatter for the input string
+                val formatter = DateTimeFormatter.ofPattern(pattern)
+
+                // Parse the input string to a LocalDateTime
+                val localDateTime = LocalDateTime.parse(localDateTimeString, formatter)
+
+                // Define the system's default time zone
+                val systemDefault = ZoneId.systemDefault()
+
+                // Create a ZonedDateTime in the system's default time zone
+                val localZonedDateTime = localDateTime.atZone(systemDefault)
+
+                // Convert the ZonedDateTime to UTC
+                val utcZonedDateTime = localZonedDateTime.withZoneSameInstant(ZoneId.of("UTC"))
+
+                // Define the formatter for the output string
+                val utcFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+
+                // Format the ZonedDateTime as a string
+                return utcZonedDateTime.format(utcFormatter)
+            } catch (e: DateTimeParseException) {
+                e.printStackTrace();
+                return "${e.message}"
+            }
+        }
+
     }
 }

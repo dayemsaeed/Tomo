@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.lumen.tomo.model.TaskItem
-import com.lumen.tomo.model.daos.TaskDao
+import com.lumen.tomo.model.daos.TaskItemDAO
 import com.lumen.tomo.util.Converters
 import dagger.hilt.android.HiltAndroidApp
 
@@ -23,7 +23,7 @@ import dagger.hilt.android.HiltAndroidApp
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun taskDao(): TaskDao
+    abstract fun taskDao(): TaskItemDAO
 
 }
 @HiltAndroidApp

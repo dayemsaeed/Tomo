@@ -99,11 +99,11 @@ fun AddTaskFragment(
         topBar = { AddTaskTopAppBar(navController = navController) },
         bottomBar = { AddTaskBottomBar(navController = navController) {
             Log.i("AddTaskFragment", "User Id: ${taskViewModel.userId.value}")
-                taskViewModel.addTask(
-                    TaskItem(title = taskTitle, creationDate = date.atTime(time), color = selectedColor.toArgb(), createdBy = UUID.fromString(taskViewModel.userId.value.toString()))
-                )
-                taskViewModel.updateTaskDescription("")
-            }
+            taskViewModel.addTask(
+                TaskItem(title = taskTitle, creationDate = date.atTime(time).toString(), color = selectedColor.toArgb(), createdBy = taskViewModel.userId.value.toString(), completed = false, description = taskDescription)
+            )
+            taskViewModel.updateTaskDescription("")
+        }
         }
     ) { paddingValue ->
         Column(
@@ -336,10 +336,10 @@ fun AddTaskFragmentWithoutVM(
         mutableStateOf(
             TaskItem(
                 title = "",
-                creationDate = LocalDateTime.now(),
+                creationDate = LocalDateTime.now().toString(),
                 completed = false,
                 color = R.color.navy,
-                createdBy = UUID.randomUUID()
+                createdBy = UUID.randomUUID().toString()
             )
         )
     }

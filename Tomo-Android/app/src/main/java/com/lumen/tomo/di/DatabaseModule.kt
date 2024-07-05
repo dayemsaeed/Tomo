@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.lumen.tomo.model.daos.TaskDao
+import com.lumen.tomo.model.daos.TaskItemDAO
 import com.lumen.tomo.util.Converters
 import dagger.Module
 import dagger.Provides
@@ -31,7 +31,7 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideTaskDao(appDatabase: AppDatabase): TaskDao {
+    fun provideTaskDao(appDatabase: AppDatabase): TaskItemDAO {
         return appDatabase.taskDao()
     }
 

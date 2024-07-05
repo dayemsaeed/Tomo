@@ -12,6 +12,7 @@ import com.lumen.tomo.model.TaskItem
 import com.lumen.tomo.model.llmreponse.TaskRequest
 import com.lumen.tomo.model.repository.AuthRepository
 import com.lumen.tomo.model.repository.TaskRepository
+import com.lumen.tomo.util.Converters
 import com.lumen.tomo.util.DataStoreHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.SupabaseClient
@@ -19,6 +20,7 @@ import io.github.jan.supabase.gotrue.auth
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 import javax.inject.Inject
 
@@ -80,8 +82,10 @@ class TaskViewModel @Inject constructor(
                 val userIdValue = userId.value ?: throw IllegalStateException("User ID is null")
                 val dateTime = date.atStartOfDay()
                 Log.i("TaskViewModel", "Loading tasks for userId: $userIdValue on date: $dateTime")
-                val tasks = taskRepository.getTasksFromRoomDb(dateTime, userIdValue)
-                _taskList.value = tasks
+                val tasks = taskRepository.getTasksFromSupabaseDb(Converters.convertToUTC(dateTime.toString(),
+                    DateTimeFormatter.ISO_LOCAL_DATE_TIME.toString()
+                ), userIdValue)
+                _taskList.value = tasks.getOrDefault(emptyList())
             } catch (e: Exception) {
                 _error.value = "Error loading tasks: ${e.message}"
             } finally {
@@ -97,11 +101,14 @@ class TaskViewModel @Inject constructor(
             _error.value = null
             try {
                 val userIdValue = userId.value ?: throw IllegalStateException("User ID is null")
-                val taskWithUserId = task.copy(createdBy = UUID.fromString(userIdValue))
-                val success = taskRepository.insertTaskIntoRoomDb(taskWithUserId)
-                if (success) {
+                val taskWithUserId = task.copy(description = task.description.ifEmpty { " " }, createdBy = userIdValue)
+                Log.d("TaskViewModel", "Task: $taskWithUserId")
+                val success = taskRepository.insertTaskIntoSupabaseDb(taskWithUserId)
+                if (success.isSuccess) {
                     Log.i("TaskViewModel", "Task added successfully. Fetching updated task list.")
-                    _taskList.value = taskRepository.getTasksFromRoomDb(task.creationDate, userIdValue)
+                    _taskList.value = taskRepository.getTasksFromSupabaseDb(Converters.convertToUTC(task.creationDate,
+                        DateTimeFormatter.ISO_LOCAL_DATE_TIME.toString()
+                    ), userIdValue).getOrDefault(emptyList())
                 } else {
                     _error.value = "Error adding task to local database."
                 }
@@ -120,9 +127,10 @@ class TaskViewModel @Inject constructor(
             _error.value = null
             try {
                 val userIdValue = userId.value ?: throw IllegalStateException("User ID is null")
-                val success = taskRepository.deleteTaskFromRoomDb(task)
-                if (success) {
-                    _taskList.value = taskRepository.getTasksFromRoomDb(task.creationDate, userIdValue)
+                val success = taskRepository.deleteTaskFromSupabaseDb(task)
+                if (success.isSuccess) {
+                    _taskList.value = taskRepository.getTasksFromSupabaseDb(task.creationDate, userIdValue).getOrDefault(
+                        emptyList())
                 } else {
                     _error.value = "Error deleting task from local database."
                 }

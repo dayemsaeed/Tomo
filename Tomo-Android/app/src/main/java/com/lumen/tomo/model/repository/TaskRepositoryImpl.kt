@@ -2,27 +2,27 @@ package com.lumen.tomo.model.repository
 
 import android.util.Log
 import com.lumen.tomo.model.TaskItem
-import com.lumen.tomo.model.daos.TaskDao
+import com.lumen.tomo.model.daos.TaskItemDAO
 import com.lumen.tomo.model.llmreponse.BreakdownResponse
 import com.lumen.tomo.model.llmreponse.TaskRequest
 import com.lumen.tomo.model.service.TaskService
+import com.lumen.tomo.model.toDTO
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Response
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.time.LocalDateTime
-import java.util.Date
-import java.util.UUID
-import java.util.logging.Logger
 import javax.inject.Inject
 
 class TaskRepositoryImpl @Inject constructor(
     private val taskService: TaskService,
-    private val taskDao: TaskDao,
+    private val taskDao: TaskItemDAO,
     private val supabaseClient: SupabaseClient
-): TaskRepository {
+) : TaskRepository {
+
     override suspend fun insertTaskIntoRoomDb(task: TaskItem): Boolean {
         return try {
             taskDao.insertTask(task)
@@ -43,9 +43,10 @@ class TaskRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTasksFromRoomDb(date: LocalDateTime, userId: String): List<TaskItem> {
-        val startOfDay = date.withHour(0).withMinute(0).withSecond(0).withNano(0)
-        val endOfDay = date.withHour(23).withMinute(59).withSecond(59).withNano(999999999)
+    override suspend fun getTasksFromRoomDb(date: String, userId: String): List<TaskItem> {
+        val localDate = LocalDateTime.parse(date)
+        val startOfDay = localDate.withHour(0).withMinute(0).withSecond(0).withNano(0)
+        val endOfDay = localDate.withHour(23).withMinute(59).withSecond(59).withNano(999999999)
 
         Log.i("TaskRepository", "Fetching tasks for userId: $userId from $startOfDay to $endOfDay")
 
@@ -70,17 +71,12 @@ class TaskRepositoryImpl @Inject constructor(
     override suspend fun insertTaskIntoSupabaseDb(task: TaskItem): Result<Boolean> {
         return try {
             withContext(Dispatchers.IO) {
+                val taskDTO = task.toDTO()
+                val jsonString = Json.encodeToString(taskDTO)
+                Log.d("TaskRepository", "JSON String: $jsonString")
                 val response = supabaseClient
                     .from("tasks")
-                    .insert(mapOf(
-                        "id" to task.id,
-                        "title" to task.title,
-                        "description" to task.description,
-                        "created_at" to task.creationDate.toString(),
-                        "completed" to task.completed,
-                        "color" to task.color,
-                        "created_by" to task.createdBy
-                    ))
+                    .insert(taskDTO)
                 if (response.data.isNotEmpty()) {
                     Result.success(true)
                 } else {
@@ -88,7 +84,7 @@ class TaskRepositoryImpl @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            Log.e("TaskRepository", "Supabase insert failed. Message: ${e.message}")
+            Log.e("TaskRepository", "${e} exception. Supabase insert failed. Message: ${e.message}")
             Result.failure(e)
         }
     }
@@ -100,8 +96,8 @@ class TaskRepositoryImpl @Inject constructor(
                     .from("tasks")
                     .delete {
                         filter {
-                            eq("id", task.id.toString())
-                            eq("created_by", task.createdBy)
+                            eq("id", task.id)
+                            eq("task_created_by", task.createdBy)
                         }
                     }
                 if (response.data.isNotEmpty()) {
@@ -116,18 +112,19 @@ class TaskRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTasksFromSupabaseDb(date: LocalDateTime, userId: String): Result<List<TaskItem>> {
+    override suspend fun getTasksFromSupabaseDb(date: String, userId: String): Result<List<TaskItem>> {
         return try {
             withContext(Dispatchers.IO) {
-                val dateString = date.toLocalDate().toString()
+                val localDateTime = LocalDateTime.parse(date)
+                val dateString = localDateTime.toLocalDate().toString()
                 val response = supabaseClient
                     .from("tasks")
                     .select {
                         filter {
-                            eq("created_at::date", dateString)
-                            eq("created_by", userId)
+                            eq("task_created_at::date", dateString)
+                            eq("task_created_by", userId)
                         }
-                        order(column = "created_at", order = Order.ASCENDING)
+                        order(column = "task_created_at", order = Order.ASCENDING)
                     }
                 if (response.data.isNotEmpty()) {
                     val tasks = response.decodeList<TaskItem>()
@@ -156,6 +153,32 @@ class TaskRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Log.e("TaskRepository", "Network error: ${e.message}", e)
             Result.failure(Exception("Network error: ${e.message}", e))
+        }
+    }
+
+    override suspend fun updateTaskCompletedInSupabaseDb(task: TaskItem): Result<Boolean> {
+        return try {
+            withContext(Dispatchers.IO) {
+                val response = supabaseClient
+                    .from("tasks")
+                    .update(
+                        {
+                            set("task_completed", task.completed)
+                        }
+                    ) {
+                        filter {
+                            eq("id", task.id)
+                        }
+                    }
+                if (response.data.isNotEmpty()) {
+                    Result.success(true)
+                } else {
+                    Result.failure(Exception("Could not update data"))
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("TaskRepository", "Supabase update failed. Message: ${e.message}")
+            Result.failure(e)
         }
     }
 }

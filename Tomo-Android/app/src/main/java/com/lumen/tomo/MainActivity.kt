@@ -4,6 +4,7 @@ package com.lumen.tomo
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -59,8 +60,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginViewModel.userId.observe(this) { userId ->
-            if (userId != null) {
+            if (userId != null && userId.isNotEmpty()) {
                 taskViewModel.setUserId(userId)
+            }
+            else {
+                Log.i("MainActivity", "User Id: $userId")
             }
         }
         setContent {

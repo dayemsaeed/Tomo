@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -103,8 +104,10 @@ fun LoginFragment(navController: NavController, modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.weight(0.5f))
+                val localSoftwareKeyboardController = LocalSoftwareKeyboardController.current
                 Button(
                     onClick = {
+                        localSoftwareKeyboardController?.hide()
                         loginViewModel.onLoginClicked()
                     },
                     modifier = Modifier

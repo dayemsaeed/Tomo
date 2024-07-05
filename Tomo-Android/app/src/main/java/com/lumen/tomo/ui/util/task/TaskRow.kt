@@ -122,10 +122,10 @@ fun TaskRowPreview() {
     TaskRow(
         taskItem = TaskItem(
             title = "Test Task",
-            creationDate = LocalDateTime.now(),
+            creationDate = LocalDateTime.now().toString(),
             completed = false,
             color = Color.Red.toArgb(),
-            createdBy = UUID.randomUUID()
+            createdBy = UUID.randomUUID().toString()
         ),
         onTaskCompletionChange = { task, completed ->
             // Mock implementation for preview

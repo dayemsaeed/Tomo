@@ -4,11 +4,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.lumen.tomo.BuildConfig
-import com.lumen.tomo.model.daos.TaskDao
 import com.lumen.tomo.model.repository.AuthRepository
 import com.lumen.tomo.model.repository.AuthRepositoryImpl
-import com.lumen.tomo.model.repository.TaskRepository
-import com.lumen.tomo.model.repository.TaskRepositoryImpl
 import com.lumen.tomo.model.service.ChatService
 import com.lumen.tomo.model.service.TaskService
 import com.lumen.tomo.util.DataStoreHelper
@@ -18,6 +15,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -41,6 +41,16 @@ object NetworkModule {
         return GsonBuilder()
             .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeAdapter())
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideJson(): Json {
+        return Json {
+            isLenient = true
+            ignoreUnknownKeys = true
+            encodeDefaults = true
+        }
     }
 
     @Provides

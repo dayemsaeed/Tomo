@@ -5,7 +5,7 @@ import com.lumen.tomo.model.TaskItem
 import java.time.LocalDateTime
 
 @Dao
-interface TaskDao {
+interface TaskItemDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(taskItem: TaskItem)
 
