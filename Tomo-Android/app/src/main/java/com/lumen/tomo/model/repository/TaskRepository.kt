@@ -1,6 +1,7 @@
 package com.lumen.tomo.model.repository
 
 import com.lumen.tomo.model.TaskItem
+import com.lumen.tomo.model.dtos.TaskItemDTO
 import com.lumen.tomo.model.llmreponse.BreakdownResponse
 import com.lumen.tomo.model.llmreponse.TaskRequest
 import retrofit2.Response
@@ -14,7 +15,8 @@ interface TaskRepository {
     suspend fun updateTaskInRoomDb(task: TaskItem): Boolean
     suspend fun insertTaskIntoSupabaseDb(task: TaskItem): Result<Boolean>
     suspend fun deleteTaskFromSupabaseDb(task: TaskItem): Result<Boolean>
-    suspend fun getTasksFromSupabaseDb(date: String, userId: String): Result<List<TaskItem>>
+    suspend fun getTasksFromSupabaseDb(date: String, userId: String): Result<List<TaskItemDTO>>
+    suspend fun getAllTasksFromSupabaseDb(): Result<List<TaskItemDTO>>
     suspend fun updateTaskCompletedInSupabaseDb(task: TaskItem): Result<Boolean>
     suspend fun breakDownTask(taskRequest: TaskRequest): Result<BreakdownResponse>
 }

@@ -89,6 +89,7 @@ fun AddTaskFragment(
     var openDatePicker by remember { mutableStateOf(false) }
     var openTimePicker by remember { mutableStateOf(false) }
     val formatter = remember { DateTimeFormatter.ofPattern("hh:mm a") }
+    val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -98,12 +99,11 @@ fun AddTaskFragment(
         },
         topBar = { AddTaskTopAppBar(navController = navController) },
         bottomBar = { AddTaskBottomBar(navController = navController) {
-            Log.i("AddTaskFragment", "User Id: ${taskViewModel.userId.value}")
-            taskViewModel.addTask(
-                TaskItem(title = taskTitle, creationDate = date.atTime(time).toString(), color = selectedColor.toArgb(), createdBy = taskViewModel.userId.value.toString(), completed = false, description = taskDescription)
-            )
-            taskViewModel.updateTaskDescription("")
-        }
+                taskViewModel.addTask(
+                    TaskItem(title = taskTitle, creationDate = dateTimeFormatter.format(date.atTime(time)), color = selectedColor.toArgb(), createdBy = taskViewModel.userId.value.toString(), completed = false, description = taskDescription)
+                )
+                taskViewModel.updateTaskDescription("")
+            }
         }
     ) { paddingValue ->
         Column(

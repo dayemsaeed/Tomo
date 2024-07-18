@@ -24,8 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lumen.tomo.model.TaskItem
+import com.lumen.tomo.util.Converters
 import com.lumen.tomo.util.DateUtil
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.UUID
 
@@ -64,9 +67,14 @@ fun TaskCard(
                     imageVector = Icons.Outlined.AccessTime,
                     contentDescription = "Clock icon: Event time"
                 )
+                // Parse the UTC timestamp
+                val utcTimestamp = ZonedDateTime.parse(taskItem.creationDate, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+                // Format for display
+                val timeOnly = utcTimestamp.format(DateUtil.timeFormatter)
                 Text(
                     modifier = Modifier.padding(horizontal = 8.dp),
-                    text = taskItem.creationDate.format(DateUtil.timeFormatter),
+                    text = timeOnly,
                     fontWeight = FontWeight.SemiBold
                 )
             }

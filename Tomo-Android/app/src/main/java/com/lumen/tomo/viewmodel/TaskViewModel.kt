@@ -9,6 +9,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lumen.tomo.model.TaskItem
+import com.lumen.tomo.model.dtos.TaskItemDTO
 import com.lumen.tomo.model.llmreponse.TaskRequest
 import com.lumen.tomo.model.repository.AuthRepository
 import com.lumen.tomo.model.repository.TaskRepository
@@ -80,12 +81,10 @@ class TaskViewModel @Inject constructor(
             _error.value = null
             try {
                 val userIdValue = userId.value ?: throw IllegalStateException("User ID is null")
-                val dateTime = date.atStartOfDay()
-                Log.i("TaskViewModel", "Loading tasks for userId: $userIdValue on date: $dateTime")
-                val tasks = taskRepository.getTasksFromSupabaseDb(Converters.convertToUTC(dateTime.toString(),
-                    DateTimeFormatter.ISO_LOCAL_DATE_TIME.toString()
-                ), userIdValue)
-                _taskList.value = tasks.getOrDefault(emptyList())
+                val dateString = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
+                Log.i("TaskViewModel", "Loading tasks for userId: $userIdValue on date: $dateString")
+                val tasks = taskRepository.getTasksFromSupabaseDb(dateString, userIdValue)
+                _taskList.value = tasks.getOrDefault(emptyList()).map { taskDto -> taskDto.asDomainModel() }
             } catch (e: Exception) {
                 _error.value = "Error loading tasks: ${e.message}"
             } finally {
@@ -106,9 +105,10 @@ class TaskViewModel @Inject constructor(
                 val success = taskRepository.insertTaskIntoSupabaseDb(taskWithUserId)
                 if (success.isSuccess) {
                     Log.i("TaskViewModel", "Task added successfully. Fetching updated task list.")
-                    _taskList.value = taskRepository.getTasksFromSupabaseDb(Converters.convertToUTC(task.creationDate,
+                    val tasks = taskRepository.getTasksFromSupabaseDb(Converters.convertToUTC(task.creationDate,
                         DateTimeFormatter.ISO_LOCAL_DATE_TIME.toString()
-                    ), userIdValue).getOrDefault(emptyList())
+                    ), userIdValue)
+                    _taskList.value = tasks.getOrDefault(emptyList()).map { taskDto -> taskDto.asDomainModel() }
                 } else {
                     _error.value = "Error adding task to local database."
                 }
@@ -129,8 +129,10 @@ class TaskViewModel @Inject constructor(
                 val userIdValue = userId.value ?: throw IllegalStateException("User ID is null")
                 val success = taskRepository.deleteTaskFromSupabaseDb(task)
                 if (success.isSuccess) {
-                    _taskList.value = taskRepository.getTasksFromSupabaseDb(task.creationDate, userIdValue).getOrDefault(
-                        emptyList())
+                    val tasks = taskRepository.getTasksFromSupabaseDb(Converters.convertToUTC(task.creationDate,
+                        DateTimeFormatter.ISO_LOCAL_DATE_TIME.toString()
+                    ), userIdValue)
+                    _taskList.value = tasks.getOrDefault(emptyList()).map { taskDto -> taskDto.asDomainModel() }
                 } else {
                     _error.value = "Error deleting task from local database."
                 }
@@ -150,8 +152,11 @@ class TaskViewModel @Inject constructor(
             try {
                 val userIdValue = userId.value ?: throw IllegalStateException("User ID is null")
                 val updatedTask = task.copy(completed = completed)
-                taskRepository.updateTaskInRoomDb(updatedTask)
-                _taskList.value = taskRepository.getTasksFromRoomDb(task.creationDate, userIdValue)
+                taskRepository.updateTaskCompletedInSupabaseDb(updatedTask)
+                val tasks = taskRepository.getTasksFromSupabaseDb(Converters.convertToUTC(task.creationDate,
+                    DateTimeFormatter.ISO_LOCAL_DATE_TIME.toString()
+                ), userIdValue)
+                _taskList.value = tasks.getOrDefault(emptyList()).map { taskDto -> taskDto.asDomainModel() }
             } catch (e: Exception) {
                 _error.value = "Error updating task: ${e.message}"
             } finally {
@@ -178,5 +183,17 @@ class TaskViewModel @Inject constructor(
                 Log.e("TASK BREAKDOWN", "Error: ${e.message}")
             }
         }
+    }
+
+    private fun TaskItemDTO.asDomainModel(): TaskItem {
+        return TaskItem(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            creationDate = this.creationDate,
+            completed = this.completed,
+            color = this.color,
+            createdBy = this.createdBy
+        )
     }
 }

@@ -6,6 +6,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -48,18 +49,19 @@ class Converters {
     companion object {
         fun convertToLocalDateTime(utcTimestamp: String): String {
             // Parse the UTC timestamp
-            val utcZonedDateTime = ZonedDateTime.parse(utcTimestamp, DateTimeFormatter.ISO_INSTANT)
+            val utcZonedDateTime = ZonedDateTime.parse(utcTimestamp, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 
             // Convert to local time zone
             val localZonedDateTime = utcZonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
 
             // Format for display
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a")
             return localZonedDateTime.format(formatter)
         }
 
+        // TODO: fix so that times are converted to UTC time. Right now time is unchanged with only UTC timezone added
         fun convertToUTC(localDateTimeString: String, pattern: String): String {
-            try {
+            return try {
                 // Define the formatter for the input string
                 val formatter = DateTimeFormatter.ofPattern(pattern)
 
@@ -73,16 +75,16 @@ class Converters {
                 val localZonedDateTime = localDateTime.atZone(systemDefault)
 
                 // Convert the ZonedDateTime to UTC
-                val utcZonedDateTime = localZonedDateTime.withZoneSameInstant(ZoneId.of("UTC"))
+                val utcZonedDateTime = localZonedDateTime.withZoneSameInstant(ZoneOffset.UTC)
 
-                // Define the formatter for the output string
-                val utcFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                // Define the formatter for the output string to match database format
+                val utcFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ssX")
 
                 // Format the ZonedDateTime as a string
-                return utcZonedDateTime.format(utcFormatter)
+                utcZonedDateTime.format(utcFormatter)
             } catch (e: DateTimeParseException) {
-                e.printStackTrace();
-                return "${e.message}"
+                e.printStackTrace()
+                "${e.message}"
             }
         }
 

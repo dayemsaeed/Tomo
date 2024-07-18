@@ -3,10 +3,12 @@ package com.lumen.tomo.model.repository
 import android.util.Log
 import com.lumen.tomo.model.TaskItem
 import com.lumen.tomo.model.daos.TaskItemDAO
+import com.lumen.tomo.model.dtos.TaskItemDTO
 import com.lumen.tomo.model.llmreponse.BreakdownResponse
 import com.lumen.tomo.model.llmreponse.TaskRequest
 import com.lumen.tomo.model.service.TaskService
 import com.lumen.tomo.model.toDTO
+import com.lumen.tomo.util.Converters
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Order
@@ -14,7 +16,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class TaskRepositoryImpl @Inject constructor(
@@ -84,7 +90,7 @@ class TaskRepositoryImpl @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            Log.e("TaskRepository", "${e} exception. Supabase insert failed. Message: ${e.message}")
+            Log.e("TaskRepository", "Supabase insert failed. Message: ${e.message}")
             Result.failure(e)
         }
     }
@@ -112,22 +118,33 @@ class TaskRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTasksFromSupabaseDb(date: String, userId: String): Result<List<TaskItem>> {
+    override suspend fun getTasksFromSupabaseDb(date: String, userId: String): Result<List<TaskItemDTO>> {
         return try {
             withContext(Dispatchers.IO) {
-                val localDateTime = LocalDateTime.parse(date)
-                val dateString = localDateTime.toLocalDate().toString()
+                // Parse the local date string to LocalDate
+                val localDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE)
+
+                // Convert the date to UTC start and end times in the correct format
+                val startOfDayUTC = localDate.atStartOfDay(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                val endOfDayUTC = localDate.atTime(LocalTime.MAX).atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                Log.i("TaskRepository", "Fetching tasks for userId: $userId from $startOfDayUTC to $endOfDayUTC")
+
+                // Query Supabase
                 val response = supabaseClient
                     .from("tasks")
                     .select {
                         filter {
-                            eq("task_created_at::date", dateString)
-                            eq("task_created_by", userId)
+                            and {
+                                gte("task_created_at", startOfDayUTC)
+                                lte("task_created_at", endOfDayUTC)
+                                eq("task_created_by", userId)
+                            }
                         }
-                        order(column = "task_created_at", order = Order.ASCENDING)
+                        order("task_created_at", Order.ASCENDING)
                     }
+
                 if (response.data.isNotEmpty()) {
-                    val tasks = response.decodeList<TaskItem>()
+                    val tasks = response.decodeList<TaskItemDTO>()
                     Result.success(tasks)
                 } else {
                     Result.failure(Exception("Empty response"))
@@ -178,6 +195,30 @@ class TaskRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             Log.e("TaskRepository", "Supabase update failed. Message: ${e.message}")
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getAllTasksFromSupabaseDb(): Result<List<TaskItemDTO>> {
+        return try {
+            withContext(Dispatchers.IO) {
+                val response = supabaseClient
+                    .from("tasks")
+                    .select {
+                        order(column = "task_created_at", order = Order.ASCENDING)
+                    }
+                    .decodeList<TaskItemDTO>()
+
+                if (response.isNotEmpty()) {
+                    Result.success(response)
+                }
+                else {
+                    Result.failure(Exception("Could not get all tasks"))
+                }
+            }
+        }
+        catch (e: Exception) {
+            Log.e("TaskRepository", "Supabase fetch failed. Message: ${e.message}")
             Result.failure(e)
         }
     }
