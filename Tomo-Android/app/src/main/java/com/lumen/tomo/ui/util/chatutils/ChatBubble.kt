@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lumen.tomo.model.llmreponse.ChatMessage
 import com.lumen.tomo.ui.theme.SeherMain
+import java.time.LocalDateTime
 import java.util.UUID
 
 @Composable
@@ -39,7 +40,7 @@ fun ChatBubble(
                 .background(if (message.isSender) SeherMain else Color.DarkGray)
                 .padding(8.dp)
         ) {
-            Text(text = message.message, color = if (message.isSender) Color.Black else Color.White)
+            Text(text = message.content, color = if (message.isSender) Color.Black else Color.White)
         }
     }
 }
@@ -47,11 +48,11 @@ fun ChatBubble(
 @Preview
 @Composable
 fun ChatBubbleSenderPreview() {
-    ChatBubble(message = ChatMessage(UUID.randomUUID(), "Test", true))
+    ChatBubble(message = ChatMessage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), "Test", true, LocalDateTime.now().toString()))
 }
 
 @Preview
 @Composable
 fun ChatBubbleReceiverPreview() {
-    ChatBubble(message = ChatMessage(UUID.randomUUID(), "Test", false))
+    ChatBubble(message = ChatMessage(UUID.randomUUID().toString(), UUID.randomUUID().toString(), "Test", false, LocalDateTime.now().toString()))
 }

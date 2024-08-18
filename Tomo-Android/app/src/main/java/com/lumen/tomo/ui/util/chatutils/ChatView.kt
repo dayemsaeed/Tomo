@@ -46,31 +46,41 @@ fun ChatView(
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = { TopAppBar(
-            modifier = Modifier.shadow(elevation = 4.dp),
-            title = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(painter = painterResource(id = R.drawable.seher_background), contentDescription = "Seher chat image", modifier = Modifier
-                        .clip(CircleShape)
-                        .size(32.dp)
-                        .border(2.dp, SeherMain, CircleShape)
-                    )
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text(text = "Seher")
-                }
-            },
-            navigationIcon = {
-                Row {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back button"
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.shadow(elevation = 4.dp),
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Image(
+                            painter = painterResource(id = R.drawable.seher_background),
+                            contentDescription = "Seher chat image",
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .size(32.dp)
+                                .border(2.dp, SeherMain, CircleShape)
                         )
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(text = "Seher")
+                    }
+                },
+                navigationIcon = {
+                    Row {
+                        IconButton(onClick = { navController.popBackStack() }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back button"
+                            )
+                        }
                     }
                 }
-            }
-        ) },
-        bottomBar = { ChatInputBox(onSendChatClickListener, modifier = Modifier.fillMaxWidth()) }  // We move the ChatBox to a bottomBar to better manage layout
+            )
+        },
+        bottomBar = {
+            ChatInputBox(
+                onSendChatClickListener = onSendChatClickListener,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     ) { innerPadding ->
         ConstraintLayout(modifier = Modifier.padding(innerPadding)) {
             val (messages) = createRefs()
@@ -78,8 +88,8 @@ fun ChatView(
             val listState = rememberLazyListState()
             val messageList by chatViewModel.messages.collectAsState()
 
-            LaunchedEffect(messageList.size) {  // Trigger scroll when the number of messages changes
-                listState.animateScrollToItem(if (messageList.isEmpty()) 0 else messageList.size - 1) // Scroll to last item instead of the first
+            LaunchedEffect(messageList.size) {
+                listState.animateScrollToItem(if (messageList.isEmpty()) 0 else messageList.size - 1)
             }
 
             LazyColumn(
@@ -93,7 +103,7 @@ fun ChatView(
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     }
-                    .imePadding(), // Apply imePadding to adjust for the keyboard
+                    .imePadding(),
             ) {
                 items(messageList.size) { index ->
                     ChatBubble(messageList[index])

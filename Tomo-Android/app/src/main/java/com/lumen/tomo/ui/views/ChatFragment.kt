@@ -13,5 +13,14 @@ fun ChatFragment(
     modifier: Modifier = Modifier,
     onSendChatListener: (String) -> Unit
 ) {
-    ChatView(navController = navController, chatViewModel = chatViewModel, onSendChatClickListener = onSendChatListener, modifier = modifier)
+    // Load messages when the fragment is first composed
+    chatViewModel.loadMessages()
+
+    // Display the chat view
+    ChatView(
+        navController = navController,
+        chatViewModel = chatViewModel,
+        onSendChatClickListener = onSendChatListener,
+        modifier = modifier
+    )
 }

@@ -1,12 +1,21 @@
 package com.lumen.tomo.model.repository
 
 import android.util.Log
+import com.lumen.tomo.model.dtos.ChatMessageDTO
+import com.lumen.tomo.model.llmreponse.ChatMessage
 import com.lumen.tomo.model.llmreponse.ChatRequest
 import com.lumen.tomo.model.llmreponse.GPTResponse
+import com.lumen.tomo.model.llmreponse.toDTO
 import com.lumen.tomo.model.service.ChatService
+import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.postgrest.from
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.UUID
 import javax.inject.Inject
 
 class ChatRepositoryImpl @Inject constructor(
+    private val supabaseClient: SupabaseClient,
     private val chatService: ChatService
 ): ChatRepository {
     override suspend fun fetchGeneratedText(chatRequest: ChatRequest): Result<GPTResponse> {
@@ -21,6 +30,40 @@ class ChatRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Log.e("ChatRepository", "Network error: ${e.message}", e)
             Result.failure(Exception("Network error: ${e.message}", e))
+        }
+    }
+
+    override suspend fun storeMessage(chatMessageDTO: ChatMessageDTO): Result<Boolean> {
+        return try {
+            withContext(Dispatchers.IO) {
+                val response = supabaseClient.from("messages").insert(chatMessageDTO)
+                if (response.data.isNotEmpty()) {
+                    Result.success(true)
+                }
+                else {
+                    Result.failure(Exception("Could not store message"))
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("ChatRepository", "Error storing message: ${e.message}", e)
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getMessages(conversationId: String): Result<List<ChatMessageDTO>> {
+        val response = supabaseClient.from("messages")
+            .select {
+                filter {
+                    eq("conversation_id", conversationId)
+                }
+            }
+
+        if (response.data.isNotEmpty()) {
+            val messages = response.decodeList<ChatMessageDTO>()
+            return Result.success(messages)
+        }
+        else {
+            return Result.failure(Exception("No messages found"))
         }
     }
 }

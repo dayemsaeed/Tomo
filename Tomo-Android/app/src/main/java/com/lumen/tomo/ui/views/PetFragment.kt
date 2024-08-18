@@ -42,6 +42,11 @@ fun PetFragment(
             }) {
                 Text(text = "Tasks")
             }
+            Button(onClick = {
+                navController.navigate("breathe")
+            }) {
+                Text(text = "Breathe")
+            }
         }
     }
 }
