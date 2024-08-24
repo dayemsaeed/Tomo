@@ -4,16 +4,13 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -29,11 +26,22 @@ import com.lumen.tomo.viewmodel.BreathingViewModel
 
 @Composable
 fun BreathingAnimation(currentPhase: BreathingPhase) {
+    // Define target scale based on the phase
+    val targetScale = when (currentPhase.instruction) {
+        "Inhale" -> 1.5f
+        "Exhale" -> 0.75f
+        "Hold" -> 1.5f // If holding after inhale, otherwise use 0.75f
+        else -> 1f
+    }
+
+    // Animate the scale
     val scale by animateFloatAsState(
-        targetValue = if (currentPhase.instruction == "Inhale") 1.5f else 1f,
-        animationSpec = tween(durationMillis = currentPhase.durationInMillis.toInt()), label = ""
+        targetValue = targetScale,
+        animationSpec = tween(durationMillis = currentPhase.durationInMillis.toInt()),
+        label = "BreathingAnimation"
     )
 
+    // Draw the circle with the animated scale
     Box(
         modifier = Modifier
             .size(200.dp)
@@ -44,18 +52,21 @@ fun BreathingAnimation(currentPhase: BreathingPhase) {
 }
 
 @Composable
-fun BreathingList(viewModel: BreathingViewModel, pattern: BreathingPattern) {
+fun BreathingExercise(viewModel: BreathingViewModel) {
     val currentPhase by viewModel.currentPhase.observeAsState()
 
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        contentAlignment = Alignment.Center,
     ) {
         currentPhase?.let {
             Text(text = it.instruction, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(16.dp))
             BreathingAnimation(currentPhase = it)
+        }
+    }
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.stopBreathing()
         }
     }
 }

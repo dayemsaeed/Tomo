@@ -59,7 +59,14 @@ class ChatViewModel @Inject constructor(
             )
 
             // Prepare the chat request with the message history
-            val messageHistory = listOf(systemMessage, userMessage)
+            val messageHistory = listOf(systemMessage, userMessage).toMutableList()
+            for (message in _messages.value) {
+                val messageMap = mapOf(
+                    "role" to if (message.isSender) "user" else "assistant",
+                    "content" to message.content
+                )
+                messageHistory.add(messageMap)
+            }
             val chatRequest = ChatRequest(messages = messageHistory)
 
             try {
@@ -96,7 +103,7 @@ class ChatViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             // Retrieve messages from the repository
             val messageDTOs = repository.getMessages(conversationId)
-            _messages.value = messageDTOs.getOrDefault(emptyList()).map { it.toChatMessage() }
+            _messages.value = messageDTOs.getOrDefault(emptyList()).sortedBy { it.createdAt }.map { it.toChatMessage() }
         }
     }
 }

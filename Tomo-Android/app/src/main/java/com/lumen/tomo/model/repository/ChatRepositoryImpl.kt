@@ -9,6 +9,7 @@ import com.lumen.tomo.model.llmreponse.toDTO
 import com.lumen.tomo.model.service.ChatService
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
+import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
@@ -56,6 +57,8 @@ class ChatRepositoryImpl @Inject constructor(
                 filter {
                     eq("conversation_id", conversationId)
                 }
+                order("created_at",Order.DESCENDING)
+                limit(20)
             }
 
         if (response.data.isNotEmpty()) {

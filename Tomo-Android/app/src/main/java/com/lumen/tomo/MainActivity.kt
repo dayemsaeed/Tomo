@@ -20,8 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
 import com.lumen.tomo.model.BreathingPattern
 import com.lumen.tomo.ui.theme.TomoTheme
-import com.lumen.tomo.ui.util.breathing.BreathingAnimation
-import com.lumen.tomo.ui.util.breathing.BreathingList
+import com.lumen.tomo.ui.util.breathing.BreathingExercise
 import com.lumen.tomo.ui.views.AddTaskFragment
 import com.lumen.tomo.ui.views.ChatFragment
 import com.lumen.tomo.ui.views.LoginFragment
@@ -51,7 +50,7 @@ fun AppNavigation() {
         composable("breathe/{pattern}") {
             val patternName = it.arguments?.getString("pattern")
             val pattern = BreathingPattern.valueOf(patternName ?: "BOX_BREATHING")
-            BreathingList(viewModel = breathViewModel, pattern)
+            BreathingExercise(viewModel = breathViewModel)
         }
         composable("chat") {
             ChatFragment(navController, chatViewModel) { message ->
