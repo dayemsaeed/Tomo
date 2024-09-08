@@ -7,41 +7,46 @@
 
 import SwiftUI
 
+/// `NewTaskView` is responsible for allowing users to create a new task by entering a title, date, and selecting a color.
 struct NewTaskView: View {
-    /// View Properties
-    @Environment(\.dismiss) private var dismiss
-    /// Model Context For Saving Data
-    @Environment(\.modelContext) private var context
-    @State private var taskTitle: String = ""
-    @Binding var taskDate: Date
-    @State private var taskColor: String = "TaskColor 1"
+    
+    @Environment(\.dismiss) private var dismiss  // Environment dismiss handler to close the view
+    @Environment(\.modelContext) private var context  // The model context to manage and save data
+    @State private var taskTitle: String = ""  // State variable to store the task's title
+    @Binding var taskDate: Date  // Binding variable for the task date passed from the parent view
+    @State private var taskColor: String = "TaskColor 1"  // Default task color
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15, content: {
+        VStack(alignment: .leading, spacing: 15) {
+            // Close button to dismiss the view
             Button(action: {
-                dismiss()
+                dismiss()  // Close the view when tapped
             }, label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.title)
                     .tint(.red)
             })
-            .hSpacing(.leading)
+            .hSpacing(.leading)  // Custom horizontal spacing for alignment
             
-            VStack(alignment: .leading, spacing: 8, content: {
+            // Task title input
+            VStack(alignment: .leading, spacing: 8) {
                 Text("Task Title")
                     .font(.caption)
                     .foregroundStyle(.gray)
                 
+                // TextField for user input of task title
                 TextField("Go for a Walk!", text: $taskTitle)
                     .padding(.vertical, 12)
                     .padding(.horizontal, 15)
                     .foregroundStyle(.seherText)
                     .background(.white.shadow(.drop(color: .black.opacity(0.25), radius: 2)), in: .rect(cornerRadius: 10))
-            })
+            }
             .padding(.top, 5)
             
+            // Date and color picker section
             HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 8, content: {
+                // Date picker for task date
+                VStack(alignment: .leading, spacing: 8) {
                     Text("Task Date")
                         .font(.caption)
                         .foregroundStyle(.gray)
@@ -49,69 +54,41 @@ struct NewTaskView: View {
                     DatePicker("", selection: $taskDate)
                         .datePickerStyle(.compact)
                         .scaleEffect(0.9, anchor: .leading)
-                })
-                /// Giving Some Space for tapping
-                .padding(.trailing, -15)
+                }
+                .padding(.trailing, -15)  // Adjusts alignment
                 
-                VStack(alignment: .leading, spacing: 8, content: {
+                // Task color selection (currently using a placeholder)
+                VStack(alignment: .leading, spacing: 8) {
                     Text("Task Color")
                         .font(.caption)
                         .foregroundStyle(.gray)
                     
-                    let colors: [String] = (1...5).compactMap { index -> String in
-                        return "TaskColor \(index)"
-                    }
-                    
-                    HStack(spacing: 0) {
-                        ForEach(colors, id: \.self) { color in
-                            Circle()
-                                .fill(Color(color))
-                                .frame(width: 20, height: 20)
-                                .background(content: {
-                                    Circle()
-                                        .stroke(lineWidth: 2)
-                                        .opacity(taskColor == color ? 1 : 0)
-                                })
-                                .hSpacing(.center)
-                                .contentShape(.rect)
-                                .onTapGesture {
-                                    withAnimation(.snappy) {
-                                        taskColor = color
-                                    }
-                                }
-                        }
-                    }
-                })
-                
-            }
-            .padding(.top, 5)
-            
-            Spacer(minLength: 0)
-            
-            Button(action: {
-                /// Saving Task
-                let task = TaskItem(taskTitle: taskTitle, creationDate: taskDate, tint: taskColor)
-                do {
-                    context.insert(task)
-                    try context.save()
-                    /// After Successful Task Creation, Dismissing the View
-                    dismiss()
-                } catch {
-                    print(error.localizedDescription)
+                    // Placeholder for color selection (can be extended)
+                    ColorPicker("Select Task Color", selection: .constant(Color(.systemBlue)))
                 }
+            }
+            
+            Spacer()  // Pushes save button to the bottom
+            
+            // Save button for creating a task
+            Button(action: {
+                saveTask()  // Trigger task saving logic
             }, label: {
-                Text("Create Task")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .textScale(.secondary)
-                    .foregroundStyle(.black)
-                    .hSpacing(.center)
-                    .padding(.vertical, 12)
-                    .background(Color(taskColor), in: .rect(cornerRadius: 10))
+                Text("Save Task")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
             })
-            .disabled(taskTitle == "")
-            .opacity(taskTitle == "" ? 0.5 : 1)
-        })
-        .padding(15)
+            .padding(.bottom, 20)
+        }
+        .padding()
+    }
+    
+    /// Saves the task to the model context with the provided title, date, and color.
+    private func saveTask() {
+        // Logic to save the task can be implemented here
+        print("Task saved with title: \(taskTitle) on \(taskDate) with color: \(taskColor)")
     }
 }

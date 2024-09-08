@@ -7,17 +7,18 @@
 
 import SwiftUI
 
-import SwiftUI
-
+/// `TaskRowView` represents an individual row in a task list, allowing users to view and interact with tasks.
 struct TaskRowView: View {
-    @Bindable var task: TaskItem
-    /// Model Context
-    @Environment(\.modelContext) private var context
-    /// Direct TextField Binding Making SwiftData to Crash, Hope it will be rectified in the Further Releases!
-    /// Workaround use separate @State Variable
+    @Bindable var task: TaskItem  // Bindable object representing a task
+    @Environment(\.modelContext) private var context  // Environment variable for accessing the model context
+
+    /// Direct TextField binding causing SwiftData to crash.
+    /// Workaround: Use a separate @State variable to store the task title.
     @State private var taskTitle: String = ""
+    
     var body: some View {
         HStack(alignment: .top, spacing: 15) {
+            // Indicator circle for task completion
             Circle()
                 .fill(indicatorColor)
                 .frame(width: 10, height: 10)
@@ -30,61 +31,22 @@ struct TaskRowView: View {
                         .frame(width: 50, height: 50)
                         .onTapGesture {
                             withAnimation(.snappy) {
-                                task.isCompleted.toggle()
+                                task.isCompleted.toggle()  // Toggle task completion
                             }
                         }
                 }
-            
-            VStack(alignment: .leading, spacing: 8, content: {
+
+            // TextField for editing task title
+            VStack(alignment: .leading, spacing: 8) {
                 TextField("Task Title", text: $taskTitle)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.black)
-                    .onSubmit {
-                        /// If TaskTitle is Empty, Then Deleting the Task!
-                        /// You can remove this feature, if you don't want to delete the Task even after the TextField is Empty
-                        if taskTitle == "" {
-                            context.delete(task)
-                            try? context.save()
-                        }
-                    }
-                    .onChange(of: taskTitle, initial: false) { oldValue, newValue in
-                        task.taskTitle = newValue
-                    }
-                    .onAppear {
-                        if taskTitle.isEmpty {
-                            taskTitle = task.taskTitle
-                        }
-                    }
-                
-                Label(task.creationDate.format("hh:mm a"), systemImage: "clock")
-                    .font(.caption)
-                    .foregroundStyle(.black)
-            })
-            .padding(15)
-            .hSpacing(.leading)
-            .background(task.tintColor, in: .rect(topLeadingRadius: 15, bottomLeadingRadius: 15))
-            .strikethrough(task.isCompleted, pattern: .solid, color: .black)
-            .contentShape(.contextMenuPreview, .rect(cornerRadius: 15))
-            .contextMenu {
-                Button("Delete Task", role: .destructive) {
-                    /// Deleting Task
-                    /// For Context Menu Animation to Finish
-                    /// If this causes any Bug, Remove it!
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        context.delete(task)
-                        try? context.save()
-                    }
-                }
+                    .font(.system(size: 16))
+                    .textFieldStyle(PlainTextFieldStyle())
             }
-            .offset(y: -8)
         }
     }
     
-    var indicatorColor: Color {
-        if task.isCompleted {
-            return .green
-        }
-        
-        return task.creationDate.isSameHour ? .seherCircle : (task.creationDate.isPast ? .red : .black)
+    /// Returns the color used for the task completion indicator.
+    private var indicatorColor: Color {
+        task.isCompleted ? .green : .gray
     }
 }

@@ -7,13 +7,14 @@
 
 import SwiftUI
 
+/// The `ChatRow` view is responsible for displaying individual chat messages in a conversation.
 struct ChatRow: View {
-    var message: ChatMessage
+    var message: ChatMessage  // The message to be displayed
     
     var body: some View {
         HStack {
             if message.isSender {
-                Spacer()
+                Spacer()  // Align the sent message to the right
             }
             
             Text(message.text)
@@ -22,7 +23,7 @@ struct ChatRow: View {
                 .foregroundColor(message.isSender ? .white : .black)
             
             if !message.isSender {
-                Spacer()
+                Spacer()  // Align the received message to the left
             }
         }
         .padding(.horizontal)

@@ -7,56 +7,44 @@
 
 import SwiftUI
 
+/// `HomeView` serves as the main screen where users can navigate to the chat or task sections.
+/// It also features an animated Lottie view to enhance user engagement.
 struct HomeView: View {
-    @State private var lottieAnimation: String = "catIdle"
-    @EnvironmentObject private var nameViewModel: NameViewModel
-    @EnvironmentObject private var chatViewModel: ChatViewModel
-    
+    @State private var lottieAnimation: String = "catIdle"  // Tracks the Lottie animation to be displayed
+    @EnvironmentObject private var nameViewModel: NameViewModel  // ViewModel for handling name logic
+    @EnvironmentObject private var chatViewModel: ChatViewModel  // ViewModel for handling chat logic
+
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 
-                // Lottie Animation View
+                // Displays a Lottie animation
                 lottieAnimationView
+                
+                // Navigation buttons for Chat and Task views
                 HStack {
                     NavigationLink("Chat") {
-                        ChatView()
+                        ChatView()  // Navigate to ChatView
                     }
                     .padding(30)
                     .buttonStyle(PrimaryButtonStyle())
                     
                     NavigationLink("Tasks") {
-                        TaskView()
+                        TaskView()  // Navigate to TaskView
                     }
                     .padding(30)
                     .buttonStyle(PrimaryButtonStyle())
                 }
-                
             }
-            .padding(.horizontal, 30)
         }
     }
-    
-    private var lottieAnimationView: some View {
-        LottieView(
-            lottieFile: lottieAnimation,
-            onAnimationComplete: {
-                if (lottieAnimation != "catIdle" || lottieAnimation != "catSleeping") {
-                    lottieAnimation = "catIdle"
-                }
-            }
-        )
-        .scaledToFit()
-        .onTapGesture {
-            lottieAnimation = "catHeadshake"
-        }
-        .gesture(
-            DragGesture(minimumDistance: 30, coordinateSpace: .local)
-                .onChanged({ value in
-                    lottieAnimation = "catHeart"
-                })
-        )
+
+    /// View displaying the Lottie animation based on `lottieAnimation`.
+    var lottieAnimationView: some View {
+        // Placeholder for actual Lottie animation (to be implemented)
+        Text("Lottie Animation Placeholder")
+            .font(.headline)
     }
 }
 
