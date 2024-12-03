@@ -18,6 +18,8 @@ struct LoginView: View {
     @State private var showPassword = false
     @State private var loginError: String?
     
+    @State private var isSecured: Bool = true
+    
     @EnvironmentObject var loginViewModel: LoginViewModel
     @EnvironmentObject var registerViewModel: RegisterViewModel
     
@@ -56,7 +58,7 @@ struct LoginView: View {
                 
                 Divider()
             }
-
+            
             // Password input
             Group {
                 HStack {
@@ -66,18 +68,22 @@ struct LoginView: View {
                     Spacer()
                 }
 
-                ZStack {
-                    if showPassword {
-                        TextField("Password", text: $password)
-                    } else {
-                        SecureField("Password", text: $password)
-                    }
-                    
-                    Image(systemName: showPassword ? "eye.slash" : "eye")
-                        .onTapGesture {
-                            showPassword.toggle()
+                ZStack(alignment: .trailing) {
+                            Group {
+                                if isSecured {
+                                    SecureField("Password", text: $password)
+                                } else {
+                                    TextField("Password", text: $password)
+                                }
+                            }.padding(.trailing, 32)
+
+                            Button(action: {
+                                isSecured.toggle()
+                            }) {
+                                Image(systemName: self.isSecured ? "eye.slash" : "eye")
+                                    .accentColor(.gray)
+                            }
                         }
-                }
                 
                 Divider()
             }
@@ -94,6 +100,16 @@ struct LoginView: View {
             .buttonStyle(PrimaryButtonStyle(disabled: !canLogIn))
             .disabled(!canLogIn)
             
+            // Register Navigation Button
+            NavigationLink {
+                RegisterView()
+                    .navigationBarHidden(true)
+            } label: {
+                Text("Sign Up")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            
             // Error message
             if let loginError = loginError {
                 Text(loginError)
@@ -108,7 +124,7 @@ struct LoginView: View {
     
     // MARK: - Helper Methods
     
-    /// Handles the login action using Firebase Authentication.
+    /// Handles the login action using Supabase Authentication.
     @MainActor
     private func handleLogin() async {
         do {

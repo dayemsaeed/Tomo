@@ -12,11 +12,10 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel  // Environment object for login logic
     @EnvironmentObject var registerViewModel: RegisterViewModel  // Environment object for registration logic
-    @State private var isLoggedIn = false  // State to track if the user is logged in
 
     var body: some View {
         NavigationView {
-            if !isLoggedIn {
+            if loginViewModel.isLoggedIn {  // Use loginViewModel.isLoggedIn directly
                 HomeView()  // Show the home view when not logged in
             } else {
                 VStack {
@@ -24,14 +23,15 @@ struct ContentView: View {
                     LoginView()
                         .environmentObject(loginViewModel)
                         .environmentObject(registerViewModel)
-                        .onChange(of: loginViewModel.isLoggedIn) {
-                            isLoggedIn = loginViewModel.isLoggedIn
+                        .onChange(of: loginViewModel.isLoggedIn) { newValue in  // Add parameter
+                            print("Login state changed to: \(newValue)")  // Debug print
                         }
-                        .onChange(of: registerViewModel.isLoggedIn) {
-                            isLoggedIn = registerViewModel.isLoggedIn
+                        .onChange(of: registerViewModel.isLoggedIn) { newValue in  // Add parameter
+                            print("Register state changed to: \(newValue)")  // Debug print
                         }
                 }
             }
         }
+        .toolbar(.hidden)
     }
 }

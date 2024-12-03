@@ -10,6 +10,7 @@ import Supabase
 
 class RegisterViewModel: ObservableObject {
     @Published var isLoggedIn = false
+    @Published var isRegistered = false
     @Published var text = ""
     
     private let supabaseClient: SupabaseClient
@@ -20,14 +21,18 @@ class RegisterViewModel: ObservableObject {
 
     func register(email: String, password: String) async throws -> User {
         do {
-            let session = try await 
-            supabaseClient.auth.signUp(email: email, password: password)
+            let authResponse = try await supabaseClient.auth.signUp(
+                email: email,
+                password: password
+            )
+            
             DispatchQueue.main.async {
-                self.isLoggedIn = true
+                self.isRegistered = true  // Show confirmation message
             }
-            return session.user
+            
+            return authResponse.user
         } catch {
-            print(error)
+            print("Registration error: \(error)")
             throw error
         }
     }

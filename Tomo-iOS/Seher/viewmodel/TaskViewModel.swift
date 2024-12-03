@@ -6,46 +6,59 @@
 //
 
 import Foundation
+import Supabase
 import Combine
 
 class TaskViewModel: ObservableObject {
-//    private let taskRepository: TaskRepository
-//
-//    @Published var taskCellViewModels = [TaskCellViewModel]()
-//    @Published var taskCellListViewModels = [TaskCellViewModel]()
-//    
-//    private var cancellables = Set<AnyCancellable>()
-//    
-//    init(taskRepository: TaskRepository) {
-//        self.taskRepository = taskRepository
-//        
-//        taskRepository.loadTodaysTasks()
-//        taskRepository.$todaysTasks
-//            .map { tasks in tasks.map { TaskCellViewModel(task: $0) } }
-//            .assign(to: \.taskCellViewModels, on: self)
-//            .store(in: &cancellables)
-//        
-//        taskRepository.loadAllTasks()
-//        taskRepository.$tasks
-//            .map { tasks in tasks.map { TaskCellViewModel(task: $0) } }
-//            .assign(to: \.taskCellListViewModels, on: self)
-//            .store(in: &cancellables)
-//    }
-//    
-//    func addTask(task: TaskItem) {
-//        taskRepository.updateTask(task)
-//    }
-//    
-//    func removeTasks(atOffsets indexSet: IndexSet) {
-//        let tasksToRemove = indexSet.lazy.map { self.taskCellViewModels[$0].task }
-//        tasksToRemove.forEach { task in
-//            taskRepository.deleteTask(task)
-//        }
-//    }
-//
-//    func toggleTaskCompletion(_ task: TaskItem) {
-//        var updatedTask = task
-//        updatedTask.completed.toggle()
-//        taskRepository.updateTask(updatedTask)
-//    }
+    
+    @Published var tasks: [TaskItem] = []
+    
+    private let taskRepository: TaskRepository
+    
+    init(taskRepository: TaskRepository) {
+        self.taskRepository = taskRepository
+    }
+    
+    func getCurrentUserId() -> String? {
+        return taskRepository.getCurrentUserId()
+    }
+    
+    func fetchTasks() async {
+        do {
+            let fetchedTasks = try await taskRepository.fetchAllTasks()
+            DispatchQueue.main.async {
+                self.tasks = fetchedTasks
+            }
+        } catch {
+            print("Error fetching tasks: \(error)")
+        }
+    }
+    
+    func storeTask(task: TaskItem) async throws -> Void {
+        do {
+            try await taskRepository.storeTask(task: task)
+            
+            // Automatically schedule notification for the task
+            NotificationManager.shared.scheduleTaskReminder(for: task)
+            
+        } catch {
+            print("Error storing task: \(task). Error: \(error.localizedDescription)")
+        }
+    }
+    
+    func updateTaskCompletion(task: TaskItem) async {
+        do {
+            try await taskRepository.updateTaskCompletion(task)
+            
+            // Cancel notification when task is completed
+            if task.isCompleted {
+                NotificationManager.shared.cancelReminder(for: task.id)
+            }
+            
+            await fetchTasks()
+        } catch {
+            print("Error updating completion status for task: \(task.id). Error: \(error.localizedDescription)")
+        }
+    }
+    
 }

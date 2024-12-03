@@ -21,6 +21,9 @@ class SupabaseClientProvider {
             fatalError("Invalid supabase url")
         }
         
-        return SupabaseClient(supabaseURL: supabaseUrl, supabaseKey: supabaseKey)
+        return SupabaseClient(
+            supabaseURL: supabaseUrl,
+            supabaseKey: supabaseKey
+        )
     }
 }

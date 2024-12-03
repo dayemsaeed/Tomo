@@ -9,29 +9,30 @@ import SwiftUI
 
 /// The `TypingIndicator` view displays an animated indicator showing that the other user is typing.
 struct TypingIndicator: View {
+    @State private var opacity: Double = 0.3
+    
     var body: some View {
-        HStack {
+        HStack(spacing: 4) {
             ForEach(0..<3) { index in
                 Circle()
-                    .frame(width: 10, height: 10)
-                    .foregroundColor(.gray)
-                    .opacity(self.opacity(for: index))
-                    .animation(Animation.easeInOut(duration: 0.6).repeatForever().delay(self.delay(for: index)))
+                    .fill(Color(.systemGray3))
+                    .frame(width: 8, height: 8)
+                    .opacity(opacity)
+                    .animation(
+                        Animation
+                            .easeInOut(duration: 0.6)
+                            .repeatForever()
+                            .delay(Double(index) * 0.2),
+                        value: opacity
+                    )
             }
         }
-    }
-
-    /// Returns the opacity for the dot at the given index.
-    private func opacity(for index: Int) -> Double {
-        switch index {
-        case 0: return 0.2
-        case 1: return 0.4
-        default: return 1.0
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Color(.systemGray5))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .onAppear {
+            opacity = 1
         }
-    }
-
-    /// Returns the delay before the dot at the given index starts animating.
-    private func delay(for index: Int) -> Double {
-        return Double(index) * 0.2
     }
 }

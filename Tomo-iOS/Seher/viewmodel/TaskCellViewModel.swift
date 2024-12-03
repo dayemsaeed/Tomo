@@ -9,27 +9,27 @@ import Foundation
 import Combine
 
 class TaskCellViewModel : ObservableObject, Identifiable {
-//    @Published var task : Task
+    @Published var task : TaskItem
     
-//    var id = ""
-//    @Published var completionIconName = ""
-//    private var cancellables = Set<AnyCancellable>()
-//    
-//    init(task: Task) {
-//        self.task = task
-//        
-//        $task
-//            .map {
-//                task in task.completed ? "checkmark.circle.fill" : "circle"
-//            }
-//            .assign(to: \.completionIconName, on: self)
-//            .store(in: &cancellables)
-//        
-//        $task
-//            .compactMap { task in
-//                task.id
-//            }
-//        .assign(to: \.id, on: self)
-//        .store(in: &cancellables)
-//    }
+    var id = ""
+    @Published var completionIconName = ""
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(task: TaskItem) {
+        self.task = task
+        
+        $task
+            .map {
+                task in task.isCompleted ? "checkmark.circle.fill" : "circle"
+            }
+            .assign(to: \.completionIconName, on: self)
+            .store(in: &cancellables)
+        
+        $task
+            .compactMap { task in
+                task.id
+            }
+        .assign(to: \.id, on: self)
+        .store(in: &cancellables)
+    }
 }

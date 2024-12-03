@@ -19,6 +19,7 @@ struct RegisterView: View {
     @State private var registerError: String?
     
     @EnvironmentObject var registerViewModel: RegisterViewModel
+    @Environment(\.dismiss) private var dismiss
     
     // Boolean to determine if user can register
     private var canRegister: Bool {
@@ -27,8 +28,28 @@ struct RegisterView: View {
     
     // MARK: - UI Components
     var body: some View {
-        
+        Group {
+            if registerViewModel.isRegistered {
+                EmailConfirmationView(email: email)
+            } else {
+                registrationForm
+            }
+        }
+    }
+    
+    private var registrationForm: some View {
         VStack {
+            // Back button
+            HStack {
+                Button(action: { dismiss() }) {
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.gray)
+                        .imageScale(.large)
+                }
+                Spacer()
+            }
+            .padding(.top)
+            
             Spacer().frame(height: 150)
             
             Text("TOMO")
@@ -38,13 +59,72 @@ struct RegisterView: View {
 
             // Email input
             Group {
-                InputField(title: "EMAIL", text: $email)
+                HStack {
+                    Text("EMAIL")
+                        .font(.system(size: 18))
+                        .padding(.top, 10)
+                    Spacer()
+                }
+                
+                TextField("Email", text: $email)
+                    .autocapitalization(.none)
+                    .keyboardType(.emailAddress)
+                    .disableAutocorrection(true)
+                    .padding(.top, 20)
+                
+                Divider()
             }
             
             // Password input
             Group {
-                PasswordField(title: "PASSWORD", text: $password, showPassword: $showPassword)
-                PasswordField(title: "CONFIRM PASSWORD", text: $confirmPassword, showPassword: $showPassword)
+                HStack {
+                    Text("PASSWORD")
+                        .font(.system(size: 18))
+                        .padding(.top, 10)
+                    Spacer()
+                }
+                
+                ZStack(alignment: .trailing) {
+                    if showPassword {
+                        TextField("Password", text: $password)
+                    } else {
+                        SecureField("Password", text: $password)
+                    }
+                    Button(action: {
+                        showPassword.toggle()
+                    }) {
+                        Image(systemName: showPassword ? "eye.slash" : "eye")
+                            .accentColor(.gray)
+                    }
+                }
+                
+                Divider()
+            }
+            
+            // Confirm Password input
+            Group {
+                HStack {
+                    Text("CONFIRM PASSWORD")
+                        .font(.system(size: 18))
+                        .padding(.top, 10)
+                    Spacer()
+                }
+                
+                ZStack(alignment: .trailing) {
+                    if showPassword {
+                        TextField("Confirm Password", text: $confirmPassword)
+                    } else {
+                        SecureField("Confirm Password", text: $confirmPassword)
+                    }
+                    Button(action: {
+                        showPassword.toggle()
+                    }) {
+                        Image(systemName: showPassword ? "eye.slash" : "eye")
+                            .accentColor(.gray)
+                    }
+                }
+                
+                Divider()
             }
 
             // Register button
@@ -101,41 +181,38 @@ struct PrimaryButtonStyle: ButtonStyle {
     }
 }
 
-/// Input field component for user input (e.g., email).
-struct InputField: View {
-    var title: String
-    @Binding var text: String
-
+struct EmailConfirmationView: View {
+    let email: String
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.system(size: 18))
-            TextField("", text: $text)
-            Divider().foregroundColor(.black)
-        }
-    }
-}
-
-/// Password field component with an option to toggle visibility.
-struct PasswordField: View {
-    var title: String
-    @Binding var text: String
-    @Binding var showPassword: Bool
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.system(size: 18))
-            ZStack(alignment: .trailing) {
-                if showPassword {
-                    TextField("", text: $text)
-                } else {
-                    SecureField("", text: $text)
-                }
-                Image(systemName: showPassword ? "eye.slash" : "eye")
-                    .onTapGesture { showPassword.toggle() }
+        VStack(spacing: 20) {
+            Image(systemName: "envelope.circle.fill")
+                .font(.system(size: 60))
+                .foregroundColor(Color.seherCircle)
+            
+            Text("Check your email")
+                .font(.title2)
+                .fontWeight(.bold)
+            
+            Text("We sent a confirmation email to:\n\(email)")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.gray)
+            
+            Text("Click the link in the email to confirm your account")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.gray)
+                .padding(.top, 5)
+            
+            Button(action: {
+                dismiss()
+            }) {
+                Text("Back to Login")
+                    .frame(maxWidth: .infinity)
             }
-            Divider().foregroundColor(.black)
+            .buttonStyle(PrimaryButtonStyle())
+            .padding(.top, 30)
         }
+        .padding()
     }
 }

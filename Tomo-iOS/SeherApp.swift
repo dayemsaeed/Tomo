@@ -58,4 +58,4 @@ class AppState: ObservableObject {
             supabaseClient: supabaseClient
         )
     }
-}
+} 

@@ -17,14 +17,12 @@ struct TaskCell: View {
         HStack {
             // Display a checkbox and task title (commented for future use)
             // Uncomment and adjust as needed
-            /*
-            Image(systemName: task.completed ? "checkmark.circle.fill" : "circle")
+            Image(systemName: taskViewModel.task.isCompleted ? "checkmark.circle.fill" : "circle")
                 .resizable()
                 .frame(width: 20, height: 20)
-            Text(task.title)
+            Text(taskViewModel.task.taskTitle)
                 .font(.system(size: 18))
-                .strikethrough(task.completed)
-            */
+                .strikethrough(taskViewModel.task.isCompleted)
         }
     }
 }
