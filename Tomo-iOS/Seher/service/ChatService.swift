@@ -16,44 +16,23 @@ class ChatService {
     ///   - messages: An array of dictionaries, each containing message data.
     ///   - completion: A closure that returns a generated response string or an error message.
     func generateText(messages: [[String: Any]], completion: @escaping (String?) -> Void) {
-        
-        // Fetch the Supabase API key from environment variables or fallback to Info.plist
-        let apiKey: String
-        if let environmentKey = ProcessInfo.processInfo.environment["SUPABASE_KEY"] {
-            apiKey = environmentKey // Use environment variable
-        } else if let configKey = Bundle.main.infoDictionary?["SUPABASE_KEY"] as? String {
-            apiKey = configKey // Use Info.plist for local development
-        } else {
-            completion("App configuration error: Supabase key missing.")
+        guard let apiKey = Bundle.main.infoDictionary?["SUPABASE_KEY"] as? String,
+              let baseUri = Bundle.main.infoDictionary?["BOT_URI"] as? String else {
+            completion("App configuration error: Missing API key or URI.")
             return
         }
         
-        // Fetch the BOT_URI from environment variables or fallback to Info.plist
-        let baseUri: String
-        if let environmentUri = ProcessInfo.processInfo.environment["BOT_URI"] {
-            baseUri = environmentUri // Use environment variable
-        } else if let configUri = Bundle.main.infoDictionary?["BOT_URI"] as? String {
-            baseUri = configUri // Use Info.plist for local development
-        } else {
-            completion("App configuration error: BOT_URI missing.")
-            return
-        }
-        
-        // Define request headers with the API key and content type
         let headers: HTTPHeaders = [
             "Authorization": "Bearer " + apiKey,
             "Content-Type": "application/json"
         ]
         
-        // Define request parameters containing the messages to send
         let parameters: Parameters = [
             "messages": messages
         ]
         
-        // Construct the complete URL
         let url = "https://xzcmehrmmnstqrovwabx.supabase.co/" + baseUri
         
-        // Perform the API request using Alamofire
         AF.request(url,
                    method: .post,
                    parameters: parameters,
@@ -61,11 +40,9 @@ class ChatService {
                    headers: headers).responseDecodable(of: GPTResponse.self) { response in
             switch response.result {
             case .success(let gptResponse):
-                // Extract the content of the first choice's message and return it via the completion handler
                 let responseText = gptResponse.choices.first?.message.content
                 completion(responseText)
             case .failure(let error):
-                // Handle the failure by returning an error message
                 print("Error in API request: \(error.localizedDescription)")
                 completion("My bad. I couldn't think of anything to say right now. Maybe check your internet connection and try again?")
             }
