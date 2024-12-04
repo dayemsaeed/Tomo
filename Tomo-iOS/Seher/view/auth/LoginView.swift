@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  PetSupport
+//  Seher
 //
 //  Created by Dayem Saeed on 12/15/20.
 //
@@ -8,43 +8,48 @@
 import SwiftUI
 import FirebaseAuth
 
+/// The `LoginView` handles the user interface for logging in using Firebase authentication.
 struct LoginView: View {
     
+    // MARK: - State Variables
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var isEditing = false
     @State private var showPassword = false
+    @State private var loginError: String?
+    
+    @State private var isSecured: Bool = true
+    
     @EnvironmentObject var loginViewModel: LoginViewModel
     @EnvironmentObject var registerViewModel: RegisterViewModel
     
+    // Boolean indicating if the login button can be enabled
     private var canLogIn: Bool {
         return !email.isEmpty && !password.isEmpty
     }
     
+    // MARK: - UI Components
     var body: some View {
         
-        return VStack(content: {
-            Spacer()
-                .frame(height: 150)
+        VStack {
+            Spacer().frame(height: 150)
             
-            Text("TOMO").foregroundColor(Color.petSupportText)
+            Text("TOMO")
+                .foregroundColor(Color.seherText)
                 .font(.system(size: 36))
                 .padding()
 
+            // Email input
             Group {
-                
                 HStack {
-                    
                     Text("EMAIL")
                         .font(.system(size: 18))
                         .padding(.top, 10)
-                    
                     Spacer()
-                    
                 }
                 
-                TextField("Email", text: $email) {
-                    isEditing in self.isEditing = isEditing
+                TextField("Email", text: $email) { isEditing in
+                    self.isEditing = isEditing
                 }
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
@@ -52,75 +57,81 @@ struct LoginView: View {
                 .padding(.top, 20)
                 
                 Divider()
-                    .foregroundColor(.black)
-                
             }
-
             
+            // Password input
             Group {
-                
                 HStack {
-                    
                     Text("PASSWORD")
                         .font(.system(size: 18))
                         .padding(.top, 10)
-                    
                     Spacer()
-                    
                 }
 
-                ZStack {
-                    if showPassword {
-                        TextField("Password", text: $password)
-                    }
-                    else {
-                        SecureField("Password", text: $password)
-                    }
-                }
-                .frame(height: 20)
-                .autocapitalization(.none)
-                .overlay(Image(systemName: showPassword ? "eye.slash" : "eye")
-                    .onTapGesture { showPassword.toggle() }, alignment: .trailing)
-                .disableAutocorrection(true)
-                .padding(.top, 20)
+                ZStack(alignment: .trailing) {
+                            Group {
+                                if isSecured {
+                                    SecureField("Password", text: $password)
+                                } else {
+                                    TextField("Password", text: $password)
+                                }
+                            }.padding(.trailing, 32)
+
+                            Button(action: {
+                                isSecured.toggle()
+                            }) {
+                                Image(systemName: self.isSecured ? "eye.slash" : "eye")
+                                    .accentColor(.gray)
+                            }
+                        }
                 
                 Divider()
-                    .foregroundColor(.black)
-                
             }
-            
-            Spacer();
-            
-            VStack {
-                
-                Button(action: {
-                        loginViewModel.login(email: email, password: password)
-                }, label: {
-                    Text("Login")
-                })
-                    .foregroundColor(.white)
-                    .font(.system(size: 18))
-                    .padding(.horizontal, 20)
-                    .padding()
-                    .background(Color.petSupportBlue)
-                    .cornerRadius(70.0)
-                    .disabled(!canLogIn)
-                
-                NavigationLink(destination: RegisterView(registerViewModel: _registerViewModel, loginViewModel: _loginViewModel)) {
-                    Button(action: {}, label: {
-                        Text("Register")
-                            .padding()
-                            .font(.system(size: 18))
-                            .foregroundColor(Color.petSupportText)
-                    })
+
+            // Login button
+            Button(action: {
+                Task {
+                    await handleLogin()
                 }
-                .navigationBarBackButtonHidden(true)
+            }) {
+                Text("Log In")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(PrimaryButtonStyle(disabled: !canLogIn))
+            .disabled(!canLogIn)
+            
+            // Register Navigation Button
+            NavigationLink {
+                RegisterView()
+                    .navigationBarHidden(true)
+            } label: {
+                Text("Sign Up")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            
+            // Error message
+            if let loginError = loginError {
+                Text(loginError)
+                    .foregroundColor(.red)
+                    .padding(.top, 20)
             }
             
             Spacer()
-            
-        })
-        .padding(.horizontal, 30)
-        
+        }
+        .padding()
+    }
+    
+    // MARK: - Helper Methods
+    
+    /// Handles the login action using Supabase Authentication.
+    @MainActor
+    private func handleLogin() async {
+        do {
+            let _ = try await loginViewModel.login(email: email, password: password)
+        } catch {
+            loginError = error.localizedDescription
+            print(loginError ?? "")
+        }
     }
 }

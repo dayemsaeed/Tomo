@@ -9,18 +9,18 @@ import Foundation
 import Combine
 
 class TaskCellViewModel : ObservableObject, Identifiable {
-    @Published var task : Task
+    @Published var task : TaskItem
     
     var id = ""
     @Published var completionIconName = ""
     private var cancellables = Set<AnyCancellable>()
     
-    init(task: Task) {
+    init(task: TaskItem) {
         self.task = task
         
         $task
             .map {
-                task in task.completed ? "checkmark.circle.fill" : "circle"
+                task in task.isCompleted ? "checkmark.circle.fill" : "circle"
             }
             .assign(to: \.completionIconName, on: self)
             .store(in: &cancellables)

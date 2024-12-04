@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -52,7 +53,7 @@ fun LoginFragment(navController: NavController, modifier: Modifier = Modifier) {
     val loginViewModel: LoginViewModel = hiltViewModel()
     val email by loginViewModel.email.observeAsState("")
     val password by loginViewModel.password.observeAsState("")
-    val errorMessage by loginViewModel.errorMessage.observeAsState("")
+    val errorMessage by loginViewModel.errorMessage.observeAsState(null)
     val navigateToHome by loginViewModel.navigateToHome.observeAsState(false)
     var startAnimation by remember { mutableStateOf(false) }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -94,8 +95,8 @@ fun LoginFragment(navController: NavController, modifier: Modifier = Modifier) {
                         // Please provide localized description for accessibility services
                         val description = if (passwordVisible) "Hide password" else "Show password"
 
-                        IconButton(onClick = {passwordVisible = !passwordVisible}){
-                            Icon(imageVector  = image, description)
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(imageVector = image, description)
                         }
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -103,15 +104,11 @@ fun LoginFragment(navController: NavController, modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.weight(0.5f))
+                val localSoftwareKeyboardController = LocalSoftwareKeyboardController.current
                 Button(
                     onClick = {
+                        localSoftwareKeyboardController?.hide()
                         loginViewModel.onLoginClicked()
-                        if (navigateToHome) {
-                            navController.navigate("petScreen")
-                        }
-                        else {
-                            errorMessage?.let { Log.d("LOGIN ISSUE: ", it) }
-                        }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -130,11 +127,22 @@ fun LoginFragment(navController: NavController, modifier: Modifier = Modifier) {
                 ) {
                     Text(text = stringResource(id = R.string.action_register))
                 }
+                errorMessage?.let {
+                    Text(
+                        text = it,
+                        color = Color.Red,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 16.dp)
+                    )
+                }
             }
         }
     }
-    LaunchedEffect(Unit) {
-        startAnimation = true
+
+    LaunchedEffect(navigateToHome) {
+        if (navigateToHome) {
+            navController.navigate("petScreen")
+        }
     }
 }
 

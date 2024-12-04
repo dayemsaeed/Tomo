@@ -1,14 +1,11 @@
 package com.lumen.tomo.viewmodel
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lumen.tomo.model.UserState
 import com.lumen.tomo.model.repository.AuthRepository
-import com.lumen.tomo.model.repository.AuthRepositoryImpl
 import com.lumen.tomo.util.DataStoreHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.SupabaseClient
@@ -58,24 +55,34 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    private fun saveToken() {
+    private fun saveSession() {
         viewModelScope.launch {
-            val accessToken = supabaseClient.auth.currentAccessTokenOrNull() ?: ""
-            dataStoreHelper.saveAuthToken(accessToken)
+            val session = supabaseClient.auth.currentSessionOrNull()
+            session?.let {
+                dataStoreHelper.saveTokens(it.accessToken, it.refreshToken)
+            }
         }
     }
 
-    private fun getToken(): String? {
-        var authToken: String? = ""
+    private fun restoreSession() {
         viewModelScope.launch {
-            try {
-                authToken = dataStoreHelper.getAuthToken()
+            val session = dataStoreHelper.getAccessToken()
+            if (session != null) {
+                dataStoreHelper.getRefreshToken()?.let { supabaseClient.auth.refreshSession(it) }
             }
-            catch (e: Exception) {
-                Log.e("Auth Error", "Could not fetch token. Error: ${e.message}")
-            }
+            checkUserState()
         }
-        return authToken
+    }
+
+    private fun checkUserState() {
+        val currentUser = supabaseClient.auth.currentUserOrNull()
+        if (currentUser != null) {
+            _navigateToHome.value = true
+            _userState.value = UserState.Success("User is logged in")
+        } else {
+            _navigateToHome.value = false
+            _userState.value = UserState.Error("No user logged in")
+        }
     }
 
     fun updateEmail(newEmail: String) {

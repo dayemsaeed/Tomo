@@ -4,6 +4,8 @@ import com.lumen.tomo.model.repository.AuthRepository
 import com.lumen.tomo.model.repository.AuthRepositoryImpl
 import com.lumen.tomo.model.repository.ChatRepository
 import com.lumen.tomo.model.repository.ChatRepositoryImpl
+import com.lumen.tomo.model.repository.TaskRepository
+import com.lumen.tomo.model.repository.TaskRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,4 +20,8 @@ abstract class RepositoryModule {
         chatRepositoryImpl: ChatRepositoryImpl
     ): ChatRepository
 
+    @Binds
+    abstract fun bindTaskRepository(
+        taskRepositoryImpl: TaskRepositoryImpl
+    ): TaskRepository
 }

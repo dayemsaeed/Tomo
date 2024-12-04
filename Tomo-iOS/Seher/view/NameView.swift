@@ -1,35 +1,30 @@
 //
 //  NameView.swift
-//  PetSupport
+//  Seher
 //
-//  Created by Dayem Saeed on 3/25/21.
+//  Created by Dayem Saeed on 5/24/24.
 //
 
 import SwiftUI
-import FirebaseFirestore
 import FirebaseAuth
-import AVFoundation
-import SpriteKit
+import Firebase
 
+/// `NameView` allows users to enter their name and save it to Firebase.
+/// It includes logic for verifying name input and navigating to the main screen once the name is saved.
 struct NameView: View {
-    @Binding var name: String
-    @State private var isEditing = false
-    @Binding var view: String
-    
-    let db = Firestore.firestore()
-
-    private var canContinue : Bool {
-        return !name.isEmpty
-    }
+    @Binding var name: String  // Binding for the user's input name
+    @Binding var view: String  // Tracks the current view for navigation purposes
+    @State private var canContinue = false  // Determines if the "Next" button can be pressed
+    @State private var isEditing = false  // Tracks if the user is actively editing the name field
 
     var body: some View {
-        return VStack(spacing: 8, content: {
+        VStack {
             Spacer()
-            LottieView(lottieFile: "sloth").frame(width: 300, height: 300)
-
+            
+            // Greeting text and name input prompt
             Group {
                 HStack {
-                    Text("HELLO! I'M PAIMON!")
+                    Text("HELLO! I’M PAIMON!")
                         .font(.system(size: 32))
                 }
                 HStack {
@@ -37,14 +32,16 @@ struct NameView: View {
                         .font(.system(size: 30))
                 }
             }
-
+            
             Group {
                 HStack {
-                    Text("WHAT'S YOUR NAME?")
+                    Text("WHAT’S YOUR NAME?")
                         .font(.system(size: 30))
                 }
-                TextField("Name", text: $name) {
-                    isEditing in self.isEditing = isEditing
+                
+                // TextField for entering the user's name
+                TextField("Name", text: $name) { isEditing in
+                    self.isEditing = isEditing
                 }
                 .autocapitalization(.words)
                 .disableAutocorrection(true)
@@ -54,31 +51,39 @@ struct NameView: View {
                 Divider()
                     .foregroundColor(.black)
             }
+            
             Spacer()
-            Button(action: {
-                db.collection("user").document(Auth.auth().currentUser!.uid).setData([
-                    "name": name
-                ]) { err in
-                    if let err = err {
-                        print("Error writing document: \(err)")
-                    } else {
-                        print("Document successfully written!")
-                    }
-                }
-                view = "Main"
-            }, label: {
+
+            // Button to save the name and navigate to the main view
+            Button(action: saveName, label: {
                 Text("NEXT")
+                    .foregroundColor(.white)
+                    .font(.system(size: 18))
+                    .padding(.horizontal, 20)
+                    .padding()
+                    .background(Color.petSupportBlue)
+                    .cornerRadius(70.0)
+                    .disabled(!canContinue)
             })
-                .foregroundColor(.white)
-                .font(.system(size: 18))
-                .padding(.horizontal, 20)
-                .padding()
-                .background(Color.petSupportBlue)
-                .cornerRadius(70.0)
-                .disabled(!canContinue)
+
             Spacer()
-        })
+        }
         .padding(.horizontal, 30)
+    }
+
+    /// Saves the user's name to Firebase and navigates to the main view.
+    private func saveName() {
+        let db = Firestore.firestore()
+        if let userId = Auth.auth().currentUser?.uid {
+            db.collection("user").document(userId).setData(["name": name]) { error in
+                if let error = error {
+                    print("Error writing document: \(error)")
+                } else {
+                    print("Document successfully written!")
+                    view = "Main"  // Navigate to the main screen
+                }
+            }
+        }
     }
 }
 

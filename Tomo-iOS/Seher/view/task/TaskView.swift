@@ -7,82 +7,79 @@
 
 import SwiftUI
 
+/// `TaskView` is the main view for displaying a list of tasks along with a calendar view.
+/// It allows users to create, edit, and manage tasks.
+/// This version presents `NewTaskView` as a full-screen view using navigation,
+/// with the navigation button constrained to the bottom of the view.
 struct TaskView: View {
-    @State private var showEditView = false
+    // Environment object for accessing task data from TaskViewModel
     @EnvironmentObject private var viewModel: TaskViewModel
-    @Environment(\.presentationMode) var presentationMode
+
+    // Tracks the currently selected date
+    @State private var currentDate: Date = Date()
 
     var body: some View {
-        VStack {
-            Spacer()
-            CalendarView()
+        NavigationView {
+            ZStack {
+                // Main content
+                VStack(alignment: .leading, spacing: 0) {
+                    // Displays the calendar header with the currently selected date
+                    CalendarHeader(currentDate: $currentDate)
 
-            List {
-                if viewModel.taskCellViewModels.isEmpty {
-                    Text("No tasks to show")
-                } else {
-                    ForEach(viewModel.taskCellViewModels) { listItem in
-                        TaskCell(taskViewModel: listItem)
-                            .onTapGesture {
-                                viewModel.toggleTaskCompletion(listItem.task)
-                            }
-                            // Uncomment if using long press for edit functionality
-                            /*
-                            .onLongPressGesture {
-                                self.item = listItem
-                                self.oldTitle = listItem.task.title
-                                showEditView = true
-                            }
-                            .background(
-                                NavigationLink("", destination: EditTaskView(item: $item), isActive: $showEditView)
-                                    .hidden()
-                            )
-                            */
+                    // Displays the list of tasks
+                    TasksListView()
+                        .layoutPriority(1)  // Gives priority to the task list when laying out the views
+                }
+                .vSpacing(.top)  // Custom vertical spacing modifier (ensure this is defined in your project)
+                .onAppear {
+                    // Fetch tasks when the view appears
+                    Task {
+                        await viewModel.fetchTasks()
                     }
-                    .onDelete(perform: deleteTasks)
+                }
+
+                // Plus button overlayed at the bottom right as a NavigationLink
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: NewTaskView().environmentObject(viewModel)) {
+                            // Plus button content
+                            Image(systemName: "plus")
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.seherCircle)  // Custom foreground style (define `.seherCircle`)
+                                .frame(width: 55, height: 55)
+                                .background(
+                                    Circle()
+                                        .fill(Color.seherCircle)  // Custom color (define `Color.seherCircle`)
+                                        .shadow(color: .black.opacity(0.25), radius: 5, x: 5, y: 5)
+                                )
+                        }
+                        .padding()
+                    }
                 }
             }
-
-            navigationButtons
-            Spacer()
+            .navigationBarTitle("Tasks", displayMode: .inline)
+            .navigationBarHidden(true)  // Hide navigation bar if you prefer custom styling
         }
-        .frame(minWidth: 318, idealWidth: 318, minHeight: 350, idealHeight: 750, alignment: .center)
-        .shadow(radius: 7)
-        .cornerRadius(25.0)
-        .listRowBackground(Color.white)
-        .padding(.horizontal, 30)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 
-    private func deleteTasks(at offsets: IndexSet) {
-        viewModel.removeTasks(atOffsets: offsets)
-    }
-
-    private var navigationButtons: some View {
-        HStack {
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("<")
-                    .font(.system(size: 48))
-                    .foregroundColor(.white)
-                    .padding(.top, -10)
+    /// A view that displays a scrollable list of tasks for the selected date.
+    @ViewBuilder
+    func TasksListView() -> some View {
+        GeometryReader { geometry in
+            let size = geometry.size
+            ScrollView(.vertical) {
+                VStack {
+                    // Custom task list component
+                    TasksList(size: size, currentDate: $currentDate)
+                        .environmentObject(viewModel)
+                }
+                .hSpacing(.center)  // Custom horizontal spacing modifier (define `.hSpacing`)
+                .vSpacing(.center)  // Custom vertical spacing modifier (define `.vSpacing`)
             }
-            .frame(width: 50, height: 50, alignment: .center)
-            .background(Color.petSupportBlue)
-            .clipShape(Circle())
-            .navigationBarBackButtonHidden(true)
-
-            Spacer()
-            NavigationLink(destination: AddTaskView()) {
-                Text("+")
-                    .font(.system(size: 48))
-                    .foregroundColor(.white)
-                    .padding(.top, -10)
-            }
-            .frame(width: 50, height: 50, alignment: .center)
-            .background(Color.petSupportBlue)
-            .clipShape(Circle())
-            .navigationBarBackButtonHidden(true)
+            .scrollIndicators(.hidden)  // Hides scroll indicators for a cleaner UI
         }
     }
 }

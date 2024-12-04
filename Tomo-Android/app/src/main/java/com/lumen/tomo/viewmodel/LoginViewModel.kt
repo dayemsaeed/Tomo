@@ -1,20 +1,15 @@
 package com.lumen.tomo.viewmodel
 
-import android.content.Context
-import android.util.Log
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lumen.tomo.model.UserState
 import com.lumen.tomo.model.repository.AuthRepository
-import com.lumen.tomo.model.repository.AuthRepositoryImpl
 import com.lumen.tomo.util.DataStoreHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.auth
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,10 +35,18 @@ class LoginViewModel @Inject constructor(
     private val _userState: MutableLiveData<UserState> = MutableLiveData(UserState.Loading)
     val userState: LiveData<UserState> = _userState
 
+    private val _userId: MutableLiveData<String> = MutableLiveData(null)
+    val userId: LiveData<String> = _userId
+
+    init {
+        restoreSession()
+    }
+
     fun onLoginClicked() {
         viewModelScope.launch {
             authRepository.logIn(email.value!!, password.value!!,
                 onSuccess = {
+                    saveSession()
                     _errorMessage.value = null
                     _navigateToHome.value = true
                     _userState.value = UserState.Success("User successfully logged in!")
@@ -57,24 +60,36 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun saveToken() {
+    private fun saveSession() {
         viewModelScope.launch {
-            val accessToken = supabaseClient.auth.currentAccessTokenOrNull() ?: ""
-            dataStoreHelper.saveAuthToken(accessToken)
+            val session = supabaseClient.auth.currentSessionOrNull()
+            session?.let {
+                dataStoreHelper.saveTokens(it.accessToken, it.refreshToken)
+                _userId.value = it.user?.id
+            }
         }
     }
 
-    private fun getToken(): String? {
-        var authToken: String? = ""
+    private fun restoreSession() {
         viewModelScope.launch {
-            try {
-                authToken = dataStoreHelper.getAuthToken()
+            val session = dataStoreHelper.getAccessToken()
+            if (session != null) {
+                dataStoreHelper.getRefreshToken()?.let { supabaseClient.auth.refreshSession(it) }
+                _userId.value = supabaseClient.auth.currentSessionOrNull()?.user?.id
             }
-            catch (e: Exception) {
-                Log.e("Auth Error", "Could not fetch token. Error: ${e.message}")
-            }
+            checkUserState()
         }
-        return authToken
+    }
+
+    private fun checkUserState() {
+        val currentUser = supabaseClient.auth.currentUserOrNull()
+        if (currentUser != null) {
+            _navigateToHome.value = true
+            _userState.value = UserState.Success("User is logged in")
+        } else {
+            _navigateToHome.value = false
+            _userState.value = UserState.Error("No user logged in")
+        }
     }
 
     fun updateEmail(newEmail: String) {
@@ -84,5 +99,5 @@ class LoginViewModel @Inject constructor(
     fun updatePassword(newPassword: String) {
         _password.value = newPassword
     }
-
 }
+

@@ -6,77 +6,98 @@
 //
 
 import Foundation
-import FirebaseFirestore
-import FirebaseFirestoreSwift
-import FirebaseAuth
+import Supabase
 
-class TaskRepository : ObservableObject {
-    
-    private let db = Firestore.firestore()
-    private var userTasksCollection: CollectionReference {
-        db.collection("users").document(Auth.auth().currentUser?.uid ?? "").collection("tasks")
+class TaskRepository: ObservableObject {
+    private let supabaseClient: SupabaseClient
+
+    init(supabaseClient: SupabaseClient) {
+        self.supabaseClient = supabaseClient
     }
-    
-    @Published var todaysTasks = [Task]()
-    @Published var tasks = [Task]()
-    
-    private let dateToStringFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MMM-yyyy"
-        return formatter
-    }()
-    
-    func loadTodaysTasks() {
-        let todaysDate = dateToStringFormatter.string(from: Date())
-        print("LoadTodaysTasks (TaskRepository): " + todaysDate)
-        userTasksCollection
-            .whereField("startDate", isEqualTo: todaysDate)
-            .addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                        print("Error fetching today's tasks: \(error.localizedDescription)")
-                        return
-                    }
-                self.todaysTasks = self.tasksFromSnapshot(querySnapshot)
+
+    func getCurrentUserId() -> String? {
+        return supabaseClient.auth.currentSession?.user.id.uuidString
+    }
+
+    func storeTask(task: TaskItem) async throws {
+        // Ensure the user is authenticated
+        guard let userId = supabaseClient.auth.currentSession?.user.id else {
+            throw NSError(domain: "TaskRepository", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        }
+
+        let payload = task.toPayload()
+        
+        do {
+            try await supabaseClient
+                .from("tasks")
+                .insert(payload)
+                .execute()
+        } catch {
+            print("Supabase error: \(error)")
+            throw error
+        }
+    }
+
+    func getTask(taskId: UUID) async throws {
+        // Ensure the user is authenticated
+        if supabaseClient.auth.currentSession == nil {
+            do {
+                let _ = try await supabaseClient.auth.refreshSession()
+            } catch {
+                throw error
             }
+        }
+
+        let tasks: [TaskItemResponse] = try await supabaseClient
+            .from("tasks")
+            .select()
+            .eq("id", value: taskId.uuidString)
+            .execute()
+            .value
+
+        guard let task = tasks.first else {
+            throw URLError(.badServerResponse)
+        }
     }
-    
-    func loadAllTasks() {
-        userTasksCollection
-            .order(by: "startDate")
-            .addSnapshotListener { querySnapshot, error in
-                self.tasks = self.tasksFromSnapshot(querySnapshot)
+
+    func fetchAllTasks() async throws -> [TaskItem] {
+        // Ensure the user is authenticated
+        if supabaseClient.auth.currentSession == nil {
+            do {
+                let _ = try await supabaseClient.auth.refreshSession()
+            } catch {
+                throw error
             }
+        }
+
+        // Fetch tasks from Supabase
+        let tasks: [TaskItemResponse] = try await supabaseClient
+            .from("tasks")
+            .select()
+            .eq("task_created_by", value: supabaseClient.auth.currentUser?.id)
+            .execute()
+            .value
+
+        return tasks.map { TaskItem(response: $0) }
     }
-    
-    private func tasksFromSnapshot(_ querySnapshot: QuerySnapshot?) -> [Task] {
-        guard let documents = querySnapshot?.documents else {
-            print("Error fetching documents: \(String(describing: querySnapshot?.count))")
-            return []
+
+    func updateTaskCompletion(_ task: TaskItem) async throws {
+        guard let userId = supabaseClient.auth.currentSession?.user.id else {
+            throw NSError(domain: "TaskRepository", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
         }
         
-        return documents.compactMap { document in
-            try? document.data(as: Task.self)
-        }
-    }
-    
-    func updateTask(_ task: Task) {
         do {
-            try userTasksCollection.document(task.title).setData(from: task, merge: true)
+            // Convert boolean to string "true"/"false"
+            let completedValue = task.isCompleted ? "TRUE" : "FALSE"
+            
+            try await supabaseClient
+                .from("tasks")
+                .update(["task_completed": task.isCompleted])
+                .eq("id", value: task.id)
+                .execute()
         } catch {
-            print("Unable to update task: \(error.localizedDescription)")
+            print("Supabase error updating task completion: \(error)")
+            throw error
         }
-    }
-    
-    func updateTaskWithNewTitle(_ task: Task, title: String) {
-        do {
-            try userTasksCollection.document(task.title).setData(from: task)
-            userTasksCollection.document(title).delete()
-        } catch {
-            print("Unable to update task: \(error.localizedDescription)")
-        }
-    }
-    
-    func deleteTask(_ task: Task) {
-        userTasksCollection.document(task.title).delete()
     }
 }

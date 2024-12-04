@@ -1,34 +1,37 @@
 //
 //  ContentView.swift
-//  PetSupport
+//  Seher
 //
 //  Created by Dayem Saeed on 5/5/21.
 //
 
 import SwiftUI
 
+/// `ContentView` is the root view that manages navigation between the `HomeView` and the login flow.
+/// It checks if the user is logged in and displays either the login or the home screen.
 struct ContentView: View {
-    @EnvironmentObject var loginViewModel: LoginViewModel
-    @EnvironmentObject var registerViewModel: RegisterViewModel
-    @EnvironmentObject var taskViewModel: TaskViewModel
-    
+    @EnvironmentObject var loginViewModel: LoginViewModel  // Environment object for login logic
+    @EnvironmentObject var registerViewModel: RegisterViewModel  // Environment object for registration logic
+
     var body: some View {
         NavigationView {
-            if loginViewModel.isLoggedIn {
-                if !registerViewModel.isRegistered {
-                    RegisterView(registerViewModel: _registerViewModel, loginViewModel: _loginViewModel)
-                } else {
-                    LoginView(loginViewModel: _loginViewModel, registerViewModel: _registerViewModel)
-                }
+            if loginViewModel.isLoggedIn {  // Use loginViewModel.isLoggedIn directly
+                HomeView()  // Show the home view when not logged in
             } else {
-                MainView()
+                VStack {
+                    // Show the login view and monitor login changes
+                    LoginView()
+                        .environmentObject(loginViewModel)
+                        .environmentObject(registerViewModel)
+                        .onChange(of: loginViewModel.isLoggedIn) { newValue in  // Add parameter
+                            print("Login state changed to: \(newValue)")  // Debug print
+                        }
+                        .onChange(of: registerViewModel.isLoggedIn) { newValue in  // Add parameter
+                            print("Register state changed to: \(newValue)")  // Debug print
+                        }
+                }
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+        .toolbar(.hidden)
     }
 }
