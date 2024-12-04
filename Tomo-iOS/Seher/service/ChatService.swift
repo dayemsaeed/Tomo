@@ -17,15 +17,25 @@ class ChatService {
     ///   - completion: A closure that returns a generated response string or an error message.
     func generateText(messages: [[String: Any]], completion: @escaping (String?) -> Void) {
         
-        // Fetch the app's info dictionary
-        guard let infoDictionary = Bundle.main.infoDictionary else {
-            completion("App configuration error: Info.plist missing or corrupted.")
+        // Fetch the Supabase API key from environment variables or fallback to Info.plist
+        let apiKey: String
+        if let environmentKey = ProcessInfo.processInfo.environment["SUPABASE_KEY"] {
+            apiKey = environmentKey // Use environment variable
+        } else if let configKey = Bundle.main.infoDictionary?["SUPABASE_KEY"] as? String {
+            apiKey = configKey // Use Info.plist for local development
+        } else {
+            completion("App configuration error: Supabase key missing.")
             return
         }
         
-        // Fetch the Supabase API key from the app's Info.plist
-        guard let apiKey = infoDictionary["SUPABASE_KEY"] as? String else {
-            completion("App configuration error: Supabase key missing.")
+        // Fetch the BOT_URI from environment variables or fallback to Info.plist
+        let baseUri: String
+        if let environmentUri = ProcessInfo.processInfo.environment["BOT_URI"] {
+            baseUri = environmentUri // Use environment variable
+        } else if let configUri = Bundle.main.infoDictionary?["BOT_URI"] as? String {
+            baseUri = configUri // Use Info.plist for local development
+        } else {
+            completion("App configuration error: BOT_URI missing.")
             return
         }
         
@@ -40,14 +50,8 @@ class ChatService {
             "messages": messages
         ]
         
-        // Fetch the base URL and bot URI from the Info.plist
-        guard let baseUrl = infoDictionary["BOT_URI"] as? String else {
-            completion("App configuration error: BOT_URI missing.")
-            return
-        }
-        
-        // Define the complete URL to send the API request to
-        let url = "https://xzcmehrmmnstqrovwabx.supabase.co/" + baseUrl
+        // Construct the complete URL
+        let url = "https://xzcmehrmmnstqrovwabx.supabase.co/" + baseUri
         
         // Perform the API request using Alamofire
         AF.request(url,

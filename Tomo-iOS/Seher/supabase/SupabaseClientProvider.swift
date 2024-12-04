@@ -10,17 +10,23 @@ import Foundation
 
 class SupabaseClientProvider {
     static func makeSupabaseClient() -> SupabaseClient {
-        guard let infoDictionary = Bundle.main.infoDictionary else {
-            fatalError("Missing Info.plist")
+        // Fetch the Supabase Key from the environment or fallback to the config file
+        let supabaseKey: String
+        
+        if let environmentKey = ProcessInfo.processInfo.environment["SUPABASE_KEY"] {
+            supabaseKey = environmentKey // Use environment variable (e.g., in Xcode Cloud)
+        } else if let configKey = Bundle.main.infoDictionary?["SUPABASE_KEY"] as? String {
+            supabaseKey = configKey // Use local Info.plist or xcconfig file for development
+        } else {
+            fatalError("Supabase key not found in environment or Info.plist")
         }
-        guard let supabaseKey = infoDictionary["SUPABASE_KEY"] as? String else {
-            fatalError("SUPABASE_KEY not found in Info.plist")
-        }
+
+        // Define the Supabase URL (hardcoded or fetched similarly if needed)
         let supabaseUrlString = "https://xzcmehrmmnstqrovwabx.supabase.co"
         guard let supabaseUrl = URL(string: supabaseUrlString) else {
-            fatalError("Invalid supabase url")
+            fatalError("Invalid Supabase URL")
         }
-        
+
         return SupabaseClient(
             supabaseURL: supabaseUrl,
             supabaseKey: supabaseKey
