@@ -94,6 +94,7 @@
 		C18584FE2BFEAF110037A5EE /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18584FD2BFEAF110037A5EE /* ViewExtensions.swift */; };
 		C18585002BFEB9390037A5EE /* OffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18584FF2BFEB9390037A5EE /* OffsetKey.swift */; };
 		C1B7F9F32CFDB170006A6CC8 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7F9F12CFDB170006A6CC8 /* HapticManager.swift */; };
+		C1C1A7F32D00885C00098047 /* BuildConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1C1A7F22D00885C00098047 /* BuildConfig.xcconfig */; };
 		C1E168E42CFDAAF400D9A601 /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E32CFDAAF400D9A601 /* BreathingExerciseView.swift */; };
 		C1E168E62CFDAB0A00D9A601 /* BreathingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E52CFDAB0A00D9A601 /* BreathingListView.swift */; };
 		C1E168E82CFDAB1600D9A601 /* BreathingExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E72CFDAB1600D9A601 /* BreathingExercise.swift */; };
@@ -192,6 +193,7 @@
 		C18584FD2BFEAF110037A5EE /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C18584FF2BFEB9390037A5EE /* OffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetKey.swift; sourceTree = "<group>"; };
 		C1B7F9F12CFDB170006A6CC8 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		C1C1A7F22D00885C00098047 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = "<group>"; };
 		C1E168E32CFDAAF400D9A601 /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
 		C1E168E52CFDAB0A00D9A601 /* BreathingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingListView.swift; sourceTree = "<group>"; };
 		C1E168E72CFDAB1600D9A601 /* BreathingExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExercise.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 		C11B428226A3CB0F0030ED0A /* Seher */ = {
 			isa = PBXGroup;
 			children = (
+				C1C1A7F22D00885C00098047 /* BuildConfig.xcconfig */,
 				C1FB6A9F2C01309F00418018 /* data */,
 				C18584F62BFE38F50037A5EE /* helpers */,
 				C18584E62BFD3EB40037A5EE /* supabase */,
@@ -670,6 +673,7 @@
 				C11A93972BEDF21800D1CD54 /* Poppins-Italic.ttf in Resources */,
 				C11A939A2BEDF22100D1CD54 /* Poppins-Medium.ttf in Resources */,
 				C11B42D826A3CFB80030ED0A /* Launch Screen.storyboard in Resources */,
+				C1C1A7F32D00885C00098047 /* BuildConfig.xcconfig in Resources */,
 				C11A93932BEDF20C00D1CD54 /* Poppins-ExtraBold.ttf in Resources */,
 				C11B42D426A3CFA30030ED0A /* GoogleService-Info.plist in Resources */,
 				C16FC3722AD3499900234C6C /* catHeart.json in Resources */,
@@ -843,7 +847,7 @@
 		};
 		C11B42A426A3CB130030ED0A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C18584E22BFB3A410037A5EE /* Config.xcconfig */;
+			baseConfigurationReference = C1C1A7F22D00885C00098047 /* BuildConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

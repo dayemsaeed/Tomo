@@ -1,0 +1,3 @@
+// Reference environment variables
+SUPABASE_KEY = $(SUPABASE_KEY_ENV)
+BOT_URI = $(BOT_URI_ENV)
