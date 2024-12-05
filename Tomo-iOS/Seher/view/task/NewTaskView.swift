@@ -14,113 +14,133 @@ struct NewTaskView: View {
     @State private var taskDate: Date = Date()
     @State private var taskDescription: String = ""
     @State private var taskColor: String = "TaskColor 1"
-    @State private var showColorPicker: Bool = false  // Controls color palette visibility
-
+    @State private var showColorPicker: Bool = false
+    @FocusState private var focusedField: Field?
+    @State private var showErrorAlert: Bool = false
+    @State private var errorMessage: String = ""
+    
+    enum Field {
+        case title, description
+    }
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            // Navigation Bar
-            HStack {
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.title2)
-                        .foregroundColor(.blue)
-                })
-                Spacer()
-                Text("New Task")
-                    .font(.headline)
-                Spacer()
-                // Placeholder for alignment
-                Spacer().frame(width: 44)
-            }
-            .padding(.horizontal)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                // Navigation Bar
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                    })
+                    Spacer()
+                    Text("New Task")
+                        .font(.headline)
+                    Spacer()
+                    Spacer().frame(width: 44)
+                }
+                .padding(.horizontal)
 
-            // Task Title Input
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Task Title")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                TextField("Enter task title", text: $taskTitle)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.seherCircle, lineWidth: 2)
-                    )
-            }
-            .padding(.horizontal)
+                // Task Title Input
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Task Title")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    TextField("Enter task title", text: $taskTitle)
+                        .focused($focusedField, equals: .title)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.seherCircle, lineWidth: 2)
+                        )
+                }
+                .padding(.horizontal)
 
-            // Task Date/Time Picker
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Task Date & Time")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                DatePicker("Select Date & Time", selection: $taskDate)
-                    .datePickerStyle(.compact)
-                    .labelsHidden()
-                    .padding()
-                    .textFieldStyle(.roundedBorder)
-            }
-            .padding(.horizontal)
+                // Task Date/Time Picker
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Task Date & Time")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    DatePicker("Select Date & Time", selection: $taskDate)
+                        .datePickerStyle(.compact)
+                        .labelsHidden()
+                        .padding()
+                        .textFieldStyle(.roundedBorder)
+                }
+                .padding(.horizontal)
 
-            // Task Description Input
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Task Description")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                TextEditor(text: $taskDescription)
-                    .frame(height: 100)
-                    .padding()
-                    .textFieldStyle(.roundedBorder)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.seherCircle, lineWidth: 2)
-                    )
-            }
-            .padding(.horizontal)
+                // Task Description Input
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Task Description")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    TextEditor(text: $taskDescription)
+                        .focused($focusedField, equals: .description)
+                        .frame(height: 100)
+                        .padding()
+                        .textFieldStyle(.roundedBorder)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.seherCircle, lineWidth: 2)
+                        )
+                }
+                .padding(.horizontal)
 
-            // Color Palette
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Task Color")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                HStack(spacing: 15) {
-                    ForEach(taskColors, id: \.self) { colorName in
-                        Circle()
-                            .fill(colorFromName(colorName))
-                            .frame(width: 30, height: 30)
-                            .overlay(
-                                Circle()
-                                    .stroke(taskColor == colorName ? Color.seherCircle : Color.clear, lineWidth: 4)
-                            )
-                            .onTapGesture {
-                                taskColor = colorName
-                            }
+                // Color Palette
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Task Color")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    HStack(spacing: 15) {
+                        ForEach(taskColors, id: \.self) { colorName in
+                            Circle()
+                                .fill(colorFromName(colorName))
+                                .frame(width: 30, height: 30)
+                                .overlay(
+                                    Circle()
+                                        .stroke(taskColor == colorName ? Color.seherCircle : Color.clear, lineWidth: 4)
+                                )
+                                .onTapGesture {
+                                    taskColor = colorName
+                                }
+                        }
                     }
                 }
+                .padding(.horizontal)
+
+                Spacer()
+
+                // Save Button
+                Button(action: {
+                    saveTask()
+                }, label: {
+                    Text("Save Task")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.seherCircle)
+                        .cornerRadius(10)
+                })
+                .padding(.horizontal)
+                .padding(.bottom, 20)
             }
-            .padding(.horizontal)
-
-            Spacer()
-
-            // Save Button
-            Button(action: {
-                saveTask()
-            }, label: {
-                Text("Save Task")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.seherCircle)
-                    .cornerRadius(10)
-            })
-            .padding(.horizontal)
-            .padding(.bottom, 20)
+            .padding(.bottom, 50) // Extra padding at bottom for keyboard
         }
         .navigationBarHidden(true)
+        .scrollDismissesKeyboard(.immediately) // Dismiss keyboard on scroll
+        .onTapGesture {
+            focusedField = nil // Dismiss keyboard when tapping outside
+        }
+        .alert("Error", isPresented: $showErrorAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(errorMessage)
+        }
     }
-
+    
     // List of available colors
     let taskColors = ["TaskColor 1", "TaskColor 2", "TaskColor 3", "TaskColor 4", "TaskColor 5"]
 
@@ -151,7 +171,7 @@ struct NewTaskView: View {
     // Function to save the task
     private func saveTask() {
         guard let userId = viewModel.getCurrentUserId() else {
-            print("Error: User not authenticated")
+            showError("User not authenticated")
             return
         }
         
@@ -170,9 +190,14 @@ struct NewTaskView: View {
                 await viewModel.fetchTasks()
                 dismiss()
             } catch {
-                print("Error saving task: \(error.localizedDescription)")
-                // TODO: Add error handling UI
+                showError("Error saving task: \(error.localizedDescription)")
             }
         }
+    }
+    
+    // Function to show error
+    private func showError(_ message: String) {
+        errorMessage = message
+        showErrorAlert = true
     }
 }

@@ -23,7 +23,7 @@ class NotificationManager {
         // Calculate reminder time (15 minutes before task time)
         let reminderTime = task.creationDate.addingTimeInterval(reminderOffset)
         
-        // Don't schedule if the reminder time has already passed
+        // Don't schedule if the reminder time has already passedA
         guard reminderTime > Date() else { return }
         
         let content = UNMutableNotificationContent()

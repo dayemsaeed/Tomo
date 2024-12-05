@@ -13,12 +13,18 @@ struct TasksList: View {
     @EnvironmentObject private var viewModel: TaskViewModel
 
     var body: some View {
-        let tasks = viewModel.tasks.filter { isSameDay($0.creationDate, currentDate) }
+        let tasks = viewModel.tasks
+            .filter { isSameDay($0.creationDate, currentDate) }
+            .sorted { task1, task2 in
+                if task1.isCompleted != task2.isCompleted {
+                    return !task1.isCompleted
+                }
+                return task1.creationDate < task2.creationDate
+            }
 
         VStack(alignment: .leading, spacing: 35) {
-            ForEach(tasks) { task in
+            ForEach(Array(tasks.enumerated()), id: \.element.id) { index, task in
                 TaskRowView(task: task)
-                    .environmentObject(viewModel)
                     .background(alignment: .leading) {
                         if tasks.last?.id != task.id {
                             Rectangle()
@@ -31,6 +37,7 @@ struct TasksList: View {
         }
         .padding([.vertical, .leading], 15)
         .padding(.top, 15)
+        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: tasks)
         .overlay {
             if tasks.isEmpty {
                 Text("No Tasks Found")

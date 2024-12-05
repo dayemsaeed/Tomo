@@ -16,10 +16,17 @@ struct RegisterView: View {
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var showPassword = false
+    @State private var showConfirmPassword = false
     @State private var registerError: String?
     
     @EnvironmentObject var registerViewModel: RegisterViewModel
     @Environment(\.dismiss) private var dismiss
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case email, password, confirmPassword
+    }
     
     // Boolean to determine if user can register
     private var canRegister: Bool {
@@ -35,11 +42,15 @@ struct RegisterView: View {
                 registrationForm
             }
         }
+        .background(Color(uiColor: .systemBackground))
+        .onTapGesture {
+            focusedField = nil // Dismiss keyboard when tapping outside
+        }
     }
     
     private var registrationForm: some View {
-        VStack {
-            // Back button
+        VStack(spacing: 0) {
+            // Back Button
             HStack {
                 Button(action: { dismiss() }) {
                     Image(systemName: "chevron.left")
@@ -48,107 +59,77 @@ struct RegisterView: View {
                 }
                 Spacer()
             }
-            .padding(.top)
+            .padding(.horizontal, 24)
+            .padding(.top, 16)
             
-            Spacer().frame(height: 150)
+            // Logo Section
+            VStack(spacing: 8) {
+                Text("TOMO")
+                    .foregroundColor(Color.seherText)
+                    .font(.system(size: 42, weight: .bold))
+                Text("Create your account")
+                    .font(.system(size: 16))
+                    .foregroundColor(.gray)
+            }
+            .padding(.top, 60)
+            .padding(.bottom, 60)
             
-            Text("TOMO")
-                .foregroundColor(Color.seherText)
-                .font(.system(size: 36))
-                .padding()
-
-            // Email input
-            Group {
-                HStack {
-                    Text("EMAIL")
-                        .font(.system(size: 18))
-                        .padding(.top, 10)
-                    Spacer()
-                }
+            // Form Section
+            VStack(spacing: 24) {
+                CustomTextField(
+                    title: "EMAIL",
+                    placeholder: "Enter your email",
+                    text: $email
+                )
+                .focused($focusedField, equals: .email)
+                .autocapitalization(.none)
+                .keyboardType(.emailAddress)
                 
-                TextField("Email", text: $email)
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
-                    .disableAutocorrection(true)
+                CustomTextField(
+                    title: "PASSWORD",
+                    placeholder: "Enter your password",
+                    text: $password,
+                    isSecure: !showPassword,
+                    toggleSecure: { showPassword.toggle() }
+                )
+                .focused($focusedField, equals: .password)
+                
+                CustomTextField(
+                    title: "CONFIRM PASSWORD",
+                    placeholder: "Confirm your password",
+                    text: $confirmPassword,
+                    isSecure: !showConfirmPassword,
+                    toggleSecure: { showConfirmPassword.toggle() }
+                )
+                .focused($focusedField, equals: .confirmPassword)
+            }
+            .padding(.horizontal, 24)
+            
+            // Error Message
+            if let registerError = registerError {
+                Text(registerError)
+                    .font(.system(size: 14))
+                    .foregroundColor(.red)
                     .padding(.top, 20)
-                
-                Divider()
+                    .padding(.horizontal, 24)
             }
             
-            // Password input
-            Group {
-                HStack {
-                    Text("PASSWORD")
-                        .font(.system(size: 18))
-                        .padding(.top, 10)
-                    Spacer()
-                }
-                
-                ZStack(alignment: .trailing) {
-                    if showPassword {
-                        TextField("Password", text: $password)
-                    } else {
-                        SecureField("Password", text: $password)
-                    }
-                    Button(action: {
-                        showPassword.toggle()
-                    }) {
-                        Image(systemName: showPassword ? "eye.slash" : "eye")
-                            .accentColor(.gray)
-                    }
-                }
-                
-                Divider()
-            }
+            Spacer()
             
-            // Confirm Password input
-            Group {
-                HStack {
-                    Text("CONFIRM PASSWORD")
-                        .font(.system(size: 18))
-                        .padding(.top, 10)
-                    Spacer()
-                }
-                
-                ZStack(alignment: .trailing) {
-                    if showPassword {
-                        TextField("Confirm Password", text: $confirmPassword)
-                    } else {
-                        SecureField("Confirm Password", text: $confirmPassword)
-                    }
-                    Button(action: {
-                        showPassword.toggle()
-                    }) {
-                        Image(systemName: showPassword ? "eye.slash" : "eye")
-                            .accentColor(.gray)
-                    }
-                }
-                
-                Divider()
-            }
-
-            // Register button
+            // Register Button
             Button(action: {
                 Task {
                     await handleRegister()
                 }
             }) {
-                Text("Register")
+                Text("Create Account")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(PrimaryButtonStyle(disabled: !canRegister))
             .disabled(!canRegister)
-            
-            // Error message
-            if let registerError = registerError {
-                Text(registerError)
-                    .foregroundColor(.red)
-                    .padding(.top, 20)
-            }
-            
-            Spacer()
+            .padding(.horizontal, 24)
+            .padding(.bottom, 32)
         }
-        .padding()
     }
     
     // MARK: - Helper Methods
@@ -156,6 +137,9 @@ struct RegisterView: View {
     /// Handles the register action using Firebase Authentication.
     @MainActor
     private func handleRegister() async {
+        // Dismiss keyboard
+        focusedField = nil
+        
         do {
             let _ = try await registerViewModel.register(email: email, password: password)
         } catch {

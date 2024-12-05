@@ -47,12 +47,12 @@ struct TaskView: View {
                             // Plus button content
                             Image(systemName: "plus")
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.seherCircle)  // Custom foreground style (define `.seherCircle`)
+                                .foregroundStyle(.white)  // Custom foreground style (define `.seherCircle`)
                                 .frame(width: 55, height: 55)
                                 .background(
                                     Circle()
                                         .fill(Color.seherCircle)  // Custom color (define `Color.seherCircle`)
-                                        .shadow(color: .black.opacity(0.25), radius: 5, x: 5, y: 5)
+                                        .shadow(color: .black.opacity(0.65), radius: 5, x: 5, y: 5)
                                 )
                         }
                         .padding()

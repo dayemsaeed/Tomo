@@ -18,19 +18,10 @@ struct MyApp: App {
     
     init() {
         let supabaseClient = SupabaseClientProvider.makeSupabaseClient()
+        // Initialize directly since we're already on the main thread during init
         _appState = StateObject(wrappedValue: AppState(supabaseClient: supabaseClient))
-        
-        // Request notification permissions
-        Task {
-            do {
-                let granted = try await NotificationManager.shared.requestAuthorization()
-                print("Notification authorization granted: \(granted)")
-            } catch {
-                print("Error requesting notification authorization: \(error)")
-            }
-        }
     }
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -43,6 +34,7 @@ struct MyApp: App {
 }
 
 // Create a new class to handle app state
+@MainActor
 class AppState: ObservableObject {
     let loginViewModel: LoginViewModel
     let registerViewModel: RegisterViewModel
@@ -52,6 +44,7 @@ class AppState: ObservableObject {
     init(supabaseClient: SupabaseClient) {
         self.loginViewModel = LoginViewModel(supabaseClient: supabaseClient)
         self.registerViewModel = RegisterViewModel(supabaseClient: supabaseClient)
+        // Force unwrap is safe here because we're on the main actor
         self.taskViewModel = TaskViewModel(taskRepository: TaskRepository(supabaseClient: supabaseClient))
         self.chatViewModel = ChatViewModel(
             chatService: ChatService(),

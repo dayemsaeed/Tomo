@@ -9,6 +9,7 @@ import Foundation
 import Supabase
 import Combine
 
+@MainActor
 class TaskViewModel: ObservableObject {
     
     @Published var tasks: [TaskItem] = []
@@ -50,14 +51,26 @@ class TaskViewModel: ObservableObject {
         do {
             try await taskRepository.updateTaskCompletion(task)
             
-            // Cancel notification when task is completed
             if task.isCompleted {
+                // Cancel notification if task is completed
                 NotificationManager.shared.cancelReminder(for: task.id)
+            } else {
+                // Reschedule notification if task is uncompleted
+                NotificationManager.shared.scheduleTaskReminder(for: task)
             }
             
             await fetchTasks()
         } catch {
-            print("Error updating completion status for task: \(task.id). Error: \(error.localizedDescription)")
+            print("Error updating task completion: \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteTask(task: TaskItem) async {
+        do {
+            try await taskRepository.deleteTask(task: task)
+            await fetchTasks()
+        } catch {
+            print("Error deleting task: \(error.localizedDescription)")
         }
     }
     

@@ -87,16 +87,36 @@ class TaskRepository: ObservableObject {
         }
         
         do {
-            // Convert boolean to string "true"/"false"
-            let completedValue = task.isCompleted ? "TRUE" : "FALSE"
-            
             try await supabaseClient
                 .from("tasks")
                 .update(["task_completed": task.isCompleted])
                 .eq("id", value: task.id)
+                .eq("task_created_by", value: userId.uuidString)
                 .execute()
+            
+            print("Task completion updated successfully: \(task.id), completed: \(task.isCompleted)")
         } catch {
             print("Supabase error updating task completion: \(error)")
+            throw error
+        }
+    }
+
+    func deleteTask(task: TaskItem) async throws {
+        guard let userId = supabaseClient.auth.currentSession?.user.id else {
+            throw NSError(domain: "TaskRepository", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        }
+        
+        do {
+            try await supabaseClient
+                .from("tasks")
+                .delete()
+                .eq("id", value: task.id)
+                .eq("task_created_by", value: userId.uuidString)  // Ensure user owns the task
+                .execute()
+            
+            print("Task deleted successfully: \(task.id)")
+        } catch {
+            print("Supabase error deleting task: \(error)")
             throw error
         }
     }

@@ -28,98 +28,91 @@ struct LoginView: View {
         return !email.isEmpty && !password.isEmpty
     }
     
+    // Add this property to handle keyboard dismissal
+    @FocusState private var focusedField: Field?
+    
+    // Define fields that can have focus
+    enum Field {
+        case email, password
+    }
+    
     // MARK: - UI Components
     var body: some View {
-        
-        VStack {
-            Spacer().frame(height: 150)
+        VStack(spacing: 0) {
+            // Logo Section
+            VStack(spacing: 8) {
+                Text("TOMO")
+                    .foregroundColor(Color.seherText)
+                    .font(.system(size: 42, weight: .bold))
+                Text("Welcome back!")
+                    .font(.system(size: 16))
+                    .foregroundColor(.gray)
+            }
+            .padding(.top, 100)
+            .padding(.bottom, 60)
             
-            Text("TOMO")
-                .foregroundColor(Color.seherText)
-                .font(.system(size: 36))
-                .padding()
-
-            // Email input
-            Group {
-                HStack {
-                    Text("EMAIL")
-                        .font(.system(size: 18))
-                        .padding(.top, 10)
-                    Spacer()
-                }
-                
-                TextField("Email", text: $email) { isEditing in
-                    self.isEditing = isEditing
-                }
+            // Form Section
+            VStack(spacing: 24) {
+                CustomTextField(
+                    title: "EMAIL",
+                    placeholder: "Enter your email",
+                    text: $email
+                )
+                .focused($focusedField, equals: .email)
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
-                .disableAutocorrection(true)
-                .padding(.top, 20)
                 
-                Divider()
+                CustomTextField(
+                    title: "PASSWORD",
+                    placeholder: "Enter your password",
+                    text: $password,
+                    isSecure: isSecured,
+                    toggleSecure: { isSecured.toggle() }
+                )
+                .focused($focusedField, equals: .password)
             }
+            .padding(.horizontal, 24)
             
-            // Password input
-            Group {
-                HStack {
-                    Text("PASSWORD")
-                        .font(.system(size: 18))
-                        .padding(.top, 10)
-                    Spacer()
-                }
-
-                ZStack(alignment: .trailing) {
-                            Group {
-                                if isSecured {
-                                    SecureField("Password", text: $password)
-                                } else {
-                                    TextField("Password", text: $password)
-                                }
-                            }.padding(.trailing, 32)
-
-                            Button(action: {
-                                isSecured.toggle()
-                            }) {
-                                Image(systemName: self.isSecured ? "eye.slash" : "eye")
-                                    .accentColor(.gray)
-                            }
-                        }
-                
-                Divider()
-            }
-
-            // Login button
-            Button(action: {
-                Task {
-                    await handleLogin()
-                }
-            }) {
-                Text("Log In")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(PrimaryButtonStyle(disabled: !canLogIn))
-            .disabled(!canLogIn)
-            
-            // Register Navigation Button
-            NavigationLink {
-                RegisterView()
-                    .navigationBarHidden(true)
-            } label: {
-                Text("Sign Up")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(PrimaryButtonStyle())
-            
-            // Error message
+            // Error Message
             if let loginError = loginError {
                 Text(loginError)
+                    .font(.system(size: 14))
                     .foregroundColor(.red)
                     .padding(.top, 20)
+                    .padding(.horizontal, 24)
             }
             
             Spacer()
+            
+            // Buttons Section
+            VStack(spacing: 16) {
+                Button(action: {
+                    Task {
+                        await handleLogin()
+                    }
+                }) {
+                    Text("Log In")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(PrimaryButtonStyle(disabled: !canLogIn))
+                .disabled(!canLogIn)
+                
+                NavigationLink {
+                    RegisterView()
+                        .navigationBarHidden(true)
+                } label: {
+                    Text("Create Account")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(SecondaryButtonStyle())
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 32)
         }
-        .padding()
+        .background(Color(uiColor: .systemBackground))
+        .onTapGesture {
+            focusedField = nil // Dismiss keyboard when tapping outside
+        }
     }
     
     // MARK: - Helper Methods
@@ -127,11 +120,29 @@ struct LoginView: View {
     /// Handles the login action using Supabase Authentication.
     @MainActor
     private func handleLogin() async {
+        // Dismiss keyboard
+        focusedField = nil
+        
         do {
             let _ = try await loginViewModel.login(email: email, password: password)
         } catch {
             loginError = error.localizedDescription
             print(loginError ?? "")
         }
+    }
+}
+
+// Add a secondary button style
+struct SecondaryButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(Color.seherCircle)
+            .font(.system(size: 18))
+            .padding(.horizontal, 20)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 70.0)
+                    .stroke(Color.seherCircle, lineWidth: 2)
+            )
     }
 }
