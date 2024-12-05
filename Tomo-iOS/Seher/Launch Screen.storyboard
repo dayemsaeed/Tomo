@@ -28,13 +28,6 @@
                                 </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Kf7-Kv-qbN">
-                                <rect key="frame" x="117" y="370" width="180" height="156"/>
-                                <color key="tintColor" name="Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="156" id="C9y-Hy-0HF"/>
-                                </constraints>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UIBubbleFlip" translatesAutoresizingMaskIntoConstraints="NO" id="wFW-Wz-0SR">
                                 <rect key="frame" x="197" y="723" width="217" height="184"/>
                                 <color key="tintColor" name="Color"/>
@@ -42,6 +35,13 @@
                                     <constraint firstAttribute="width" constant="217" id="nSz-MM-lyH"/>
                                 </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Kf7-Kv-qbN">
+                                <rect key="frame" x="134" y="383" width="146" height="130"/>
+                                <color key="tintColor" name="Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="C9y-Hy-0HF"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.074509803921568626" green="0.12156862745098039" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -51,7 +51,7 @@
                             <constraint firstItem="Kf7-Kv-qbN" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="PoA-TO-115"/>
                             <constraint firstAttribute="bottomMargin" secondItem="wFW-Wz-0SR" secondAttribute="bottom" constant="-45" id="RSS-Q3-iqb"/>
                             <constraint firstAttribute="trailing" secondItem="wFW-Wz-0SR" secondAttribute="trailing" id="Vy5-aV-Ck7"/>
-                            <constraint firstItem="Kf7-Kv-qbN" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="97" id="fPO-ds-E6m"/>
+                            <constraint firstItem="Kf7-Kv-qbN" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="114" id="fPO-ds-E6m"/>
                             <constraint firstItem="Kf7-Kv-qbN" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="frv-ND-aML"/>
                         </constraints>
                     </view>
@@ -62,7 +62,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SplashLogo" width="880.5" height="953.5"/>
+        <image name="SplashLogo" width="587" height="635.66668701171875"/>
         <image name="UIBubble" width="216" height="183"/>
         <image name="UIBubbleFlip" width="223" height="184"/>
         <namedColor name="Color">

@@ -10,11 +10,11 @@ import SwiftData
 
 @Model
 class ChatMessage: Identifiable, Hashable, Codable {
-    let id: UUID
-    let content: String
-    let isSender: Bool
-    let created_at: Date
-    let conversation_id: UUID
+    var id: UUID
+    var content: String
+    var isSender: Bool
+    var created_at: Date
+    var conversation_id: UUID
     
     enum CodingKeys: String, CodingKey {
         case id

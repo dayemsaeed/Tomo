@@ -23,10 +23,10 @@ struct ContentView: View {
                     LoginView()
                         .environmentObject(loginViewModel)
                         .environmentObject(registerViewModel)
-                        .onChange(of: loginViewModel.isLoggedIn) { newValue in  // Add parameter
+                        .onChange(of: loginViewModel.isLoggedIn) { oldValue, newValue in  // Add parameter
                             print("Login state changed to: \(newValue)")  // Debug print
                         }
-                        .onChange(of: registerViewModel.isLoggedIn) { newValue in  // Add parameter
+                        .onChange(of: registerViewModel.isLoggedIn) { oldValue, newValue in  // Add parameter
                             print("Register state changed to: \(newValue)")  // Debug print
                         }
                 }

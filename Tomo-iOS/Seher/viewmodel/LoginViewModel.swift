@@ -29,7 +29,7 @@ class LoginViewModel: ObservableObject {
                 self.isLoggedIn = true
             }
             
-            let currentSession = supabaseClient.auth.currentSession
+            _ = supabaseClient.auth.currentSession
             
             return session.user
         } catch {

@@ -21,7 +21,7 @@ class TaskRepository: ObservableObject {
 
     func storeTask(task: TaskItem) async throws {
         // Ensure the user is authenticated
-        guard let userId = supabaseClient.auth.currentSession?.user.id else {
+        guard (supabaseClient.auth.currentSession?.user.id) != nil else {
             throw NSError(domain: "TaskRepository", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
         }
 
@@ -55,7 +55,7 @@ class TaskRepository: ObservableObject {
             .execute()
             .value
 
-        guard let task = tasks.first else {
+        guard tasks.first != nil else {
             throw URLError(.badServerResponse)
         }
     }

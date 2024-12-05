@@ -43,7 +43,7 @@ struct ChatView: View {
                     }
                     .padding(.vertical)
                 }
-                .onChange(of: chatViewModel.messages.count) { _ in
+                .onChange(of: chatViewModel.messages.count) { oldCount, newCount in
                     scrollToLatest(proxy: scrollViewProxy)
                 }
                 .onAppear {
@@ -68,9 +68,10 @@ struct ChatView: View {
                         .fill(Color.seherText)
                         .frame(width: 32, height: 32)
                         .overlay(
-                            Text("AI")
-                                .foregroundColor(.white)
-                                .font(.system(size: 14, weight: .medium))
+                            Image("SplashLogo")
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(Circle())
                         )
                     
                     // Name and status
