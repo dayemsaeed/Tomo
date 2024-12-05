@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TaskItem: Identifiable, ObservableObject {
+class TaskItem: Identifiable, ObservableObject, Equatable {
     var id: String
     @Published var taskTitle: String
     @Published var creationDate: Date
@@ -68,5 +68,15 @@ class TaskItem: Identifiable, ObservableObject {
         case 5: return .taskColor5
         default: return .black
         }
+    }
+
+    // Implement Equatable
+    static func == (lhs: TaskItem, rhs: TaskItem) -> Bool {
+        return lhs.id == rhs.id &&
+               lhs.taskTitle == rhs.taskTitle &&
+               lhs.creationDate == rhs.creationDate &&
+               lhs.isCompleted == rhs.isCompleted &&
+               lhs.colorValue == rhs.colorValue &&
+               lhs.createdBy == rhs.createdBy
     }
 }

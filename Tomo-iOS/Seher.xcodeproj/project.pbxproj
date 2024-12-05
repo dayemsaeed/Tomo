@@ -41,7 +41,6 @@
 		C11B42C126A3CF4E0030ED0A /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42B926A3CF4E0030ED0A /* NameView.swift */; };
 		C11B42CA26A3CF6E0030ED0A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42C626A3CF6E0030ED0A /* RegisterViewModel.swift */; };
 		C11B42CC26A3CF6E0030ED0A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42C826A3CF6E0030ED0A /* LoginViewModel.swift */; };
-		C11B42D026A3CF8C0030ED0A /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11B42CF26A3CF8C0030ED0A /* ColorManager.swift */; };
 		C11B42D426A3CFA30030ED0A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C11B42D326A3CFA30030ED0A /* GoogleService-Info.plist */; };
 		C11B42D626A3CFAC0030ED0A /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C11B42D526A3CFAC0030ED0A /* Colors.xcassets */; };
 		C11B42D826A3CFB80030ED0A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */; };
@@ -95,6 +94,9 @@
 		C18585002BFEB9390037A5EE /* OffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18584FF2BFEB9390037A5EE /* OffsetKey.swift */; };
 		C1B7F9F32CFDB170006A6CC8 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7F9F12CFDB170006A6CC8 /* HapticManager.swift */; };
 		C1C1A7F32D00885C00098047 /* BuildConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C1C1A7F22D00885C00098047 /* BuildConfig.xcconfig */; };
+		C1C1A7F62D0188E400098047 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1A7F52D0188E400098047 /* CustomTextField.swift */; };
+		C1C1A7F82D01A7C900098047 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1A7F72D01A7C900098047 /* TaskDetailView.swift */; };
+		C1C1A7FA2D01BCAB00098047 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1A7F92D01BCAB00098047 /* ColorManager.swift */; };
 		C1E168E42CFDAAF400D9A601 /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E32CFDAAF400D9A601 /* BreathingExerciseView.swift */; };
 		C1E168E62CFDAB0A00D9A601 /* BreathingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E52CFDAB0A00D9A601 /* BreathingListView.swift */; };
 		C1E168E82CFDAB1600D9A601 /* BreathingExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E72CFDAB1600D9A601 /* BreathingExercise.swift */; };
@@ -163,7 +165,6 @@
 		C11B42B926A3CF4E0030ED0A /* NameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
 		C11B42C626A3CF6E0030ED0A /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		C11B42C826A3CF6E0030ED0A /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		C11B42CF26A3CF8C0030ED0A /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		C11B42D326A3CFA30030ED0A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C11B42D526A3CFAC0030ED0A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -194,6 +195,9 @@
 		C18584FF2BFEB9390037A5EE /* OffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetKey.swift; sourceTree = "<group>"; };
 		C1B7F9F12CFDB170006A6CC8 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		C1C1A7F22D00885C00098047 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = "<group>"; };
+		C1C1A7F52D0188E400098047 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		C1C1A7F72D01A7C900098047 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		C1C1A7F92D01BCAB00098047 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		C1E168E32CFDAAF400D9A601 /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
 		C1E168E52CFDAB0A00D9A601 /* BreathingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingListView.swift; sourceTree = "<group>"; };
 		C1E168E72CFDAB1600D9A601 /* BreathingExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExercise.swift; sourceTree = "<group>"; };
@@ -316,7 +320,7 @@
 				C12680992BB5E3C80025F5F4 /* service */,
 				C11B42D926A3D3B60030ED0A /* resources */,
 				C11B42D726A3CFB80030ED0A /* Launch Screen.storyboard */,
-				C11B42CF26A3CF8C0030ED0A /* ColorManager.swift */,
+				C1C1A7F92D01BCAB00098047 /* ColorManager.swift */,
 				C11B42C426A3CF5E0030ED0A /* viewmodel */,
 				C11B42B326A3CF350030ED0A /* view */,
 				C11B42AE26A3CEA80030ED0A /* repository */,
@@ -371,6 +375,7 @@
 		C11B42B326A3CF350030ED0A /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C1C1A7F42D0188DA00098047 /* utils */,
 				C1E168E22CFDAAEC00D9A601 /* breathing */,
 				C16FC38C2AD82F5A00234C6C /* character */,
 				C16FC3772AD373EB00234C6C /* task */,
@@ -452,6 +457,7 @@
 		C16FC3772AD373EB00234C6C /* task */ = {
 			isa = PBXGroup;
 			children = (
+				C1C1A7F72D01A7C900098047 /* TaskDetailView.swift */,
 				C16FC37E2AD4879800234C6C /* TaskCell.swift */,
 				C10D2C342ACC1BB4003DE05B /* TaskView.swift */,
 				C1FB6A992BFF519700418018 /* TaskRowView.swift */,
@@ -493,6 +499,14 @@
 			children = (
 				C1E8AA952CFF3BBA00E179CD /* NotificationManager.swift */,
 				C1B7F9F12CFDB170006A6CC8 /* HapticManager.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		C1C1A7F42D0188DA00098047 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				C1C1A7F52D0188E400098047 /* CustomTextField.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -719,9 +733,11 @@
 				C18584F52BFE2D7D0037A5EE /* SupabaseClientProvider.swift in Sources */,
 				C1FB6A9C2BFFDF7600418018 /* NewTaskView.swift in Sources */,
 				C18584FA2BFEA2FD0037A5EE /* CalendarHeader.swift in Sources */,
+				C1C1A7F62D0188E400098047 /* CustomTextField.swift in Sources */,
 				C1E168E42CFDAAF400D9A601 /* BreathingExerciseView.swift in Sources */,
 				C126809B2BB5E3DD0025F5F4 /* ChatService.swift in Sources */,
 				C1FB6A9A2BFF519700418018 /* TaskRowView.swift in Sources */,
+				C1C1A7F82D01A7C900098047 /* TaskDetailView.swift in Sources */,
 				C1FB6AA62C01428F00418018 /* SeherApp.swift in Sources */,
 				C16FC3932AD87F7600234C6C /* TypingIndicator.swift in Sources */,
 				C11B42C026A3CF4E0030ED0A /* ContentView.swift in Sources */,
@@ -730,7 +746,6 @@
 				C16FC37B2AD44E2400234C6C /* TaskViewModel.swift in Sources */,
 				C16FC3812AD5B2AA00234C6C /* ChatViewModel.swift in Sources */,
 				C16FC37D2AD44E8C00234C6C /* TaskCellViewModel.swift in Sources */,
-				C11B42D026A3CF8C0030ED0A /* ColorManager.swift in Sources */,
 				C18584FE2BFEAF110037A5EE /* ViewExtensions.swift in Sources */,
 				C1B7F9F32CFDB170006A6CC8 /* HapticManager.swift in Sources */,
 				C1E168E62CFDAB0A00D9A601 /* BreathingListView.swift in Sources */,
@@ -739,6 +754,7 @@
 				C11B42CA26A3CF6E0030ED0A /* RegisterViewModel.swift in Sources */,
 				C14F25C929D9555600F59D64 /* ChatRow.swift in Sources */,
 				C16889E82CD0FE1B00FCB690 /* TaskItem.swift in Sources */,
+				C1C1A7FA2D01BCAB00098047 /* ColorManager.swift in Sources */,
 				C18585002BFEB9390037A5EE /* OffsetKey.swift in Sources */,
 				C14F25C529D9550A00F59D64 /* ChatBubble.swift in Sources */,
 				C18584F82BFE39050037A5EE /* AsyncButton.swift in Sources */,
@@ -909,6 +925,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Seher/Preview Content\"";
@@ -937,6 +954,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Seher/Preview Content\"";

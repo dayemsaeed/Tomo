@@ -11,6 +11,9 @@ import SwiftUI
 struct TaskRowView: View {
     @ObservedObject var task: TaskItem  // Observing the TaskItem object
     @EnvironmentObject private var viewModel: TaskViewModel  // Accessing TaskViewModel
+    @State private var showDeleteAlert = false
+    @State private var showDetailView = false
+    @State private var isLongPressing = false
 
     /// Direct TextField binding causing SwiftData to crash.
     /// Workaround: Use a separate @State variable to store the task title.
@@ -54,7 +57,7 @@ struct TaskRowView: View {
                     }
                     .bold()
                 
-                Text(task.creationDate, style: .time)
+                Label(task.creationDate.format("hh:mm a"), systemImage: "clock")
                     .font(.caption)
                     .strikethrough(task.isCompleted)
             }
@@ -62,9 +65,38 @@ struct TaskRowView: View {
             .padding(.horizontal, 12)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
-                RoundedRectangle(cornerRadius: 10)
+                UnevenRoundedRectangle(topLeadingRadius: 15, bottomLeadingRadius: 15)
                     .fill(task.tintColor.opacity(0.65))
             )
+            .onTapGesture {
+                showDetailView = true
+            }
+            .sheet(isPresented: $showDetailView) {
+                TaskDetailView(task: task)
+            }
+            .scaleEffect(isLongPressing ? 0.7 : 1.0)  // Scale down when long pressing
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isLongPressing)
+                .gesture(
+                    LongPressGesture(minimumDuration: 0.5)
+                        .onChanged { _ in
+                            isLongPressing = true
+                        }
+                        .onEnded { _ in
+                            isLongPressing = false
+                            showDeleteAlert = true
+                        }
+                )
+            .alert("Delete Task", isPresented: $showDeleteAlert) {
+                Button("Cancel", role: .cancel) { }
+                    .foregroundStyle(Color(uiColor: .label))
+                Button("Delete", role: .destructive) {
+                    Task {
+                        await viewModel.deleteTask(task: task)
+                    }
+                }
+            } message: {
+                    Text("Are you sure you want to delete this task?")
+            }
         }
     }
     

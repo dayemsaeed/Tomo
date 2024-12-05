@@ -24,16 +24,12 @@ class LoginViewModel: ObservableObject {
     func login(email: String, password: String) async throws -> User {
         do {
             let session = try await supabaseClient.auth.signIn(email: email, password: password)
-            print("Logging in with email: \(email)")
             
             DispatchQueue.main.async {
                 self.isLoggedIn = true
-                print("isLoggedIn set to true")
             }
             
-            if let currentSession = supabaseClient.auth.currentSession {
-                print("Session established: \(currentSession.accessToken)")
-            }
+            let currentSession = supabaseClient.auth.currentSession
             
             return session.user
         } catch {
