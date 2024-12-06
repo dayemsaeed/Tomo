@@ -13,9 +13,11 @@ class LoginViewModel: ObservableObject {
     @Published var text = ""
     
     private let supabaseClient: SupabaseClient
-
-    init(supabaseClient: SupabaseClient) {
+    private let accountService: AccountServiceProtocol
+    
+    init(supabaseClient: SupabaseClient, accountService: AccountServiceProtocol? = nil) {
         self.supabaseClient = supabaseClient
+        self.accountService = accountService ?? AccountService(supabaseClient: supabaseClient)
         if let _ = supabaseClient.auth.currentSession {
             self.isLoggedIn = true
         }
@@ -57,6 +59,23 @@ class LoginViewModel: ObservableObject {
             }
         } catch {
             print("Error signing out: \(error)")
+            throw error
+        }
+    }
+
+    func deleteAccount() async throws {
+        do {
+            guard let userId = supabaseClient.auth.currentSession?.user.id else {
+                throw NSError(domain: "LoginViewModel", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+            }
+            
+            try await accountService.deleteAccount(userId: userId)
+            
+            DispatchQueue.main.async {
+                self.isLoggedIn = false
+            }
+        } catch {
+            print("Error deleting account: \(error)")
             throw error
         }
     }

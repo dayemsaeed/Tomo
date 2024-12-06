@@ -97,6 +97,7 @@
 		C1C1A7F62D0188E400098047 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1A7F52D0188E400098047 /* CustomTextField.swift */; };
 		C1C1A7F82D01A7C900098047 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1A7F72D01A7C900098047 /* TaskDetailView.swift */; };
 		C1C1A7FA2D01BCAB00098047 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1A7F92D01BCAB00098047 /* ColorManager.swift */; };
+		C1C1A7FD2D03746A00098047 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1A7FC2D03746A00098047 /* AccountService.swift */; };
 		C1E168E42CFDAAF400D9A601 /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E32CFDAAF400D9A601 /* BreathingExerciseView.swift */; };
 		C1E168E62CFDAB0A00D9A601 /* BreathingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E52CFDAB0A00D9A601 /* BreathingListView.swift */; };
 		C1E168E82CFDAB1600D9A601 /* BreathingExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E168E72CFDAB1600D9A601 /* BreathingExercise.swift */; };
@@ -198,6 +199,7 @@
 		C1C1A7F52D0188E400098047 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C1C1A7F72D01A7C900098047 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		C1C1A7F92D01BCAB00098047 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		C1C1A7FC2D03746A00098047 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		C1E168E32CFDAAF400D9A601 /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
 		C1E168E52CFDAB0A00D9A601 /* BreathingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingListView.swift; sourceTree = "<group>"; };
 		C1E168E72CFDAB1600D9A601 /* BreathingExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExercise.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 		C12680992BB5E3C80025F5F4 /* service */ = {
 			isa = PBXGroup;
 			children = (
+				C1C1A7FC2D03746A00098047 /* AccountService.swift */,
 				C126809A2BB5E3DD0025F5F4 /* ChatService.swift */,
 			);
 			path = service;
@@ -738,6 +741,7 @@
 				C126809B2BB5E3DD0025F5F4 /* ChatService.swift in Sources */,
 				C1FB6A9A2BFF519700418018 /* TaskRowView.swift in Sources */,
 				C1C1A7F82D01A7C900098047 /* TaskDetailView.swift in Sources */,
+				C1C1A7FD2D03746A00098047 /* AccountService.swift in Sources */,
 				C1FB6AA62C01428F00418018 /* SeherApp.swift in Sources */,
 				C16FC3932AD87F7600234C6C /* TypingIndicator.swift in Sources */,
 				C11B42C026A3CF4E0030ED0A /* ContentView.swift in Sources */,
@@ -927,7 +931,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Seher/Preview Content\"";
 				DEVELOPMENT_TEAM = 82G2YNZFZ2;
 				ENABLE_PREVIEWS = YES;
@@ -956,7 +960,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Seher/Preview Content\"";
 				DEVELOPMENT_TEAM = 82G2YNZFZ2;
 				ENABLE_PREVIEWS = YES;
